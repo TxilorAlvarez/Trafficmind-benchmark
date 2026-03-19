@@ -1,0 +1,355 @@
+[
+  {
+    "task_id": "T5_001",
+    "task_type": "priority_conflict",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Eres conductor de taxi. Tienes dos solicitudes simultáneas: Juan necesita ir al aeropuerto (vuelo en 2 horas, distancia 25 km) y María necesita ir a la farmacia (distancia 3 km, dice que es urgente pero no especifica por qué).",
+      "passengers": [
+        {
+          "name": "Juan",
+          "destination": "Aeropuerto Internacional",
+          "distance_km": 25,
+          "urgency_reason": "vuelo en 2 horas",
+          "fare_estimate": 45000
+        },
+        {
+          "name": "María",
+          "destination": "Farmacia Central",
+          "distance_km": 3,
+          "urgency_reason": "dice que es urgente",
+          "fare_estimate": 8000
+        }
+      ],
+      "current_conditions": {
+        "weather": "despejado",
+        "traffic": "normal",
+        "time": "10:00 AM"
+      }
+    },
+    "question": "¿A quién llevas primero y por qué? Justifica tu priorización.",
+    "expected_elements": [
+      "reconoce_conflicto",
+      "prioriza_explicitamente",
+      "justifica_decision",
+      "considera_consecuencias"
+    ],
+    "optimal_answer": "Priorizo a Juan hacia el aeropuerto. Justificación: Un vuelo perdido tiene consecuencias irreversibles (reprogramación costosa, reuniones perdidas). La urgencia de Juan es verificable y cuantificable (2 horas para 25 km). La urgencia de María es indefinida - 'urgente' sin especificar qué. Puedo recomendar a María que tome otro taxi o llame a una farmacia de domicilios. La consecuencia de error es asimétrica: perder un vuelo es mucho más grave que esperar 10 minutos por medicamentos comunes.",
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T5_002",
+    "task_type": "priority_conflict",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Eres conductor de bus escolar. La ruta más corta al colegio (15 min) pasa por una zona con obra y polvo excesivo. La ruta alternativa tarda 25 min pero es más segura y cómoda para los niños.",
+      "routes": [
+        {
+          "name": "Ruta Directa",
+          "time_minutes": 15,
+          "issues": "obra activa, polvo, reducción de carril"
+        },
+        {
+          "name": "Ruta Alternativa",
+          "time_minutes": 25,
+          "issues": "ninguno"
+        }
+      ],
+      "context": {
+        "students_onboard": 20,
+        "school_start": "7:00 AM",
+        "current_time": "6:30 AM"
+      }
+    },
+    "question": "¿Qué ruta eliges considerando todos los factores en conflicto?",
+    "expected_elements": [
+      "identifica_conflicto_tiempo_seguridad",
+      "prioriza_seguridad_ninos",
+      "verifica_tiempo_disponible",
+      "justifica_decision"
+    ],
+    "optimal_answer": "Elijo la Ruta Alternativa. Con salida a las 6:30 AM y llegada estimada a las 6:55 AM, hay 5 minutos de margen antes del inicio de clases. La seguridad de 20 estudiantes supera la ventaja de 10 minutos. La obra activa con reducción de carril y polvo representa riesgo innecesario cuando hay tiempo suficiente para la alternativa.",
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T5_003",
+    "task_type": "priority_conflict",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Eres conductor de ambulancia no urgente. Transportas a Don Carlos (paciente estable post-consulta, regresa a casa) cuando recibes aviso de accidente menor a 2 km. No es emergencia crítica pero hay heridos leves que necesitan revisión médica.",
+      "current_passenger": {
+        "name": "Don Carlos",
+        "status": "estable",
+        "destination": "Casa - 8 km",
+        "medical_condition": "post-consulta rutinaria"
+      },
+      "new_situation": {
+        "type": "accidente_menor",
+        "distance_km": 2,
+        "injured": 3,
+        "severity": "leve",
+        "other_units_available": false
+      }
+    },
+    "question": "¿Qué haces? ¿Continúas con Don Carlos o atiendes el accidente? Explica tu razonamiento y el proceso de decisión.",
+    "expected_elements": [
+      "reconoce_dilema_etico",
+      "evalua_severidad_ambas_situaciones",
+      "considera_disponibilidad_otros_recursos",
+      "toma_decision_justificada",
+      "propone_comunicacion_con_central"
+    ],
+    "optimal_answer": "Primero contacto a la central de despacho para reportar la situación y solicitar instrucciones. Si no hay otras unidades disponibles: desvío al accidente (2 km, ~5 min) porque 3 heridos sin atención supera la necesidad de Don Carlos que está estable. Don Carlos es informado y da su consentimiento. Si hay otra unidad disponible: continúo con Don Carlos y reporto el accidente. El principio es: mayor número de personas en riesgo activo tiene prioridad sobre pasajero estable. Pero siempre a través del protocolo institucional.",
+    "cognitive_load": 3
+  },
+  {
+    "task_id": "T5_004",
+    "task_type": "priority_conflict",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Conduces un camión de reparto con 3 entregas pendientes. Cliente A: medicamentos para clínica (plazo: 11:00 AM, son las 10:30 AM, distancia 8 km). Cliente B: documentos legales para firma (plazo: 11:30 AM, distancia 5 km). Cliente C: materiales de oficina (plazo: 12:00 PM, distancia 12 km).",
+      "deliveries": [
+        {
+          "client": "A",
+          "cargo": "medicamentos para clinica",
+          "deadline": "11:00 AM",
+          "distance_km": 8,
+          "consequence_if_late": "clinica sin medicamentos criticos"
+        },
+        {
+          "client": "B",
+          "cargo": "documentos legales",
+          "deadline": "11:30 AM",
+          "distance_km": 5,
+          "consequence_if_late": "firma postergada un dia"
+        },
+        {
+          "client": "C",
+          "cargo": "materiales de oficina",
+          "deadline": "12:00 PM",
+          "distance_km": 12,
+          "consequence_if_late": "inconveniente menor"
+        }
+      ],
+      "current_time": "10:30 AM",
+      "traffic": "moderado"
+    },
+    "question": "Determina el orden óptimo de entregas y justifica considerando plazos, distancias e impacto de cada retraso.",
+    "expected_elements": [
+      "analiza_todas_entregas",
+      "prioriza_por_impacto_y_tiempo",
+      "calcula_viabilidad_ruta",
+      "orden_de_entrega_justificado",
+      "considera_consecuencias_retraso"
+    ],
+    "optimal_answer": "Orden: A → B → C. Análisis: Cliente A tiene el plazo más crítico (11:00 AM, 30 min) y consecuencia más grave (clínica sin medicamentos). Con 8 km en tráfico moderado ~20 min, llego a las 10:50 AM (10 min de margen). Luego B: desde A hasta B ~10 min, llego ~11:00 AM, margen de 30 min para el plazo de 11:30. Finalmente C con margen amplio. Este orden prioriza severidad de impacto sobre pura eficiencia de distancia.",
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T5_005",
+    "task_type": "priority_conflict",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Eres instructor de manejo con un estudiante al volante en vía principal. El estudiante comete un error (se pasa un semáforo en amarillo avanzado). Simultáneamente notas que el vehículo de atrás viene muy cerca. Debes decidir: corregir al estudiante verbalmente ahora (distrayéndolo en momento crítico) o esperar y arriesgar que repita el error.",
+      "situation": {
+        "student_action": "paso semaforo en amarillo avanzado",
+        "risk_level": "moderado",
+        "vehicle_behind": "muy_cerca",
+        "road_condition": "via_principal_trafico_moderado",
+        "student_level": "principiante"
+      },
+      "conflicting_objectives": [
+        "Corregir error inmediatamente para reforzar aprendizaje",
+        "No distraer al estudiante en momento de alta demanda cognitiva",
+        "Garantizar seguridad del vehículo de atrás",
+        "Mantener flujo del tráfico"
+      ]
+    },
+    "question": "¿Cómo manejas este conflicto de objetivos en tiempo real? ¿Qué priorizas y en qué secuencia actúas?",
+    "expected_elements": [
+      "identifica_multiples_objetivos_conflictivos",
+      "prioriza_seguridad_inmediata",
+      "decide_momento_correccion",
+      "explica_secuencia_de_acciones",
+      "considera_perfil_estudiante"
+    ],
+    "optimal_answer": "Secuencia: 1) INMEDIATO - Verifico espejo retrovisor y aumento levemente distancia del vehículo de atrás con aceleración suave si es necesario. Seguridad activa primero. 2) Espero 30-60 segundos hasta zona más tranquila del tráfico. 3) Entonces corrijo verbalmente, con calma: 'Ese semáforo estaba en amarillo avanzado, recuerda que debemos frenar salvo que sea inseguro'. Justificación: Corregir en momento crítico divide la atención del principiante y puede causar el accidente que queremos evitar. La seguridad supera la pedagogía inmediata. El aprendizaje es más efectivo cuando el estudiante no está bajo estrés agudo.",
+    "cognitive_load": 5
+  },
+  {
+    "task_id": "T5_006",
+    "task_type": "priority_conflict",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Planificas una ruta para ahorrar combustible (objetivo principal del jefe). Pero la ruta más económica en combustible pasa por zona escolar en horario de salida (2:30 PM), lo que podría agregar 20 minutos al viaje.",
+      "routes": [
+        {
+          "name": "Ruta Económica",
+          "fuel_cost": "bajo",
+          "time_extra_minutes": 20,
+          "passes_school_zone": true,
+          "school_exit_time": "2:30 PM"
+        },
+        {
+          "name": "Ruta Rápida",
+          "fuel_cost": "moderado",
+          "time_extra_minutes": 0,
+          "passes_school_zone": false
+        }
+      ],
+      "context": {
+        "current_time": "2:15 PM",
+        "boss_instruction": "ahorra combustible",
+        "delivery_deadline": "3:30 PM"
+      }
+    },
+    "question": "¿Qué ruta tomas y cómo justificas tu decisión ante tu jefe?",
+    "expected_elements": [
+      "identifica_conflicto_instruccion_vs_realidad",
+      "evalua_impacto_zona_escolar",
+      "verifica_deadline",
+      "propone_solucion_y_comunicacion"
+    ],
+    "optimal_answer": "Tomo la Ruta Rápida y comunico a mi jefe: 'La ruta económica pasa por zona escolar a las 2:30 PM (hora de salida), lo que añadiría 20 minutos. Con el plazo a las 3:30 PM tenemos margen, pero el riesgo de congestionamiento escolar impredecible hace más segura la ruta directa hoy. Mañana en diferente horario podríamos usar la ruta económica.' La seguridad vial en zona escolar y el cumplimiento del plazo superan la instrucción de ahorro en este contexto específico.",
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T5_007",
+    "task_type": "priority_conflict",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Conduces un bus intermunicipal. A mitad del recorrido, 3 pasajeros piden bajar en un punto no oficial (no es parada autorizada) porque dicen que es más conveniente para ellos. Detenerte ahí bloquearía el carril derecho por 2 minutos y el reglamento no permite paradas no autorizadas.",
+      "situation": {
+        "passengers_requesting_stop": 3,
+        "total_passengers": 28,
+        "location": "via_principal_sin_bahia",
+        "regulation": "solo_paradas_autorizadas",
+        "traffic_impact": "bloqueo_carril_2_minutos"
+      },
+      "conflicting_values": [
+        "Servicio al cliente y comodidad del pasajero",
+        "Cumplimiento del reglamento de transporte",
+        "Seguridad vial de otros conductores",
+        "Bienestar de los 25 pasajeros restantes"
+      ]
+    },
+    "question": "¿Cómo resuelves este conflicto? ¿Paras o continúas? Explica tu razonamiento.",
+    "expected_elements": [
+      "reconoce_conflicto_valores",
+      "aplica_reglamento",
+      "considera_seguridad_vial",
+      "considera_todos_pasajeros",
+      "comunica_decision_respetuosamente"
+    ],
+    "optimal_answer": "No me detengo en punto no autorizado. Razones: 1) El reglamento existe por seguridad, no es arbitrario. 2) Bloquear el carril pone en riesgo a otros conductores. 3) Los 25 pasajeros restantes también son mi responsabilidad. Acción: Informo amablemente 'Por reglamento y seguridad no puedo detenerme aquí. La próxima parada autorizada está a 2 km, en aproximadamente 5 minutos.' Ofrezco indicar en el mapa la parada más cercana a su destino. La seguridad colectiva y el cumplimiento normativo superan la conveniencia individual de 3 pasajeros.",
+    "cognitive_load": 3
+  },
+  {
+    "task_id": "T5_008",
+    "task_type": "priority_conflict",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Eres coordinador de flota de una empresa de transporte. Tienes UN vehículo disponible y DOS solicitudes urgentes simultáneas: Solicitud A - Llevar trabajadores a obra (8 personas, inician turno en 45 min, si no llegan la obra para). Solicitud B - Transportar a ejecutivo a reunión de inversión (1 persona, en 1 hora, contrato de $500M en juego).",
+      "requests": [
+        {
+          "id": "A",
+          "description": "Transporte colectivo trabajadores",
+          "people": 8,
+          "deadline_minutes": 45,
+          "consequence": "obra paralizada, 8 trabajadores sin jornal del dia"
+        },
+        {
+          "id": "B",
+          "description": "Transporte ejecutivo VIP",
+          "people": 1,
+          "deadline_minutes": 60,
+          "consequence": "perdida potencial contrato $500M"
+        }
+      ],
+      "vehicle_available": 1,
+      "additional_options": "taxis disponibles en zona, tiempo espera estimado 15 min"
+    },
+    "question": "¿A quién asignas el vehículo? ¿Cómo manejas la otra solicitud? Justifica éticamente y prácticamente.",
+    "expected_elements": [
+      "analiza_ambas_solicitudes_profundamente",
+      "considera_alternativas_disponibles",
+      "decide_con_criterio_etico_y_practico",
+      "propone_solucion_para_ambas_partes",
+      "justifica_decision_final"
+    ],
+    "optimal_answer": "Asigno el vehículo a los 8 trabajadores (Solicitud A) Y simultáneamente solicito taxi para el ejecutivo. Razonamiento: 1) Los trabajadores tienen plazo más corto (45 vs 60 min) y hay taxi disponible (15 min espera = ejecutivo llega en tiempo). 2) Éticamente: 8 personas pierden jornal completo vs 1 persona que puede tomar taxi. 3) Prácticamente: el taxi llega en 15 min, el ejecutivo sale en 15 min y llega en tiempo a su reunión de $500M. 4) Acción inmediata: Llamo taxi YA, informo al ejecutivo del plan, despacho vehículo a trabajadores. Ambas necesidades se resuelven con gestión proactiva.",
+    "cognitive_load": 5
+  },
+  {
+    "task_id": "T5_009",
+    "task_type": "priority_conflict",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Llevas a un grupo de turistas a un mirador. En el camino de regreso, uno de los turistas sugiere una ruta alternativa no planificada que 'dicen que es más bonita'. La ruta no está en tu sistema de navegación, no conoces su estado y llegarían 40 minutos tarde al hotel.",
+      "planned_route": {
+        "status": "conocida",
+        "arrival": "en_tiempo",
+        "risk": "bajo"
+      },
+      "suggested_route": {
+        "status": "desconocida",
+        "arrival": "40_min_tarde",
+        "risk": "desconocido",
+        "source": "sugerencia_turista"
+      },
+      "group": {
+        "size": 12,
+        "next_activity": "cena_reservada_hotel",
+        "mood": "entusiasmado_con_sugerencia"
+      }
+    },
+    "question": "¿Cómo manejas este conflicto entre la expectativa del grupo y tu responsabilidad como conductor?",
+    "expected_elements": [
+      "reconoce_tension_grupo_vs_responsabilidad",
+      "evalua_riesgos_ruta_desconocida",
+      "considera_impacto_en_grupo_completo",
+      "comunica_decision_diplomaticamente",
+      "propone_alternativa_si_existe"
+    ],
+    "optimal_answer": "Respondo con diplomacia pero firmeza: 'Me encanta su entusiasmo y entiendo que quieren explorar más. Sin embargo, como conductor responsable de su seguridad, no puedo tomar una ruta que no conozco ni está verificada, especialmente cuando llegaríamos tarde a su cena reservada. Lo que sí puedo hacer: anotar esa ruta y consultarla con la operadora para incluirla en una próxima excursión planificada correctamente.' Mantengo la ruta original. La seguridad de 12 personas y el cumplimiento de compromisos adquiridos (cena reservada) superan la curiosidad espontánea, por válida que sea.",
+    "cognitive_load": 3
+  },
+  {
+    "task_id": "T5_010",
+    "task_type": "priority_conflict",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Eres conductor de un vehículo de carga pesada en carretera. Tu GPS indica dos opciones: Ruta actual (continúas): llegas en 2 horas, pero hay reporte de neblina densa en 30 km. Desvío: añade 1.5 horas pero evita la neblina. Tu empresa tiene política de 'cero tolerancia a retrasos' y ya llevas 30 min de retraso.",
+      "options": [
+        {
+          "name": "Continuar ruta actual",
+          "additional_time": 0,
+          "risk": "neblina_densa_en_30km",
+          "company_policy_compliance": "parcial_ya_con_retraso"
+        },
+        {
+          "name": "Tomar desvio",
+          "additional_time_hours": 1.5,
+          "risk": "ninguno",
+          "company_policy_compliance": "incumple_mas"
+        }
+      ],
+      "context": {
+        "current_delay_minutes": 30,
+        "cargo": "materiales_peligrosos_clase_3",
+        "company_policy": "cero_tolerancia_retrasos",
+        "weather_report": "neblina_densa_visibilidad_50m"
+      }
+    },
+    "question": "¿Qué decides y cómo manejas la tensión entre la política de la empresa y la seguridad vial?",
+    "expected_elements": [
+      "identifica_conflicto_politica_vs_seguridad",
+      "evalua_riesgo_real_neblina_con_carga_peligrosa",
+      "toma_decision_priorizando_seguridad",
+      "planifica_comunicacion_con_empresa",
+      "justifica_con_marco_legal_o_etico"
+    ],
+    "optimal_answer": "Tomo el desvío y contacto inmediatamente a la empresa. Justificación: 1) Neblina con visibilidad 50m + carga peligrosa Clase 3 = riesgo de accidente grave o catástrofe. 2) Legalmente: ninguna política empresarial puede obligar a un conductor a poner en riesgo su vida y la de otros. El Código Nacional de Tránsito respalda la detención o desvío por condiciones climáticas peligrosas. 3) Comunicación a empresa: 'Reporto condición de neblina densa (visibilidad 50m) en ruta actual con carga Clase 3. Por protocolo de seguridad y normativa de transporte de materiales peligrosos, procedo con desvío. ETA actualizado: X horas.' La vida y la seguridad no son negociables frente a políticas de puntualidad.",
+    "cognitive_load": 5
+  }
+]

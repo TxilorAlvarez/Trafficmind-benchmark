@@ -1,0 +1,302 @@
+[
+  {
+    "task_id": "T3_001",
+    "task_type": "rule_reversal",
+    "difficulty": "easy",
+    "scenario": {
+      "context": "Estás conduciendo en un país extranjero donde las reglas de tránsito son OPUESTAS a las de Colombia.",
+      "normal_rule": "En Colombia, en una glorieta/rotonda se da prioridad a quien ya está dentro de la glorieta.",
+      "reversed_rule": "En este país, la prioridad es para quien ENTRA a la glorieta, no para quien ya está dentro.",
+      "situation": "Estás dentro de la glorieta circulando. Un carro se aproxima para entrar a la glorieta por tu derecha."
+    },
+    "question": "Según las reglas de ESTE PAÍS (no Colombia), ¿qué debes hacer?",
+    "options": [
+      "A) Continuar porque ya estás dentro de la glorieta",
+      "B) Detenerte y ceder el paso al carro que entra",
+      "C) Acelerar para pasar antes que él",
+      "D) Tocar la bocina para que él se detenga"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "reconoce_regla_invertida",
+      "aplica_regla_nueva_no_habitual",
+      "justifica_segun_contexto"
+    ],
+    "explanation": "La respuesta habitual sería A (regla colombiana), pero en este país la regla está invertida. Debes INHIBIR tu respuesta automática y aplicar la nueva regla: ceder paso a quien entra.",
+    "cognitive_trap": "El modelo debe resistir la tendencia a aplicar la regla más común/conocida."
+  },
+  {
+    "task_id": "T3_002",
+    "task_type": "rule_reversal",
+    "difficulty": "easy",
+    "scenario": {
+      "context": "En una zona especial de la ciudad, las señales de tránsito tienen significados INVERTIDOS durante las horas pico (6-9 AM y 5-8 PM).",
+      "normal_rule": "La luz roja significa PARE, la luz verde significa SIGA.",
+      "reversed_rule": "Durante horas pico en esta zona: luz roja significa SIGA CON PRECAUCIÓN, luz verde significa PARE.",
+      "situation": "Son las 7:30 AM. Llegas a una intersección y el semáforo está en VERDE.",
+      "signage": "Hay un letrero que dice: 'ZONA ESPECIAL: Señales invertidas 6-9 AM / 5-8 PM'"
+    },
+    "question": "¿Qué acción debes tomar?",
+    "options": [
+      "A) Continuar porque la luz está en verde",
+      "B) Detenerte porque en esta zona verde significa pare",
+      "C) Ignorar el semáforo",
+      "D) Esperar a que cambie a rojo para continuar"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "identifica_horario_especial",
+      "aplica_regla_invertida",
+      "no_sigue_automatismo"
+    ],
+    "explanation": "Son las 7:30 AM (dentro del horario 6-9 AM), por lo tanto las señales están invertidas. Verde = Pare. La respuesta habitual (A) sería un error.",
+    "cognitive_trap": "Verde = Siga está tan arraigado que requiere esfuerzo consciente para inhibirlo."
+  },
+  {
+    "task_id": "T3_003",
+    "task_type": "rule_reversal",
+    "difficulty": "medium",
+    "scenario": {
+      "context": "Estás en un curso de conducción avanzada donde practican maniobras de emergencia.",
+      "normal_rule": "Normalmente, ante un obstáculo imprevisto, el instinto es FRENAR fuertemente.",
+      "reversed_rule": "El instructor dice: 'En superficies mojadas a alta velocidad, NO frenen bruscamente. En lugar de frenar, ACELEREN LIGERAMENTE mientras esquivan.'",
+      "situation": "Estás practicando en pista mojada a 80 km/h. Aparece un obstáculo repentino. Tienes espacio para esquivar a la izquierda.",
+      "instructor_reminder": "Recuerda: en mojado, frenar = perder control. Acelerar suave + esquivar = mantener tracción."
+    },
+    "question": "¿Cuál es la maniobra correcta según las instrucciones del curso?",
+    "options": [
+      "A) Frenar fuerte y luego esquivar",
+      "B) Acelerar ligeramente mientras esquivas a la izquierda",
+      "C) Frenar suavemente y esquivar",
+      "D) Solo esquivar sin cambiar velocidad"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "recuerda_instruccion_especifica",
+      "inhibe_respuesta_instintiva_frenar",
+      "aplica_tecnica_contraintuitiva"
+    ],
+    "explanation": "El instinto natural es frenar (A), pero en mojado esto causa pérdida de control. La técnica correcta enseñada es B: acelerar ligeramente mantiene la tracción de las ruedas mientras esquivas.",
+    "cognitive_trap": "Frenar ante obstáculo es casi un reflejo. Inhibirlo requiere control ejecutivo."
+  },
+  {
+    "task_id": "T3_004",
+    "task_type": "rule_reversal",
+    "difficulty": "medium",
+    "scenario": {
+      "context": "Trabajas como conductor en un país donde se conduce por el lado IZQUIERDO de la vía (como Reino Unido o Japón).",
+      "normal_rule": "En Colombia se conduce por la derecha. Al girar a la derecha, giras al carril más cercano.",
+      "reversed_rule": "Aquí se conduce por la izquierda. Al girar a la derecha, debes cruzar el tráfico que viene de frente.",
+      "situation": "Estás en una intersección y necesitas girar a la derecha. Hay tráfico viniendo de frente por el carril izquierdo."
+    },
+    "question": "¿Cómo ejecutas el giro a la derecha correctamente en este país?",
+    "options": [
+      "A) Girar inmediatamente a la derecha al carril más cercano",
+      "B) Esperar a que pase el tráfico de frente, luego cruzar hacia el carril izquierdo",
+      "C) Girar a la derecha y entrar al carril derecho",
+      "D) Hacer el giro rápidamente antes de que llegue el tráfico"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "comprende_sistema_izquierdo",
+      "identifica_que_derecha_es_giro_amplio",
+      "espera_trafico_contrario"
+    ],
+    "explanation": "En países con conducción por la izquierda, girar a la derecha es equivalente a girar a la izquierda en Colombia: debes cruzar el tráfico. La respuesta A causaría un accidente frontal.",
+    "cognitive_trap": "Años de conducir por la derecha crean automatismos difíciles de inhibir."
+  },
+  {
+    "task_id": "T3_005",
+    "task_type": "rule_reversal",
+    "difficulty": "hard",
+    "scenario": {
+      "context": "Eres conductor de ambulancia. Las reglas normales de tránsito se INVIERTEN parcialmente cuando llevas una emergencia.",
+      "normal_rules": [
+        "Detenerse en luz roja",
+        "Respetar límites de velocidad",
+        "No circular en sentido contrario",
+        "Ceder paso a vehículos de emergencia"
+      ],
+      "emergency_rules": [
+        "Puede pasar luz roja CON PRECAUCIÓN",
+        "Puede exceder límite de velocidad RAZONABLEMENTE",
+        "NO puede circular en sentido contrario NUNCA",
+        "Otros vehículos deben cederte paso a TI"
+      ],
+      "situation": "Llevas un paciente crítico. Llegas a una intersección con luz roja. La vía está despejada PERO hay una calle en sentido contrario que te acortaría 3 minutos.",
+      "patient_status": "Paciente estable pero crítico. Cada minuto cuenta pero no es inminente."
+    },
+    "question": "¿Qué puedes hacer legalmente según el protocolo de emergencias?",
+    "options": [
+      "A) Pasar la luz roja con precaución Y tomar la calle en sentido contrario para ganar tiempo",
+      "B) Pasar la luz roja con precaución PERO NO tomar la calle en sentido contrario",
+      "C) Esperar la luz verde y luego tomar la calle en sentido contrario",
+      "D) Ni pasar el rojo ni ir en sentido contrario - seguir ruta normal"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "distingue_reglas_que_si_cambian",
+      "distingue_reglas_que_no_cambian",
+      "aplica_protocolo_correctamente",
+      "no_sobrepasa_limites_emergencia"
+    ],
+    "explanation": "Las emergencias permiten ciertas excepciones (pasar rojo con precaución) pero NO todas (nunca sentido contrario). El error común es pensar que 'emergencia = todo permitido'. Debes inhibir la urgencia y aplicar el protocolo correcto.",
+    "cognitive_trap": "La presión de la emergencia puede hacer que se ignoren límites que sí aplican."
+  },
+  {
+    "task_id": "T3_006",
+    "task_type": "rule_reversal",
+    "difficulty": "easy",
+    "scenario": {
+      "context": "Es un día de 'Pico y Placa invertido' declarado por emergencia ambiental.",
+      "normal_rule": "Normalmente, los carros con placa terminada en número PAR no pueden circular los días pares.",
+      "reversed_rule": "Hoy, por emergencia ambiental, SOLO pueden circular los carros que normalmente NO podrían (placa par en día par).",
+      "situation": "Hoy es día 14 (par). Tu carro tiene placa terminada en 8 (par).",
+      "announcement": "Alcaldía anuncia: 'Pico y Placa invertido vigente todo el día.'"
+    },
+    "question": "¿Puedes circular hoy con tu vehículo?",
+    "options": [
+      "A) No, porque tu placa es par y hoy es día par",
+      "B) Sí, porque hoy el Pico y Placa está invertido",
+      "C) Solo después de las 7 PM",
+      "D) Solo si es emergencia personal"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "identifica_regla_invertida",
+      "aplica_inversion_correctamente",
+      "no_sigue_regla_habitual"
+    ],
+    "explanation": "Normalmente placa 8 (par) NO podría circular en día 14 (par). Pero con Pico y Placa INVERTIDO, la regla se invierte: los que normalmente no pueden, hoy SÍ pueden.",
+    "cognitive_trap": "La regla habitual de Pico y Placa está muy arraigada."
+  },
+  {
+    "task_id": "T3_007",
+    "task_type": "rule_reversal",
+    "difficulty": "medium",
+    "scenario": {
+      "context": "Estás en una zona escolar con señalización especial.",
+      "normal_rule": "Fuera de horario escolar, el límite de velocidad es 50 km/h.",
+      "special_rule": "Durante horario escolar (6:30-8:00 AM y 12:00-2:00 PM), el límite es 30 km/h.",
+      "reversed_situation": "Es sábado a las 7:00 AM. Hay un evento deportivo escolar y HAY niños presentes, pero técnicamente no es 'horario escolar' oficial.",
+      "signage": "El letrero dice: 'Zona Escolar - 30 km/h en horario escolar (L-V)'"
+    },
+    "question": "¿A qué velocidad debes circular?",
+    "options": [
+      "A) 50 km/h porque es sábado y no es horario escolar oficial",
+      "B) 30 km/h porque hay niños presentes independientemente del día",
+      "C) 40 km/h como punto medio",
+      "D) La velocidad que indique el evento"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "reconoce_espiritu_de_la_ley",
+      "prioriza_seguridad_sobre_tecnicismo",
+      "adapta_comportamiento_a_contexto"
+    ],
+    "explanation": "Técnicamente la regla dice L-V, pero el PROPÓSITO es proteger niños. Hay niños presentes, por lo tanto debes aplicar el espíritu de la regla (30 km/h) aunque técnicamente no aplique. Aquí se invierte: seguir la letra de la ley sería el error.",
+    "cognitive_trap": "Seguir reglas al pie de la letra puede ser incorrecto cuando el contexto cambia."
+  },
+  {
+    "task_id": "T3_008",
+    "task_type": "rule_reversal",
+    "difficulty": "hard",
+    "scenario": {
+      "context": "Eres instructor de manejo enseñando a un estudiante con discapacidad auditiva.",
+      "normal_teaching_rule": "Normalmente das instrucciones verbales: 'Gira aquí', 'Frena', 'Acelera'.",
+      "reversed_rule": "Con este estudiante debes usar SOLO señales visuales y táctiles. Las instrucciones verbales son inútiles.",
+      "situation": "El estudiante está a punto de girar a la izquierda pero no ha visto un peatón que cruza. Normalmente gritarías '¡FRENA!'",
+      "tools_available": "Tienes: freno auxiliar del instructor, sistema de señales con luces en el tablero, y contacto físico con el hombro del estudiante."
+    },
+    "question": "¿Cómo intervienes de emergencia?",
+    "options": [
+      "A) Gritar '¡FRENA!' muy fuerte por instinto",
+      "B) Usar el freno auxiliar del instructor inmediatamente",
+      "C) Tocar su hombro para que mire",
+      "D) Activar la luz de freno en el tablero"
+    ],
+    "correct_answer": "B",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "inhibe_respuesta_verbal_automatica",
+      "selecciona_intervencion_efectiva",
+      "considera_discapacidad_estudiante",
+      "prioriza_seguridad_inmediata"
+    ],
+    "explanation": "El instinto es gritar (A), pero eso es inútil con un estudiante sordo. En emergencia real, el freno auxiliar (B) es la única intervención suficientemente rápida. C y D son muy lentas para emergencia.",
+    "cognitive_trap": "Gritar es casi un reflejo en emergencias. Inhibirlo con estudiante sordo requiere control ejecutivo."
+  },
+  {
+    "task_id": "T3_009",
+    "task_type": "rule_reversal",
+    "difficulty": "medium",
+    "scenario": {
+      "context": "Estás conduciendo un vehículo con el volante a la derecha (importado de Japón) en calles colombianas.",
+      "normal_rule": "En carros normales (volante a la izquierda), para adelantar verificas por tu espejo izquierdo y ventana izquierda.",
+      "reversed_situation": "En tu carro (volante a la derecha), tu posición de visibilidad está invertida. Tu espejo izquierdo está del lado del pasajero.",
+      "situation": "Quieres adelantar un camión en una vía de doble sentido. Necesitas verificar si viene tráfico de frente."
+    },
+    "question": "¿Cómo verificas con seguridad si puedes adelantar?",
+    "options": [
+      "A) Mirar por tu espejo izquierdo como siempre",
+      "B) Pedir al pasajero que verifique el lado izquierdo",
+      "C) Salir parcialmente al carril contrario para ver",
+      "D) Usar espejos adicionales y ser extra cauteloso, o evitar adelantar si no hay visibilidad clara"
+    ],
+    "correct_answer": "D",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "reconoce_limitacion_del_vehiculo",
+      "no_aplica_rutina_automatica",
+      "busca_solucion_adaptada",
+      "prioriza_seguridad"
+    ],
+    "explanation": "Tu posición en el vehículo te da visibilidad limitada del carril contrario. La rutina habitual (A) no funciona. La opción segura (D) reconoce la limitación y adapta el comportamiento.",
+    "cognitive_trap": "Años de conducir carros con volante a la izquierda crean automatismos de verificación."
+  },
+  {
+    "task_id": "T3_010",
+    "task_type": "rule_reversal",
+    "difficulty": "hard",
+    "scenario": {
+      "context": "Trabajas para una empresa de transporte especial que mueve cargas SOBREDIMENSIONADAS.",
+      "normal_rules": [
+        "Velocidad normal en autopista: 80-100 km/h",
+        "Circular por carril derecho o central",
+        "Adelantar por la izquierda"
+      ],
+      "special_rules_for_oversized": [
+        "Velocidad máxima: 40 km/h",
+        "Circular SOLO por carril izquierdo (el más ancho)",
+        "NO adelantar nunca - otros te adelantan a ti",
+        "Vehículo escolta adelante y atrás"
+      ],
+      "situation": "Estás en autopista con la carga sobredimensionada. Un carro lento va adelante tuyo a 35 km/h en tu carril (izquierdo).",
+      "impulse": "Tu instinto es adelantarlo por la derecha ya que él va más lento."
+    },
+    "question": "¿Qué haces con el carro lento adelante?",
+    "options": [
+      "A) Adelantarlo por la derecha ya que tú tienes prioridad como carga especial",
+      "B) Adelantarlo por la izquierda usando el arcén",
+      "C) Mantener distancia y esperar - NO puedes adelantar con carga sobredimensionada",
+      "D) Tocar bocina para que se mueva"
+    ],
+    "correct_answer": "C",
+    "habitual_wrong_answer": "A",
+    "expected_elements": [
+      "recuerda_restriccion_especifica",
+      "inhibe_impulso_de_adelantar",
+      "acepta_limitacion_operativa",
+      "sigue_protocolo_carga_especial"
+    ],
+    "explanation": "Con carga sobredimensionada NUNCA se adelanta. No importa qué tan lento vaya el de adelante. Debes inhibir completamente el impulso de adelantar que es natural en conducción regular.",
+    "cognitive_trap": "El impulso de adelantar vehículos lentos es muy fuerte y difícil de inhibir."
+  }
+]

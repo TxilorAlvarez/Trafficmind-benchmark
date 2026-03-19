@@ -1,0 +1,598 @@
+[
+  {
+    "task_id": "T4_001",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Eres conductor de un taxi y debes monitorear múltiples variables durante tu turno.",
+      "variables_to_track": {
+        "combustible": {
+          "inicial": "Tanque lleno (50 litros)",
+          "consumo": "8 litros por hora en ciudad",
+          "actual_despues_3_horas": "?"
+        },
+        "dinero_recaudado": {
+          "viaje_1": "$25,000",
+          "viaje_2": "$18,000",
+          "viaje_3": "$32,000",
+          "total": "?"
+        },
+        "tiempo_trabajado": {
+          "inicio": "6:00 AM",
+          "actual": "9:00 AM",
+          "meta_diaria": "10 horas"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Cuánto combustible te queda aproximadamente?",
+        "correct": "26 litros (50 - 24 consumidos en 3 horas)"
+      },
+      {
+        "q": "¿Cuánto dinero has recaudado en total?",
+        "correct": "$75,000"
+      },
+      {
+        "q": "¿Cuántas horas te faltan para completar tu meta?",
+        "correct": "7 horas"
+      }
+    ],
+    "expected_elements": [
+      "calcula_combustible_restante",
+      "suma_recaudacion",
+      "calcula_tiempo_restante"
+    ],
+    "cognitive_load": 3
+  },
+  {
+    "task_id": "T4_002",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Eres conductor de bus escolar con una ruta de 5 paradas. Debes llevar registro de estudiantes.",
+      "variables_to_track": {
+        "estudiantes": {
+          "capacidad_bus": 40,
+          "parada_1": "+8 estudiantes",
+          "parada_2": "+12 estudiantes",
+          "parada_3": "-3 estudiantes (bajan para otra escuela)",
+          "parada_4": "+6 estudiantes",
+          "parada_5": "+5 estudiantes"
+        },
+        "tiempo": {
+          "hora_salida": "6:30 AM",
+          "tiempo_entre_paradas": "8 minutos cada una",
+          "hora_llegada_colegio": "debe ser antes de 7:30 AM"
+        },
+        "comportamiento": {
+          "incidente_parada_2": "Dos estudiantes discutiendo",
+          "resolucion": "Separados en asientos diferentes"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Cuántos estudiantes llevas después de la parada 5?",
+        "correct": "28 estudiantes (8+12-3+6+5)"
+      },
+      {
+        "q": "¿A qué hora aproximada llegas al colegio si no hay retrasos?",
+        "correct": "7:10 AM (6:30 + 40 minutos de 5 paradas)"
+      },
+      {
+        "q": "¿Tienes capacidad para más estudiantes?",
+        "correct": "Sí, 12 espacios disponibles (40-28)"
+      },
+      {
+        "q": "¿Hubo algún incidente que debas reportar?",
+        "correct": "Sí, discusión entre estudiantes en parada 2, resuelta separándolos"
+      }
+    ],
+    "expected_elements": [
+      "suma_resta_estudiantes",
+      "calcula_hora_llegada",
+      "verifica_capacidad",
+      "recuerda_incidente"
+    ],
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T4_003",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Eres conductor de camión de entregas con 4 paquetes para diferentes destinos.",
+      "variables_to_track": {
+        "paquetes": [
+          {"id": "P1", "destino": "Farmacia Central", "contenido": "Medicamentos refrigerados", "urgente": true, "entregado": false},
+          {"id": "P2", "destino": "Restaurante El Buen Sabor", "contenido": "Equipos de cocina", "urgente": false, "entregado": true},
+          {"id": "P3", "destino": "Oficina Legal Torres", "contenido": "Documentos confidenciales", "urgente": true, "entregado": false},
+          {"id": "P4", "destino": "Tienda de Deportes", "contenido": "Balones y equipos", "urgente": false, "entregado": false}
+        ],
+        "condiciones_vehiculo": {
+          "refrigeracion": "Funcionando",
+          "combustible": "60%",
+          "temperatura_carga": "4°C"
+        },
+        "tiempo": {
+          "hora_actual": "2:30 PM",
+          "limite_P1": "3:00 PM",
+          "limite_P3": "4:00 PM"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Cuántos paquetes urgentes te faltan por entregar?",
+        "correct": "2 (P1 y P3)"
+      },
+      {
+        "q": "¿Cuál debes entregar primero y por qué?",
+        "correct": "P1 - Farmacia Central, porque tiene límite a las 3:00 PM (solo 30 minutos)"
+      },
+      {
+        "q": "¿Hay alguna condición especial que debas monitorear para P1?",
+        "correct": "Sí, los medicamentos requieren refrigeración. Verificar que temperatura se mantenga a 4°C"
+      },
+      {
+        "q": "¿Cuántos paquetes en total has entregado?",
+        "correct": "1 (solo P2)"
+      }
+    ],
+    "expected_elements": [
+      "identifica_urgentes_pendientes",
+      "prioriza_por_deadline",
+      "recuerda_condiciones_especiales",
+      "cuenta_entregas_completadas"
+    ],
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T4_004",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Eres despachador de una flota de 4 vehículos de transporte. Debes coordinar todo simultáneamente.",
+      "variables_to_track": {
+        "vehiculo_1": {
+          "conductor": "Carlos",
+          "ubicacion": "Zona Norte",
+          "estado": "En ruta",
+          "combustible": "45%",
+          "proxima_parada": "Hospital Central",
+          "ETA": "15 minutos"
+        },
+        "vehiculo_2": {
+          "conductor": "María",
+          "ubicacion": "Centro",
+          "estado": "Esperando carga",
+          "combustible": "80%",
+          "proxima_parada": "Pendiente asignación"
+        },
+        "vehiculo_3": {
+          "conductor": "Pedro",
+          "ubicacion": "Zona Sur",
+          "estado": "En taller - frenos",
+          "combustible": "30%",
+          "disponibilidad": "2 horas"
+        },
+        "vehiculo_4": {
+          "conductor": "Ana",
+          "ubicacion": "Aeropuerto",
+          "estado": "Completó entrega",
+          "combustible": "20% - NECESITA CARGAR",
+          "proxima_parada": "Debe ir a estación de servicio"
+        }
+      },
+      "nueva_solicitud": {
+        "cliente": "Urgente - Clínica del Sur",
+        "tipo": "Transporte de muestras médicas",
+        "tiempo_requerido": "Máximo 30 minutos"
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Qué vehículo puede atender la solicitud urgente de Clínica del Sur?",
+        "correct": "Vehículo 2 (María) - está disponible esperando carga, tiene buen combustible (80%), y está en el Centro que probablemente tiene acceso rápido a Zona Sur"
+      },
+      {
+        "q": "¿Cuál vehículo tiene una necesidad crítica que atender primero?",
+        "correct": "Vehículo 4 (Ana) - combustible al 20%, debe ir a estación antes de cualquier otra asignación"
+      },
+      {
+        "q": "¿Cuántos vehículos están operativos en este momento?",
+        "correct": "3 (Vehículos 1, 2 y 4). El 3 está en taller."
+      },
+      {
+        "q": "¿En cuánto tiempo estará disponible el vehículo 3?",
+        "correct": "2 horas"
+      }
+    ],
+    "expected_elements": [
+      "compara_disponibilidad",
+      "identifica_necesidades_criticas",
+      "cuenta_operativos",
+      "recuerda_tiempos"
+    ],
+    "cognitive_load": 5
+  },
+  {
+    "task_id": "T4_005",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Eres controlador de tráfico aéreo terrestre en un aeropuerto pequeño. Manejas 3 pistas y varios vehículos.",
+      "variables_to_track": {
+        "pista_A": {
+          "estado": "Ocupada - avión aterrizando",
+          "tiempo_ocupacion_restante": "3 minutos",
+          "siguiente": "Despegue vuelo 245"
+        },
+        "pista_B": {
+          "estado": "Libre",
+          "mantenimiento_programado": "En 20 minutos"
+        },
+        "pista_C": {
+          "estado": "Cerrada por reparación",
+          "reapertura": "Mañana"
+        },
+        "vehiculos_en_tierra": {
+          "bus_pasajeros_1": "En puerta 3, esperando avión",
+          "camion_combustible": "En pista B, terminando carga de avión estacionado",
+          "carro_equipaje": "En tránsito hacia puerta 5"
+        },
+        "solicitudes_pendientes": {
+          "vuelo_189": "Solicita aterrizar - ETA 5 minutos",
+          "vuelo_302": "Solicita despegar - en puerta 7",
+          "vehiculo_emergencia": "Solicita cruzar pista B"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Qué pista puedes asignar al vuelo 189 que llega en 5 minutos?",
+        "correct": "Pista A - estará libre en 3 minutos (el avión actual termina de aterrizar), justo a tiempo para el vuelo 189"
+      },
+      {
+        "q": "¿Puede el vehículo de emergencia cruzar la pista B ahora?",
+        "correct": "Debe esperar - el camión de combustible está en pista B terminando carga. Una vez salga el camión, puede cruzar"
+      },
+      {
+        "q": "¿Cuántas pistas operativas tienes?",
+        "correct": "2 (A y B). La C está cerrada por reparación."
+      },
+      {
+        "q": "¿Hay algún conflicto potencial en los próximos 20 minutos?",
+        "correct": "Sí - Pista B tiene mantenimiento programado en 20 minutos. Debe completarse cualquier operación antes o reprogramar."
+      }
+    ],
+    "expected_elements": [
+      "asigna_recursos_por_tiempo",
+      "identifica_conflictos",
+      "cuenta_recursos_disponibles",
+      "anticipa_problemas"
+    ],
+    "cognitive_load": 6
+  },
+  {
+    "task_id": "T4_006",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Estás manejando hacia una reunión importante mientras monitorizas el GPS y el tiempo.",
+      "variables_to_track": {
+        "navegacion": {
+          "destino": "Torre Empresarial",
+          "distancia_restante": "8 km",
+          "tiempo_estimado_gps": "18 minutos",
+          "ruta": "Avenida Principal → Calle 72 → Destino"
+        },
+        "tiempo": {
+          "hora_actual": "9:42 AM",
+          "hora_reunion": "10:00 AM",
+          "tiempo_disponible": "18 minutos"
+        },
+        "vehiculo": {
+          "combustible": "25%",
+          "alerta": "Luz de combustible encendida hace 10 km"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Llegarás a tiempo a la reunión?",
+        "correct": "Justo a tiempo - 18 minutos estimados y 18 disponibles. Sin margen de error."
+      },
+      {
+        "q": "¿Tienes algún problema potencial que atender?",
+        "correct": "Sí, combustible bajo (25%, luz encendida). Después de la reunión DEBE cargar gasolina."
+      },
+      {
+        "q": "¿Deberías parar a cargar gasolina ahora?",
+        "correct": "No - no hay tiempo. Llegar a la reunión es prioridad. El combustible alcanza para llegar."
+      }
+    ],
+    "expected_elements": [
+      "compara_tiempos",
+      "identifica_problema_secundario",
+      "prioriza_correctamente"
+    ],
+    "cognitive_load": 3
+  },
+  {
+    "task_id": "T4_007",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Eres conductor de Uber/taxi por aplicación. Tienes información de 3 viajes en cola.",
+      "variables_to_track": {
+        "viaje_actual": {
+          "pasajero": "Cliente A",
+          "destino": "Centro Comercial",
+          "tiempo_restante": "5 minutos",
+          "tarifa_estimada": "$12,000"
+        },
+        "cola_viajes": [
+          {
+            "pasajero": "Cliente B",
+            "origen": "A 3 minutos del Centro Comercial",
+            "destino": "Aeropuerto",
+            "tarifa_estimada": "$45,000",
+            "tiempo_limite_aceptacion": "2 minutos restantes"
+          },
+          {
+            "pasajero": "Cliente C",
+            "origen": "A 10 minutos del Centro Comercial",
+            "destino": "Universidad",
+            "tarifa_estimada": "$15,000",
+            "sin_limite_tiempo": true
+          }
+        ],
+        "estado_conductor": {
+          "horas_trabajadas": "6 horas",
+          "meta_diaria": "$200,000",
+          "recaudado_hoy": "$140,000",
+          "combustible": "50%"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Deberías aceptar el viaje del Cliente B?",
+        "correct": "SÍ - Es un viaje de $45,000 al aeropuerto, alta tarifa. Está cerca (3 min del destino actual). Pero DEBES decidir en menos de 2 minutos."
+      },
+      {
+        "q": "¿Cuánto te falta para tu meta diaria?",
+        "correct": "$60,000 ($200,000 - $140,000)"
+      },
+      {
+        "q": "Si aceptas B y luego C, ¿cumplirías tu meta?",
+        "correct": "Sí - $140,000 + $12,000 (actual) + $45,000 (B) + $15,000 (C) = $212,000"
+      },
+      {
+        "q": "¿Cuál es la decisión más urgente ahora mismo?",
+        "correct": "Decidir sobre Cliente B - tiene límite de 2 minutos para aceptar"
+      }
+    ],
+    "expected_elements": [
+      "evalua_oportunidad_tiempo_limitado",
+      "calcula_meta",
+      "proyecta_ingresos",
+      "identifica_urgencia"
+    ],
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T4_008",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Eres el supervisor de turno de una empresa de logística. Monitoreas 5 camiones en tiempo real.",
+      "hora_actual": "3:45 PM",
+      "variables_to_track": {
+        "camion_1": {
+          "conductor": "Roberto",
+          "carga": "Electrodomésticos",
+          "ubicacion": "Autopista Norte km 45",
+          "destino": "Bodega Central",
+          "ETA": "4:30 PM",
+          "estado": "Normal",
+          "horas_conduccion": "7 horas",
+          "limite_legal": "8 horas"
+        },
+        "camion_2": {
+          "conductor": "Elena",
+          "carga": "Alimentos refrigerados",
+          "ubicacion": "Ciudad intermedia - descargando",
+          "destino_final": "Supermercado Costa",
+          "ETA_final": "6:00 PM",
+          "estado": "Retraso 30 min por fila en descarga",
+          "temperatura_carga": "2°C (OK)"
+        },
+        "camion_3": {
+          "conductor": "Miguel",
+          "carga": "Materiales construcción",
+          "ubicacion": "Carretera Sur km 80",
+          "destino": "Obra Edificio Torres",
+          "ETA": "5:15 PM",
+          "estado": "ALERTA - Llanta baja, buscando taller",
+          "horas_conduccion": "4 horas"
+        },
+        "camion_4": {
+          "conductor": "Sandra",
+          "carga": "Vacío - retornando",
+          "ubicacion": "Puerto marítimo",
+          "destino": "Base central",
+          "ETA": "7:00 PM",
+          "estado": "Esperando documentos de aduana"
+        },
+        "camion_5": {
+          "conductor": "Jorge",
+          "carga": "Medicamentos (cadena de frío)",
+          "ubicacion": "Hospital Regional - entregando",
+          "estado": "Completando entrega",
+          "siguiente_destino": "Clínica Norte",
+          "ETA_siguiente": "4:45 PM",
+          "temperatura_carga": "5°C (LÍMITE - monitorear)"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Qué camión requiere atención inmediata?",
+        "correct": "Camión 3 (Miguel) - tiene llanta baja y está buscando taller. Necesita apoyo para ubicar taller cercano."
+      },
+      {
+        "q": "¿Hay algún problema de cadena de frío que monitorear?",
+        "correct": "Sí - Camión 5 (Jorge) tiene temperatura a 5°C que es el límite para medicamentos. Debe monitorearse de cerca."
+      },
+      {
+        "q": "¿Qué conductor está cerca del límite legal de horas?",
+        "correct": "Camión 1 (Roberto) - lleva 7 horas de 8 permitidas. Llegará a las 4:30 PM justo antes del límite."
+      },
+      {
+        "q": "¿Cuántos camiones tienen carga sensible a temperatura?",
+        "correct": "2 - Camión 2 (alimentos refrigerados) y Camión 5 (medicamentos)"
+      },
+      {
+        "q": "¿Cuántos camiones están en situación normal sin alertas?",
+        "correct": "2 - Camión 1 (normal, aunque cerca de límite de horas) y Camión 4 (esperando documentos, que es esperable)"
+      }
+    ],
+    "expected_elements": [
+      "identifica_emergencias",
+      "monitorea_condiciones_criticas",
+      "verifica_cumplimiento_legal",
+      "cuenta_por_categoria",
+      "distingue_normal_vs_alerta"
+    ],
+    "cognitive_load": 6
+  },
+  {
+    "task_id": "T4_009",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Estás planeando un viaje familiar en carro. Debes considerar múltiples factores.",
+      "variables_to_track": {
+        "vehiculo": {
+          "autonomia_tanque_lleno": "500 km",
+          "estado_tanque": "Lleno"
+        },
+        "viaje": {
+          "distancia_total": "320 km",
+          "tiempo_estimado": "4 horas",
+          "hora_salida_planeada": "6:00 AM"
+        },
+        "pasajeros": {
+          "adultos": 2,
+          "ninos": 2,
+          "edad_nino_menor": "4 años",
+          "necesidades_especiales": "Niño menor necesita parada cada 2 horas"
+        },
+        "clima": {
+          "pronostico": "Soleado, 28°C"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Necesitas parar a cargar gasolina durante el viaje?",
+        "correct": "No - tienes autonomía de 500 km y el viaje es de 320 km"
+      },
+      {
+        "q": "¿Cuántas paradas mínimas necesitas hacer?",
+        "correct": "Al menos 1 parada - el viaje es de 4 horas y el niño menor necesita parada cada 2 horas"
+      },
+      {
+        "q": "¿A qué hora llegarías aproximadamente?",
+        "correct": "10:00 AM (6:00 AM + 4 horas, sin contar tiempo de paradas)"
+      },
+      {
+        "q": "¿Cuántos pasajeros van en total?",
+        "correct": "4 (2 adultos + 2 niños)"
+      }
+    ],
+    "expected_elements": [
+      "compara_autonomia_vs_distancia",
+      "considera_necesidades_pasajeros",
+      "calcula_hora_llegada",
+      "cuenta_pasajeros"
+    ],
+    "cognitive_load": 3
+  },
+  {
+    "task_id": "T4_010",
+    "task_type": "multi_variable_tracking",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Eres instructor de conducción con 4 estudiantes programados hoy. Debes gestionar horarios y progreso.",
+      "hora_actual": "2:00 PM",
+      "variables_to_track": {
+        "estudiante_1": {
+          "nombre": "Ana",
+          "horario": "8:00 AM - 10:00 AM",
+          "estado": "COMPLETADO",
+          "clase_numero": 8,
+          "evaluacion": "Lista para examen práctico",
+          "proxima_clase": "Mañana 8:00 AM - EXAMEN"
+        },
+        "estudiante_2": {
+          "nombre": "Carlos",
+          "horario": "10:30 AM - 12:30 PM",
+          "estado": "COMPLETADO",
+          "clase_numero": 3,
+          "evaluacion": "Progreso normal, necesita practicar reversa",
+          "proxima_clase": "Jueves 10:30 AM"
+        },
+        "estudiante_3": {
+          "nombre": "María",
+          "horario": "2:30 PM - 4:30 PM",
+          "estado": "PRÓXIMO",
+          "clase_numero": 5,
+          "notas_anteriores": "Dificultad con espejos, reforzar",
+          "proxima_clase": "Hoy"
+        },
+        "estudiante_4": {
+          "nombre": "Pedro",
+          "horario": "5:00 PM - 7:00 PM",
+          "estado": "PENDIENTE",
+          "clase_numero": 1,
+          "notas": "Primera clase - estudiante nuevo",
+          "documentos": "Verificar que traiga licencia de aprendizaje"
+        }
+      }
+    },
+    "questions": [
+      {
+        "q": "¿Quién es tu próximo estudiante y qué debes reforzar?",
+        "correct": "María a las 2:30 PM. Reforzar uso de espejos."
+      },
+      {
+        "q": "¿Qué estudiante tiene examen mañana?",
+        "correct": "Ana - examen práctico mañana a las 8:00 AM"
+      },
+      {
+        "q": "¿Qué debes verificar antes de la clase con Pedro?",
+        "correct": "Que traiga su licencia de aprendizaje - es su primera clase"
+      },
+      {
+        "q": "¿Cuántas clases has dado hoy?",
+        "correct": "2 (Ana y Carlos)"
+      },
+      {
+        "q": "¿Qué estudiante necesita practicar reversa?",
+        "correct": "Carlos"
+      }
+    ],
+    "expected_elements": [
+      "identifica_proximo_estudiante",
+      "recuerda_notas_especificas",
+      "verifica_requisitos",
+      "cuenta_clases_completadas",
+      "asocia_estudiante_con_debilidad"
+    ],
+    "cognitive_load": 4
+  }
+]

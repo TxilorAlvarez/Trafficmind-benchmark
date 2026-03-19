@@ -1,0 +1,551 @@
+[
+  {
+    "task_id": "T1_001",
+    "task_type": "route_planning",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Es lunes a las 7:30 AM. Debes llevar a un estudiante desde el Barrio Santa Fe hasta el Colegio Nacional ubicado en el Centro. El tráfico matutino es moderado.",
+      "map_data": {
+        "origin": "Barrio Santa Fe",
+        "destination": "Colegio Nacional - Centro",
+        "available_routes": [
+          {
+            "name": "Ruta A - Avenida Principal",
+            "distance_km": 5.2,
+            "estimated_time_normal": 15,
+            "current_traffic": "moderado",
+            "passes_school_zone": true
+          },
+          {
+            "name": "Ruta B - Calle Comercial",
+            "distance_km": 6.1,
+            "estimated_time_normal": 18,
+            "current_traffic": "ligero",
+            "passes_school_zone": false
+          },
+          {
+            "name": "Ruta C - Circunvalar",
+            "distance_km": 7.5,
+            "estimated_time_normal": 20,
+            "current_traffic": "libre",
+            "passes_school_zone": false
+          }
+        ],
+        "current_conditions": {
+          "weather": "despejado",
+          "road_works": "ninguna",
+          "special_events": "ninguno"
+        }
+      },
+      "constraints": [
+        "Hora de llegada máxima: 8:00 AM",
+        "El estudiante debe llegar a tiempo para clase"
+      ]
+    },
+    "question": "¿Cuál es la mejor ruta para llegar a tiempo? Proporciona tu plan paso a paso y justifica tu elección.",
+    "expected_elements": [
+      "selecciona_ruta_especifica",
+      "considera_tiempo_disponible",
+      "justifica_eleccion",
+      "plan_paso_a_paso"
+    ],
+    "optimal_answer": "La mejor opción es la Ruta B - Calle Comercial. Aunque es 0.9 km más larga que la Ruta A, el tráfico ligero compensa la distancia extra. Con 30 minutos disponibles y un tiempo estimado de 18 minutos, hay margen de seguridad. La Ruta A, aunque más corta, tiene tráfico moderado y pasa por zona escolar, lo que podría causar retrasos impredecibles a esta hora.",
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T1_002",
+    "task_type": "route_planning",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Es domingo a las 2:00 PM. Debes transportar a una familia desde el Centro Comercial Plaza Norte hasta el Parque Municipal para un picnic.",
+      "map_data": {
+        "origin": "Centro Comercial Plaza Norte",
+        "destination": "Parque Municipal",
+        "available_routes": [
+          {
+            "name": "Ruta A - Autopista",
+            "distance_km": 8.0,
+            "estimated_time_normal": 12,
+            "current_traffic": "libre",
+            "toll": true,
+            "toll_cost": 3500
+          },
+          {
+            "name": "Ruta B - Avenida Libertad",
+            "distance_km": 6.5,
+            "estimated_time_normal": 20,
+            "current_traffic": "moderado",
+            "toll": false,
+            "toll_cost": 0
+          },
+          {
+            "name": "Ruta C - Ruta Escénica",
+            "distance_km": 10.2,
+            "estimated_time_normal": 25,
+            "current_traffic": "libre",
+            "toll": false,
+            "toll_cost": 0
+          }
+        ],
+        "current_conditions": {
+          "weather": "soleado",
+          "road_works": "ninguna",
+          "special_events": "ninguno"
+        }
+      },
+      "constraints": [
+        "No hay prisa, es un paseo familiar",
+        "Preferiblemente evitar peajes",
+        "La familia disfruta los paisajes bonitos"
+      ]
+    },
+    "question": "¿Qué ruta recomiendas y por qué?",
+    "expected_elements": [
+      "selecciona_ruta_especifica",
+      "considera_preferencias_familia",
+      "considera_peaje",
+      "justifica_eleccion"
+    ],
+    "optimal_answer": "Recomiendo la Ruta C - Ruta Escénica. Aunque es la más larga (10.2 km), cumple perfectamente con los requisitos: no tiene peaje, el tráfico está libre, y ofrece paisajes bonitos que la familia puede disfrutar. Como no hay prisa, los 25 minutos de viaje se convierten en parte de la experiencia del paseo.",
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T1_003",
+    "task_type": "route_planning",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Es viernes a las 5:45 PM (hora pico). Debes llevar a un ejecutivo desde las Oficinas del Centro Empresarial hasta el Aeropuerto Internacional. Su vuelo sale a las 7:30 PM y debe estar 1 hora antes.",
+      "map_data": {
+        "origin": "Centro Empresarial - Zona Financiera",
+        "destination": "Aeropuerto Internacional",
+        "available_routes": [
+          {
+            "name": "Ruta A - Autopista Principal",
+            "distance_km": 22.0,
+            "estimated_time_normal": 25,
+            "estimated_time_rush_hour": 55,
+            "current_traffic": "muy_congestionado",
+            "toll": true,
+            "toll_cost": 8500
+          },
+          {
+            "name": "Ruta B - Avenida Circunvalar",
+            "distance_km": 28.0,
+            "estimated_time_normal": 35,
+            "estimated_time_rush_hour": 45,
+            "current_traffic": "congestionado",
+            "toll": false,
+            "toll_cost": 0
+          },
+          {
+            "name": "Ruta C - Carretera Antigua",
+            "distance_km": 35.0,
+            "estimated_time_normal": 45,
+            "estimated_time_rush_hour": 50,
+            "current_traffic": "moderado",
+            "toll": false,
+            "toll_cost": 0
+          }
+        ],
+        "current_conditions": {
+          "weather": "lluvia_ligera",
+          "road_works": "Ruta A tiene obras en km 15",
+          "special_events": "ninguno"
+        }
+      },
+      "constraints": [
+        "DEBE llegar al aeropuerto antes de las 6:30 PM",
+        "Tiempo disponible: 45 minutos",
+        "Es hora pico de viernes",
+        "Hay lluvia ligera"
+      ]
+    },
+    "question": "Analiza las opciones y determina la mejor ruta. El pasajero no puede perder su vuelo.",
+    "expected_elements": [
+      "analiza_todas_las_rutas",
+      "considera_hora_pico",
+      "considera_condiciones_clima",
+      "considera_obras_via",
+      "calcula_tiempo_llegada",
+      "selecciona_ruta_viable",
+      "justifica_con_margen_seguridad"
+    ],
+    "optimal_answer": "Recomiendo la Ruta C - Carretera Antigua. Análisis: Ruta A está descartada porque con tráfico muy congestionado (55 min) más las obras en km 15 y la lluvia, fácilmente superaría los 60 minutos. Ruta B con 45 minutos en hora pico es arriesgada sin margen de error. Ruta C, aunque más larga, tiene tráfico solo moderado (50 min estimados), y al no depender de la autopista principal, es más predecible. Con la lluvia ligera, es mejor una ruta con menos variables. Saliendo ahora (5:45 PM), llegaríamos aproximadamente a las 6:35 PM, justo a tiempo pero recomendaría considerar un servicio express si está disponible.",
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T1_004",
+    "task_type": "route_planning",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Es miércoles a las 10:00 AM. Eres conductor de una ruta escolar y debes recoger a 4 estudiantes en diferentes puntos para llevarlos a una excursión en el Museo de Historia Natural.",
+      "map_data": {
+        "origin": "Garaje de la Escuela - Barrio Norte",
+        "destination": "Museo de Historia Natural - Centro Histórico",
+        "pickup_points": [
+          {
+            "student": "Ana",
+            "location": "Residencial Los Pinos",
+            "from_school": "3 km este"
+          },
+          {
+            "student": "Carlos",
+            "location": "Urbanización El Lago",
+            "from_school": "2 km sur"
+          },
+          {
+            "student": "María",
+            "location": "Conjunto Torres del Parque",
+            "from_school": "4 km oeste"
+          },
+          {
+            "student": "Pedro",
+            "location": "Barrio San José",
+            "from_school": "1.5 km norte"
+          }
+        ],
+        "current_conditions": {
+          "weather": "despejado",
+          "road_works": "ninguna",
+          "special_events": "ninguno"
+        }
+      },
+      "constraints": [
+        "Todos los estudiantes deben ser recogidos",
+        "Hora de llegada al museo: 11:00 AM",
+        "Minimizar el tiempo total de recorrido",
+        "Los estudiantes no deben esperar más de 20 minutos en el bus"
+      ]
+    },
+    "question": "Determina el orden óptimo para recoger a los estudiantes y la ruta hacia el museo. Justifica tu plan.",
+    "expected_elements": [
+      "determina_orden_recogida",
+      "optimiza_ruta",
+      "considera_tiempo_espera_estudiantes",
+      "calcula_tiempo_total",
+      "plan_paso_a_paso"
+    ],
+    "optimal_answer": "Orden óptimo de recogida: 1) Pedro (Barrio San José - 1.5 km norte, más cercano), 2) Ana (Residencial Los Pinos - desde Pedro hacia el este), 3) Carlos (Urbanización El Lago - bajando hacia el sur), 4) María (Conjunto Torres del Parque - último antes de ir al centro). Esta ruta forma un circuito eficiente norte→este→sur→oeste→centro, minimizando retrocesos. Tiempo estimado: 45-50 minutos total, llegando al museo aproximadamente 10:50 AM. El primer estudiante (Pedro) esperará máximo 35 minutos, lo cual excede ligeramente el límite de 20 minutos. Alternativa: recoger a María primero (oeste), luego Pedro (norte), Ana (este), Carlos (sur), museo (centro).",
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T1_005",
+    "task_type": "route_planning",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Es sábado a las 3:00 PM. Eres conductor de una ambulancia (sin emergencia activa) y debes trasladar a un paciente con movilidad reducida desde el Hospital Regional hasta su domicilio en las afueras de la ciudad. El paciente acaba de salir de una cirugía de rodilla y necesita un viaje lo más suave posible.",
+      "map_data": {
+        "origin": "Hospital Regional - Centro",
+        "destination": "Vereda La Esperanza - Km 15 vía rural",
+        "available_routes": [
+          {
+            "name": "Ruta A - Autopista + Vía Rural",
+            "distance_km": 18.0,
+            "estimated_time": 25,
+            "road_quality": "autopista_excelente + rural_regular",
+            "speed_bumps": 3,
+            "unpaved_sections": "2 km al final"
+          },
+          {
+            "name": "Ruta B - Avenida Principal + Vía Veredal",
+            "distance_km": 22.0,
+            "estimated_time": 35,
+            "road_quality": "urbana_buena + veredal_mala",
+            "speed_bumps": 12,
+            "unpaved_sections": "5 km"
+          },
+          {
+            "name": "Ruta C - Circunvalar + Nueva Vía Rural",
+            "distance_km": 25.0,
+            "estimated_time": 40,
+            "road_quality": "circunvalar_buena + rural_nueva_excelente",
+            "speed_bumps": 2,
+            "unpaved_sections": "0 km"
+          }
+        ],
+        "current_conditions": {
+          "weather": "despejado",
+          "road_works": "Ruta B tiene baches reportados",
+          "special_events": "Ciclovía en parte de Ruta A (reduce un carril)"
+        }
+      },
+      "constraints": [
+        "PRIORIDAD: Comodidad del paciente post-quirúrgico",
+        "Evitar movimientos bruscos y superficies irregulares",
+        "El paciente puede viajar hasta 45 minutos sin problema",
+        "Combustible no es restricción"
+      ]
+    },
+    "question": "Selecciona la ruta óptima considerando la condición del paciente. Explica tu razonamiento médico-logístico.",
+    "expected_elements": [
+      "prioriza_comodidad_paciente",
+      "analiza_calidad_vias",
+      "considera_numero_topes",
+      "considera_tramos_sin_pavimentar",
+      "descarta_rutas_inadecuadas",
+      "justifica_con_criterio_medico"
+    ],
+    "optimal_answer": "Selecciono la Ruta C - Circunvalar + Nueva Vía Rural. Justificación médico-logística: Para un paciente post-cirugía de rodilla, cada vibración, bache o movimiento brusco puede causar dolor significativo y potencialmente afectar la recuperación. Análisis: Ruta A tiene solo 3 topes pero 2 km sin pavimentar al final - descartada. Ruta B tiene 12 topes y 5 km sin pavimentar más baches reportados - definitivamente descartada. Ruta C, aunque es la más larga (25 km, 40 min), tiene solo 2 topes y 0 km sin pavimentar gracias a la nueva vía rural. Los 40 minutos están dentro del límite de 45 minutos que el paciente puede tolerar. La comodidad supera la eficiencia de tiempo en este caso clínico.",
+    "cognitive_load": 5
+  },
+  {
+    "task_id": "T1_006",
+    "task_type": "route_planning",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Es martes a las 9:00 AM. Debes llevar un paquete urgente desde la oficina de correos del centro hasta una empresa en la zona industrial.",
+      "map_data": {
+        "origin": "Oficina de Correos - Centro",
+        "destination": "Empresa TechCorp - Zona Industrial Norte",
+        "available_routes": [
+          {
+            "name": "Ruta A - Directa por Avenida Industrial",
+            "distance_km": 7.5,
+            "estimated_time": 18,
+            "current_traffic": "moderado"
+          },
+          {
+            "name": "Ruta B - Por el Anillo Vial",
+            "distance_km": 11.0,
+            "estimated_time": 22,
+            "current_traffic": "libre"
+          }
+        ],
+        "current_conditions": {
+          "weather": "nublado",
+          "road_works": "ninguna",
+          "special_events": "ninguno"
+        }
+      },
+      "constraints": [
+        "El paquete debe entregarse antes de las 10:00 AM",
+        "Es un documento legal importante"
+      ]
+    },
+    "question": "¿Qué ruta tomas para la entrega urgente?",
+    "expected_elements": [
+      "selecciona_ruta",
+      "considera_urgencia",
+      "calcula_tiempo_llegada",
+      "justifica_eleccion"
+    ],
+    "optimal_answer": "Tomo la Ruta A - Directa por Avenida Industrial. Con 18 minutos estimados y saliendo a las 9:00 AM, llegaría aproximadamente a las 9:20 AM, con 40 minutos de margen antes del límite de las 10:00 AM. Aunque el tráfico es moderado, el margen de tiempo es suficiente. La Ruta B, aunque tiene tráfico libre, toma 4 minutos más y no aporta beneficio adicional dado el tiempo disponible.",
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T1_007",
+    "task_type": "route_planning",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Es jueves a las 6:30 PM. Debes transportar equipos de sonido frágiles desde un almacén hasta un salón de eventos para una boda que comienza a las 8:00 PM.",
+      "map_data": {
+        "origin": "Almacén AudioPro - Zona Sur",
+        "destination": "Salón Eventos Elegance - Zona Norte",
+        "available_routes": [
+          {
+            "name": "Ruta A - Autopista Urbana",
+            "distance_km": 15.0,
+            "estimated_time_rush": 40,
+            "road_quality": "excelente",
+            "speed_bumps": 0
+          },
+          {
+            "name": "Ruta B - Avenidas Secundarias",
+            "distance_km": 12.0,
+            "estimated_time_rush": 50,
+            "road_quality": "buena_con_algunos_baches",
+            "speed_bumps": 8
+          },
+          {
+            "name": "Ruta C - Calle Residencial",
+            "distance_km": 10.0,
+            "estimated_time_rush": 35,
+            "road_quality": "regular",
+            "speed_bumps": 15
+          }
+        ],
+        "current_conditions": {
+          "weather": "despejado",
+          "road_works": "ninguna",
+          "special_events": "Concierto en estadio cerca de Ruta A (posible congestión adicional)"
+        }
+      },
+      "constraints": [
+        "Equipos de sonido son MUY frágiles y costosos",
+        "Debe llegar antes de las 7:30 PM para instalación",
+        "Evitar vibraciones excesivas",
+        "El cliente es exigente - no puede haber retrasos"
+      ]
+    },
+    "question": "Planifica la ruta considerando la fragilidad de la carga y el tiempo límite.",
+    "expected_elements": [
+      "considera_fragilidad_equipos",
+      "analiza_calidad_vias",
+      "considera_evento_especial",
+      "balancea_tiempo_vs_seguridad_carga",
+      "plan_con_margen"
+    ],
+    "optimal_answer": "Selecciono Ruta A - Autopista Urbana con salida inmediata. Análisis: La fragilidad de los equipos descarta Ruta B (baches) y Ruta C (15 speed bumps). Aunque hay concierto cerca de Ruta A, saliendo a las 6:30 PM con 40 minutos estimados, llegaría a las 7:10 PM, con 20 minutos de margen antes del límite de 7:30 PM. La autopista tiene calidad excelente y 0 speed bumps, ideal para equipos frágiles. Si el tráfico por el concierto parece muy malo al inicio, tengo tiempo para cambiar a Ruta B como plan B, aceptando más cuidado en la conducción.",
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T1_008",
+    "task_type": "route_planning",
+    "difficulty": "hard",
+    "scenario": {
+      "description": "Es viernes a las 4:00 PM. Eres conductor de un camión de carga pesada (15 toneladas) y debes transportar materiales de construcción desde la Cantera Municipal hasta una obra en construcción en el nuevo desarrollo urbano.",
+      "map_data": {
+        "origin": "Cantera Municipal - Km 8 Vía Sur",
+        "destination": "Proyecto Nuevo Horizonte - Sector Noroccidental",
+        "available_routes": [
+          {
+            "name": "Ruta A - Avenida Principal (cruza centro)",
+            "distance_km": 20.0,
+            "estimated_time": 55,
+            "weight_limit": "10 toneladas",
+            "height_clearance": "4.5m",
+            "current_traffic": "congestionado"
+          },
+          {
+            "name": "Ruta B - Anillo Vial Externo",
+            "distance_km": 35.0,
+            "estimated_time": 50,
+            "weight_limit": "sin_limite",
+            "height_clearance": "sin_limite",
+            "current_traffic": "moderado"
+          },
+          {
+            "name": "Ruta C - Vía Industrial",
+            "distance_km": 28.0,
+            "estimated_time": 45,
+            "weight_limit": "20 toneladas",
+            "height_clearance": "5.0m",
+            "current_traffic": "ligero",
+            "restriction": "Solo vehículos de carga 6AM-8PM"
+          }
+        ],
+        "vehicle_specs": {
+          "weight_loaded": "15 toneladas",
+          "height": "3.8m"
+        },
+        "current_conditions": {
+          "weather": "despejado",
+          "road_works": "Ruta B tiene control de tráfico en km 20",
+          "special_events": "ninguno"
+        }
+      },
+      "constraints": [
+        "Respetar límites de peso de las vías",
+        "La obra cierra recepción de materiales a las 6:00 PM",
+        "Multas por exceso de peso son de $2,000,000 COP"
+      ]
+    },
+    "question": "Determina la única ruta viable y legal para este transporte. Explica por qué las otras no son opciones.",
+    "expected_elements": [
+      "verifica_limite_peso_cada_ruta",
+      "identifica_ruta_A_ilegal",
+      "analiza_ruta_B_vs_C",
+      "considera_horario_restriccion",
+      "selecciona_ruta_legal_optima",
+      "calcula_hora_llegada"
+    ],
+    "optimal_answer": "La única ruta viable es Ruta C - Vía Industrial. Análisis de descarte: Ruta A tiene límite de 10 toneladas pero el camión pesa 15 toneladas - ILEGAL, multa de $2,000,000 COP. Ruta B no tiene límite de peso (viable legalmente) pero toma 50 minutos, llegando a las 4:50 PM. Ruta C permite hasta 20 toneladas (15 < 20 ✓), altura libre 5.0m (camión 3.8m ✓), y la restricción de horario (6AM-8PM) está vigente ya que son las 4:00 PM. Tiempo: 45 minutos = llegada 4:45 PM, con margen de 1 hora 15 minutos antes del cierre a las 6:00 PM. Ruta C es legal, más rápida que B, y cumple todos los requisitos.",
+    "cognitive_load": 5
+  },
+  {
+    "task_id": "T1_009",
+    "task_type": "route_planning",
+    "difficulty": "easy",
+    "scenario": {
+      "description": "Es domingo a las 11:00 AM. Debes llevar a tu abuela desde su casa hasta la iglesia para la misa del mediodía.",
+      "map_data": {
+        "origin": "Casa de la Abuela - Barrio Tradicional",
+        "destination": "Iglesia San Antonio - Centro",
+        "available_routes": [
+          {
+            "name": "Ruta A - Calle Principal",
+            "distance_km": 3.0,
+            "estimated_time": 10,
+            "current_traffic": "libre"
+          },
+          {
+            "name": "Ruta B - Por el Parque",
+            "distance_km": 4.5,
+            "estimated_time": 15,
+            "current_traffic": "libre"
+          }
+        ],
+        "current_conditions": {
+          "weather": "soleado",
+          "road_works": "ninguna",
+          "special_events": "Mercado dominical en Ruta A (peatones cruzando)"
+        }
+      },
+      "constraints": [
+        "La abuela camina despacio y necesita tiempo para entrar a la iglesia",
+        "La misa comienza a las 12:00 PM",
+        "La abuela prefiere no ir con prisa"
+      ]
+    },
+    "question": "¿Qué ruta eliges para llevar a tu abuela cómodamente?",
+    "expected_elements": [
+      "selecciona_ruta",
+      "considera_comodidad_abuela",
+      "considera_tiempo_suficiente",
+      "considera_evento_mercado"
+    ],
+    "optimal_answer": "Elijo Ruta A - Calle Principal. Aunque hay mercado dominical con peatones, saliendo a las 11:00 AM con 10 minutos de viaje, llegamos a las 11:10 AM. Esto da 50 minutos para que la abuela baje con calma, camine hasta la iglesia y se acomode antes de la misa. El mercado puede requerir conducir más despacio, pero no afecta significativamente. La Ruta B es viable pero añade 5 minutos innecesarios.",
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T1_010",
+    "task_type": "route_planning",
+    "difficulty": "medium",
+    "scenario": {
+      "description": "Es lunes a las 8:00 AM. Eres el conductor de un bus escolar y debes completar tu ruta matutina recogiendo niños de 3 paradas diferentes antes de llegar al colegio.",
+      "map_data": {
+        "origin": "Terminal de Buses Escolares",
+        "destination": "Colegio Internacional",
+        "stops": [
+          {
+            "name": "Parada 1 - Conjunto Residencial Norte",
+            "students": 8,
+            "scheduled_time": "8:15 AM"
+          },
+          {
+            "name": "Parada 2 - Urbanización Los Cedros",
+            "students": 12,
+            "scheduled_time": "8:25 AM"
+          },
+          {
+            "name": "Parada 3 - Barrio El Prado",
+            "students": 6,
+            "scheduled_time": "8:35 AM"
+          }
+        ],
+        "school_bell": "9:00 AM",
+        "current_conditions": {
+          "weather": "lluvia_moderada",
+          "road_works": "ninguna",
+          "special_events": "ninguno"
+        }
+      },
+      "constraints": [
+        "Cumplir horarios de paradas (padres esperando)",
+        "Llegar al colegio antes de las 9:00 AM",
+        "Conducir con precaución por la lluvia",
+        "Capacidad del bus: 40 estudiantes"
+      ]
+    },
+    "question": "Planifica tu ruta completa con horarios y consideraciones de seguridad.",
+    "expected_elements": [
+      "plan_con_horarios_cada_parada",
+      "verifica_capacidad_bus",
+      "considera_condiciones_lluvia",
+      "calcula_hora_llegada_colegio",
+      "considera_seguridad_estudiantes"
+    ],
+    "optimal_answer": "Plan de ruta: Salida Terminal 8:00 AM → Parada 1 (8:15 AM, +8 estudiantes = 8 total) → Parada 2 (8:25 AM, +12 estudiantes = 20 total) → Parada 3 (8:35 AM, +6 estudiantes = 26 total) → Colegio (estimado 8:50 AM). Verificación de capacidad: 26 estudiantes < 40 capacidad ✓. Consideraciones de lluvia: Reducir velocidad 20%, aumentar distancia de frenado, encender luces. Los 10 minutos de margen antes de las 9:00 AM compensan posibles retrasos por clima. Recomendación: Comunicar a padres que lleguen 5 minutos antes a las paradas por posibles variaciones debido a la lluvia.",
+    "cognitive_load": 3
+  }
+]

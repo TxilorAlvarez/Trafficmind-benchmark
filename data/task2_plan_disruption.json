@@ -1,0 +1,425 @@
+[
+  {
+    "task_id": "T2_001",
+    "task_type": "plan_disruption",
+    "difficulty": "easy",
+    "scenario": {
+      "initial_plan": {
+        "description": "Estás llevando a un pasajero al aeropuerto por la Autopista Principal. El vuelo sale en 2 horas y llevas 30 minutos de viaje de los 45 estimados.",
+        "route": "Autopista Principal",
+        "progress": "67% completado",
+        "remaining_time": "15 minutos",
+        "buffer_time": "1 hora 15 minutos hasta el vuelo"
+      },
+      "disruption": {
+        "type": "accidente",
+        "description": "ALERTA DE TRÁFICO: Accidente múltiple en km 18 de la Autopista Principal. Carril izquierdo y central bloqueados. Tiempo de espera estimado: 45 minutos.",
+        "your_position": "km 15 (3 km antes del accidente)"
+      },
+      "alternatives": [
+        {
+          "name": "Opción A: Esperar",
+          "description": "Quedarse en la autopista y esperar que se despeje",
+          "estimated_additional_time": "45 minutos"
+        },
+        {
+          "name": "Opción B: Salida km 16",
+          "description": "Tomar la salida en km 16, usar vías secundarias",
+          "estimated_additional_time": "25 minutos"
+        },
+        {
+          "name": "Opción C: Retroceder",
+          "description": "Usar el retorno en km 14, volver y tomar ruta alterna",
+          "estimated_additional_time": "35 minutos"
+        }
+      ]
+    },
+    "question": "El pasajero está nervioso por su vuelo. ¿Qué haces y cómo se lo comunicas?",
+    "expected_elements": [
+      "reconoce_problema",
+      "evalua_opciones",
+      "selecciona_mejor_alternativa",
+      "calcula_nuevo_tiempo",
+      "comunica_al_pasajero",
+      "mantiene_calma"
+    ],
+    "optimal_response": {
+      "action": "Opción B: Salida km 16",
+      "reasoning": "Con 1h 15min de margen y solo 25 min adicionales, aún llegaríamos con 50 min de anticipación. Esperar (45 min) consume demasiado margen. Retroceder (35 min) es más que la Opción B.",
+      "communication": "Señor, hay un accidente adelante pero no se preocupe. Voy a tomar una salida alterna que conozco bien. Llegaremos unos 25 minutos más tarde de lo planeado, pero aún tendrá casi una hora antes de su vuelo. ¿Le parece bien?"
+    },
+    "cognitive_load": 3
+  },
+  {
+    "task_id": "T2_002",
+    "task_type": "plan_disruption",
+    "difficulty": "medium",
+    "scenario": {
+      "initial_plan": {
+        "description": "Estás haciendo una ruta de entregas con 4 paradas programadas. Ya completaste las primeras 2 entregas.",
+        "completed": ["Entrega 1: Farmacia Central ✓", "Entrega 2: Restaurante El Buen Sabor ✓"],
+        "pending": ["Entrega 3: Oficinas TechCorp (documentos urgentes)", "Entrega 4: Hospital Regional (suministros médicos)"],
+        "schedule": {
+          "entrega_3": "Antes de las 2:00 PM",
+          "entrega_4": "Antes de las 3:00 PM"
+        },
+        "current_time": "1:15 PM"
+      },
+      "disruption": {
+        "type": "llamada_urgente",
+        "description": "Recibes una llamada: 'Los suministros médicos del Hospital son URGENTES. Un paciente los necesita para una cirugía programada a las 2:30 PM. ¿Puedes priorizar esa entrega?'",
+        "additional_info": "La ruta original: TechCorp (20 min) → Hospital (25 min). Ruta invertida: Hospital (30 min desde tu ubicación) → TechCorp (15 min)"
+      }
+    },
+    "question": "¿Cómo reorganizas tus entregas? Considera las consecuencias de cada decisión.",
+    "expected_elements": [
+      "reconoce_urgencia_medica",
+      "recalcula_tiempos",
+      "evalua_impacto_cambio",
+      "toma_decision_priorizada",
+      "considera_comunicacion_techcorp",
+      "justifica_decision"
+    ],
+    "optimal_response": {
+      "action": "Invertir orden: Hospital primero, TechCorp segundo",
+      "new_schedule": {
+        "hospital": "Salida 1:15 PM + 30 min = Llegada 1:45 PM (45 min antes de cirugía ✓)",
+        "techcorp": "Salida Hospital 1:50 PM + 15 min = Llegada 2:05 PM (5 min tarde)"
+      },
+      "reasoning": "La urgencia médica (vida del paciente) supera la puntualidad comercial. TechCorp recibirá sus documentos solo 5 minutos tarde.",
+      "communication_plan": "Llamar a TechCorp: 'Tengo una emergencia médica que atender primero. Sus documentos llegarán a las 2:05 PM en lugar de 2:00 PM. Disculpe el inconveniente.'"
+    },
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T2_003",
+    "task_type": "plan_disruption",
+    "difficulty": "hard",
+    "scenario": {
+      "initial_plan": {
+        "description": "Eres conductor de un bus intermunicipal. Sales de Bogotá a las 6:00 AM hacia Medellín (8 horas de viaje). Llevas 45 pasajeros.",
+        "route": "Bogotá → Honda → La Dorada → Puerto Berrío → Medellín",
+        "current_position": "Acabas de pasar Honda (2 horas de viaje completadas)",
+        "current_time": "8:00 AM",
+        "scheduled_arrival": "2:00 PM"
+      },
+      "disruption": {
+        "type": "multiple",
+        "events": [
+          {
+            "event": "Cierre vial",
+            "description": "La vía hacia La Dorada está cerrada por derrumbe. Reapertura estimada: 4:00 PM"
+          },
+          {
+            "event": "Pasajero enfermo",
+            "description": "Una pasajera de 70 años reporta mareo intenso y dolor en el pecho"
+          }
+        ],
+        "alternatives": {
+          "route_alternatives": [
+            "Esperar reapertura (8 horas de espera)",
+            "Ruta alterna por Manizales (+3 horas de viaje)",
+            "Regresar a Bogotá y reprogramar"
+          ],
+          "medical_options": [
+            "Hospital de Honda (20 min de regreso)",
+            "Centro de salud en pueblo cercano (10 min adelante)",
+            "Continuar y buscar atención en La Dorada"
+          ]
+        }
+      }
+    },
+    "question": "Tienes dos crisis simultáneas. ¿Cómo priorizas y qué plan ejecutas? Detalla tus acciones paso a paso.",
+    "expected_elements": [
+      "prioriza_emergencia_medica",
+      "evalua_gravedad_sintomas",
+      "toma_accion_inmediata_salud",
+      "luego_resuelve_logistica",
+      "comunica_a_pasajeros",
+      "contacta_empresa",
+      "plan_detallado"
+    ],
+    "optimal_response": {
+      "priority_1": "EMERGENCIA MÉDICA - Acción inmediata",
+      "medical_action": "Regresar a Hospital de Honda (20 min). Dolor de pecho en persona de 70 años puede ser infarto - no se puede ignorar ni atender en centro de salud básico.",
+      "priority_2": "LOGÍSTICA - Después de estabilizar situación médica",
+      "logistics_plan": {
+        "step_1": "En Hospital de Honda, dejar a la pasajera con familiar o acompañante voluntario",
+        "step_2": "Evaluar estado de la vía - si sigue cerrada, tomar ruta por Manizales",
+        "step_3": "Informar a pasajeros: llegada estimada 5:00 PM (+3 horas)",
+        "step_4": "Contactar empresa para autorización y apoyo"
+      },
+      "communication": "Señores pasajeros, tenemos una emergencia médica que requiere atención inmediata. Nos desviaremos al hospital más cercano. Adicionalmente, la vía principal está cerrada. Les mantendré informados. Su seguridad es nuestra prioridad."
+    },
+    "cognitive_load": 6
+  },
+  {
+    "task_id": "T2_004",
+    "task_type": "plan_disruption",
+    "difficulty": "easy",
+    "scenario": {
+      "initial_plan": {
+        "description": "Llevas a tu hijo a su partido de fútbol que comienza a las 10:00 AM. Saliste a las 9:30 AM para un viaje de 20 minutos.",
+        "route": "Casa → Avenida Los Robles → Complejo Deportivo",
+        "current_time": "9:35 AM",
+        "buffer_time": "10 minutos"
+      },
+      "disruption": {
+        "type": "bloqueo",
+        "description": "La Avenida Los Robles está bloqueada por una marcha. Policía indica desvío por Calle 45.",
+        "impact": "El desvío añade aproximadamente 15 minutos"
+      }
+    },
+    "question": "¿Qué decides hacer? Tu hijo está emocionado y no quiere perderse el partido.",
+    "expected_elements": [
+      "reconoce_problema",
+      "calcula_nuevo_tiempo",
+      "evalua_si_llega_a_tiempo",
+      "toma_decision",
+      "maneja_expectativas_hijo"
+    ],
+    "optimal_response": {
+      "calculation": "9:35 AM + 20 min originales + 15 min extra = 10:10 AM (10 minutos tarde)",
+      "decision": "Tomar el desvío - llegará 10 minutos tarde pero aún puede jugar",
+      "communication_to_child": "Hijo, hay un pequeño desvío pero llegaremos. Quizás te pierdas los primeros minutos de calentamiento, pero estarás listo para el partido. ¿Puedes llamar al entrenador para avisarle?"
+    },
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T2_005",
+    "task_type": "plan_disruption",
+    "difficulty": "medium",
+    "scenario": {
+      "initial_plan": {
+        "description": "Eres conductor de un taxi y llevas a una ejecutiva a una reunión importante. Ella tiene una presentación crucial a las 3:00 PM.",
+        "route": "Hotel → Centro de Convenciones",
+        "departure_time": "2:20 PM",
+        "estimated_arrival": "2:45 PM",
+        "buffer": "15 minutos para prepararse"
+      },
+      "disruption": {
+        "type": "falla_mecanica",
+        "description": "A mitad del camino, el carro comienza a hacer un ruido extraño y el indicador de temperatura sube rápidamente.",
+        "your_position": "A 10 minutos del destino, a 8 minutos del hotel",
+        "current_time": "2:32 PM"
+      },
+      "options": [
+        "Continuar los 10 minutos restantes arriesgando el motor",
+        "Detenerse inmediatamente y llamar otro taxi",
+        "Ir despacio para enfriar el motor (añade 15 min)"
+      ]
+    },
+    "question": "La pasajera está muy nerviosa. ¿Qué haces?",
+    "expected_elements": [
+      "evalua_riesgo_mecanico",
+      "considera_seguridad_pasajera",
+      "evalua_opciones_tiempo",
+      "toma_decision_balanceada",
+      "comunica_profesionalmente",
+      "ofrece_solucion"
+    ],
+    "optimal_response": {
+      "decision": "Detenerse de forma segura inmediatamente y gestionar taxi de reemplazo",
+      "reasoning": "Continuar con el motor sobrecalentándose puede causar una falla total que deje a la pasajera varada. Es mejor perder 5 minutos gestionando solución que arriesgar una avería completa.",
+      "action_plan": [
+        "1. Detener el vehículo en lugar seguro (1 min)",
+        "2. Llamar a central para taxi de reemplazo urgente (1 min)",
+        "3. Mientras espera, pasajera puede revisar su presentación",
+        "4. Taxi de reemplazo llega (estimado 5-7 min)",
+        "5. Llegada al destino: ~2:50-2:52 PM (aún con 8-10 min de margen)"
+      ],
+      "communication": "Señora, por su seguridad debo detenerme - hay un problema con el motor. Ya estoy llamando un taxi de reemplazo que llegará en 5 minutos. Aún llegará con tiempo para su reunión. No le cobraré este viaje."
+    },
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T2_006",
+    "task_type": "plan_disruption",
+    "difficulty": "easy",
+    "scenario": {
+      "initial_plan": {
+        "description": "Vas camino al supermercado a 15 minutos de tu casa. Tu lista incluye ingredientes para la cena.",
+        "current_position": "5 minutos de viaje completados"
+      },
+      "disruption": {
+        "type": "llamada",
+        "description": "Tu pareja te llama: 'Olvidé decirte que también necesitamos medicina de la farmacia. ¿Puedes pasar?'",
+        "farmacia_location": "La farmacia está en dirección opuesta, a 10 minutos de tu posición actual",
+        "additional_info": "La medicina no es urgente pero se necesita para mañana"
+      }
+    },
+    "question": "¿Cómo reorganizas tu ruta?",
+    "expected_elements": [
+      "evalua_urgencia",
+      "considera_opciones_ruta",
+      "optimiza_recorrido",
+      "toma_decision_practica"
+    ],
+    "optimal_response": {
+      "analysis": "La medicina no es urgente (para mañana). Tengo dos opciones: 1) Ir a farmacia primero (desvío), 2) Supermercado primero, farmacia después",
+      "decision": "Completar la ida al supermercado primero, luego ir a la farmacia de regreso a casa",
+      "reasoning": "Probablemente hay una farmacia cerca del supermercado o camino a casa. Preguntar a pareja si hay preferencia de farmacia específica.",
+      "alternative": "Si la farmacia es específica (ej: solo esa tiene la medicina), entonces conviene ir primero a la farmacia y luego al supermercado."
+    },
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T2_007",
+    "task_type": "plan_disruption",
+    "difficulty": "hard",
+    "scenario": {
+      "initial_plan": {
+        "description": "Eres el conductor de una ambulancia transportando a un paciente estable desde una clínica rural hasta el Hospital Universitario para una cirugía programada para las 4:00 PM.",
+        "patient_condition": "Estable pero requiere cirugía. Ayuno desde hace 12 horas.",
+        "departure": "1:00 PM",
+        "estimated_arrival": "3:00 PM",
+        "current_time": "2:15 PM",
+        "current_position": "A mitad de camino"
+      },
+      "disruption": {
+        "type": "deterioro_paciente",
+        "description": "El paramédico reporta: 'El paciente comenzó con dolor abdominal agudo, presión arterial bajando, posible hemorragia interna.'",
+        "vitals": {
+          "blood_pressure": "90/60 (bajando)",
+          "heart_rate": "110 (subiendo)",
+          "pain_level": "8/10"
+        },
+        "options": {
+          "hospital_universitario": "45 minutos restantes - mejor equipado para cirugía compleja",
+          "hospital_regional": "15 minutos de desvío - puede estabilizar pero cirugía limitada",
+          "clinica_intermedia": "5 minutos - solo puede estabilizar temporalmente"
+        }
+      }
+    },
+    "question": "Como conductor, ¿qué decisión apoyas y cómo procedes? Esta es una decisión de vida o muerte.",
+    "expected_elements": [
+      "reconoce_gravedad",
+      "consulta_paramédico",
+      "evalua_opciones_medicas",
+      "considera_tiempo_vs_capacidad",
+      "toma_decision_informada",
+      "ejecuta_protocolo_emergencia"
+    ],
+    "optimal_response": {
+      "immediate_action": "Activar código rojo, luces y sirena al máximo",
+      "decision_process": "Consultar inmediatamente con paramédico: '¿Puede el paciente sobrevivir 45 minutos más?' La decisión médica no es mía, pero el paramédico necesita mi input sobre tiempos.",
+      "likely_decision": "Hospital Regional (15 min) - Un paciente con posible hemorragia interna y presión bajando puede no sobrevivir 45 minutos. El Hospital Regional puede estabilizar y, si es necesario, preparar transferencia con el paciente estabilizado.",
+      "protocol": [
+        "1. Paramédico notifica por radio al Hospital Regional",
+        "2. Activar protocolo de emergencia",
+        "3. Conducir a máxima velocidad segura",
+        "4. Hospital Regional prepara quirófano de emergencia"
+      ],
+      "communication": "Central, ambulancia 15 en código rojo. Paciente deteriorando, posible hemorragia interna. Desviando a Hospital Regional. ETA 15 minutos. Solicito equipo de trauma listo."
+    },
+    "cognitive_load": 6
+  },
+  {
+    "task_id": "T2_008",
+    "task_type": "plan_disruption",
+    "difficulty": "medium",
+    "scenario": {
+      "initial_plan": {
+        "description": "Estás en un viaje por carretera con tu familia (2 adultos, 2 niños). Destino: playa a 4 horas. Llevan 2 horas de viaje.",
+        "fuel_status": "Tanque al 30% - suficiente para 1.5 horas más",
+        "plan": "Cargar gasolina en la estación de Pueblo Verde, a 30 minutos"
+      },
+      "disruption": {
+        "type": "informacion_nueva",
+        "description": "Un letrero indica: 'Estación de servicio Pueblo Verde CERRADA por remodelación. Próxima estación: 80 km'",
+        "current_fuel_range": "Aproximadamente 60 km con el combustible actual"
+      }
+    },
+    "question": "No tienes suficiente combustible para llegar a la siguiente estación. ¿Qué haces?",
+    "expected_elements": [
+      "reconoce_problema_critico",
+      "evalua_opciones_disponibles",
+      "busca_alternativas",
+      "toma_decision_segura",
+      "no_arriesga_familia"
+    ],
+    "optimal_response": {
+      "analysis": "60 km de autonomía vs 80 km a siguiente estación = DÉFICIT DE 20 km. No puedo arriesgar quedarme varado con mi familia.",
+      "options_evaluated": [
+        "Regresar a última estación conocida (¿cuánto combustible ya gastamos?)",
+        "Buscar estación alternativa en pueblo cercano",
+        "Usar app/GPS para encontrar gasolineras cercanas",
+        "Preguntar a locales"
+      ],
+      "decision": "Detenerme en Pueblo Verde y buscar alternativas locales. Un pueblo con nombre propio probablemente tiene alguna opción de combustible (gasolinera pequeña, ferretería con galones, etc.)",
+      "backup_plan": "Si no hay combustible en Pueblo Verde, regresar inmediatamente antes de gastar más. Mejor perder 30 minutos que quedar varados.",
+      "family_communication": "Familia, cambio de planes. La gasolinera está cerrada y necesitamos buscar alternativas. Vamos a parar en el pueblo a preguntar. Los niños pueden aprovechar para ir al baño."
+    },
+    "cognitive_load": 4
+  },
+  {
+    "task_id": "T2_009",
+    "task_type": "plan_disruption",
+    "difficulty": "easy",
+    "scenario": {
+      "initial_plan": {
+        "description": "Llevas a un amigo a recoger su carro del taller mecánico. El taller cierra a las 6:00 PM.",
+        "current_time": "5:20 PM",
+        "estimated_travel_time": "25 minutos",
+        "expected_arrival": "5:45 PM"
+      },
+      "disruption": {
+        "type": "trafico",
+        "description": "Google Maps actualiza: 'Tráfico pesado detectado. Nuevo tiempo estimado: 40 minutos'",
+        "new_estimated_arrival": "6:00 PM exacto"
+      }
+    },
+    "question": "Llegarían justo cuando cierra el taller. ¿Qué haces?",
+    "expected_elements": [
+      "reconoce_riesgo",
+      "propone_solucion_proactiva",
+      "comunica_con_taller",
+      "tiene_plan_B"
+    ],
+    "optimal_response": {
+      "immediate_action": "Tu amigo debe llamar al taller AHORA",
+      "communication": "Amigo, llama al taller y explícales que llegaremos justo a las 6:00 PM por el tráfico. Pregunta si pueden esperar 5 minutos o si hay alguien que pueda quedarse.",
+      "reasoning": "Muchos talleres son flexibles si saben que el cliente viene en camino. Llegar sin avisar a las 6:00 PM = puerta cerrada. Avisar con anticipación = probable que esperen.",
+      "plan_B": "Si el taller no puede esperar, preguntar si pueden dejar las llaves con algún vecino o comercio cercano."
+    },
+    "cognitive_load": 2
+  },
+  {
+    "task_id": "T2_010",
+    "task_type": "plan_disruption",
+    "difficulty": "medium",
+    "scenario": {
+      "initial_plan": {
+        "description": "Eres instructor de conducción. Estás en clase práctica con un estudiante en una ruta predefinida por zonas residenciales tranquilas.",
+        "student_level": "Principiante - 3ra clase",
+        "route": "Circuito de práctica estándar - calles de bajo tráfico"
+      },
+      "disruption": {
+        "type": "construccion",
+        "description": "La calle principal del circuito está cerrada por construcción. El desvío obliga a usar una avenida con más tráfico.",
+        "student_reaction": "El estudiante se ve nervioso al ver el tráfico de la avenida"
+      }
+    },
+    "question": "¿Cómo adaptas la clase ante este imprevisto? Considera tanto la seguridad como el aprendizaje.",
+    "expected_elements": [
+      "evalua_nivel_estudiante",
+      "considera_seguridad",
+      "adapta_metodologia",
+      "mantiene_calma_estudiante",
+      "convierte_problema_en_oportunidad"
+    ],
+    "optimal_response": {
+      "assessment": "Estudiante principiante (3ra clase) no está listo para tráfico intenso de avenida principal.",
+      "decision": "No tomar el desvío de la avenida. Buscar ruta alternativa por calles secundarias o regresar al punto de inicio por otra ruta.",
+      "pedagogical_approach": [
+        "1. Detener el vehículo en lugar seguro",
+        "2. Explicar la situación al estudiante",
+        "3. Usar esto como lección: 'En la vida real, encontrarás imprevistos. Parte de conducir es saber cuándo adaptar tu ruta.'",
+        "4. Planificar nueva ruta juntos usando el mapa"
+      ],
+      "safety_first": "Forzar a un principiante nervioso a una situación de tráfico intenso es receta para accidente. La confianza se construye gradualmente.",
+      "communication": "No te preocupes. Vamos a buscar otra ruta más tranquila. Esto pasa todo el tiempo cuando conduces - siempre hay un plan B. Mira el mapa conmigo y pensemos juntos."
+    },
+    "cognitive_load": 4
+  }
+]
