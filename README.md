@@ -1,266 +1,345 @@
-# 🚗 TrafficMind: Executive Functions Benchmark for Dynamic Route Planning
+<!-- ===================================================== -->
+<!-- ================== TRAFFICMIND ====================== -->
+<!-- ===================================================== -->
 
-> **Measuring AGI Progress Hackathon** — Track: Executive Functions  
-> Organized by Google DeepMind & Kaggle | 2026
+<p align="center">
+  <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" width="750"/>
+</p>
+
+<h1 align="center">🚦🧠 TrafficMind</h1>
+
+<h3 align="center">
+Executive Functions Benchmark for Real‑World Adaptive Intelligence
+</h3>
+
+<p align="center">
+<b>Three mountain ranges. Dynamic cities. Regulatory complexity. Ethical tradeoffs.</b><br>
+Can your model truly <i>adapt</i> — or does it only autocomplete?
+</p>
 
 ---
 
-## 📌 Overview
+<p align="center">
 
-**TrafficMind** is a benchmark designed to evaluate **executive functions** in AI language models through realistic traffic and transportation scenarios from Colombia. 
+![Track](https://img.shields.io/badge/Track-Executive_Functions-1f77b4)
+![Items](https://img.shields.io/badge/Items-50-success)
+![Difficulty](https://img.shields.io/badge/Difficulty-3_Tiers-orange)
+![Cognitive_Load](https://img.shields.io/badge/Cognitive_Load-1_to_6-purple)
+![Language](https://img.shields.io/badge/Language-Spanish-yellow)
+![Context](https://img.shields.io/badge/Context-Colombia🇨🇴-red)
 
-Current AI models often "cheat" by memorizing patterns rather than truly reasoning. TrafficMind reveals *how* models think by placing them in dynamic, real-world situations where memorization alone is insufficient.
+</p>
 
-**Central Question:**
-> *"What can this benchmark tell us about model behavior that we couldn't see before?"*
-
-**Answer:** TrafficMind reveals whether a model can genuinely **plan, adapt, inhibit automatic responses, track multiple variables, and resolve conflicting priorities** — or whether it merely produces text that *sounds* correct.
+<p align="center">
+<b>Measuring AGI Progress Hackathon</b><br>
+Google DeepMind × Kaggle | 2026
+</p>
 
 ---
 
-## 🧠 Why Traffic & Transportation?
+# 🌎 Why Colombia?
 
-Driving and route management is a uniquely rich domain for evaluating executive functions because it **simultaneously requires ALL five executive functions**:
-Real-world driving scenario
+Colombia is not a grid.
+
+It is:
+
+- 🏔️ Three Andean mountain ranges  
+- 🌧️ Sudden landslides  
+- 🚧 Infrastructure asymmetry  
+- 🛵 Mixed traffic ecosystems  
+- 📜 Complex regulatory framework (Ley 769 de 2002)  
+- ⏱️ Time-sensitive urban congestion  
+
+Planning here is not static optimization.
+
+It is **continuous adaptive control under environmental uncertainty**.
+
+TrafficMind forces models to reason within terrain, law, time pressure, and ethical tradeoffs — simultaneously.
+
+---
+
+# 🎯 Core Scientific Question
+
+> **What aspects of executive cognition in large language models remain hidden under standard benchmarks?**
+
+Traditional benchmarks measure:
+- Logical reasoning  
+- Mathematical manipulation  
+- Code generation  
+
+TrafficMind measures:
+
+> Executive control under dynamic constraint revision.
+
+It isolates five executive functions grounded in cognitive psychology.
+
+---
+
+# 🧠 The Five Executive Functions
+
+```
+Dynamic Driving Scenario
 │
-├── PLANNING → Multi-step route optimization with constraints
-├── ADAPTATION → Responding to unexpected events mid-route
-├── INHIBITORY CTRL → Overriding automatic habits with new rules
-├── WORKING MEMORY → Tracking fuel, time, passengers, traffic
-└── COGNITIVE FLEX → Prioritizing when objectives conflict
+├── PLANNING              → Multi-step constrained optimization
+├── ADAPTATION            → World-model updating under disruption
+├── INHIBITORY CONTROL    → Overriding habitual priors
+├── WORKING MEMORY        → Multi-variable tracking under load
+└── CONFLICT RESOLUTION   → Structured prioritization without perfect solutions
+```
 
-text
+These functions are based on:
 
-Unlike abstract reasoning puzzles, traffic scenarios have **clear correct answers**, **verifiable constraints**, and **measurable cognitive load** — making them ideal for benchmarking.
+- Miyake et al. (2000) — Unity & Diversity of Executive Functions  
+- Diamond (2013) — Executive Control Theory  
+- Morris et al. (2023) — Levels of AGI  
 
 ---
 
-## 📋 The 5 Tasks
+# 🚗 Benchmark Structure
 
-### Task 1 — Route Planning `[Executive Function: Planning]`
+## Task 1 — Route Planning  
+**Executive Function: Planning**
 
-The model receives a transportation scenario with multiple simultaneous constraints and must generate an optimal step-by-step plan.
+Multi-step optimization with simultaneous constraints.
 
-| Property | Value |
-|---|---|
-| Items | 10 (4 easy, 4 medium, 2 hard) |
+| Items | 10 |
 | Weight | 20% |
-| Cognitive Load | 2–5 variables |
+| Cognitive Load | 2–5 |
 
-**Example scenario:** *"It's Friday at 5:45 PM rush hour. An executive must reach the airport for a 7:30 PM flight. Route A is congested with roadworks. Route B is clear but longer. Route C is unknown. What do you do?"*
-
-**What it reveals:** Can the model reason about multiple constraints simultaneously, or does it optimize only one variable at a time?
+Reveals: sequential reasoning vs single-variable shortcuts.
 
 ---
 
-### Task 2 — Plan Disruption `[Executive Function: Adaptation & Flexibility]`
+## 🚧 Task 2 — Plan Disruption  
+**Executive Function: Cognitive Flexibility**
 
-The model is mid-route when an unexpected event occurs (accident, mechanical failure, medical emergency). The original plan is no longer viable.
+Mid-route failure invalidates original plan.
 
-| Property | Value |
-|---|---|
-| Items | 10 (4 easy, 4 medium, 2 hard) |
-| Weight | 25% ← Highest weight |
-| Cognitive Load | 3–6 variables |
+| Items | 10 |
+| Weight | 25% (highest) |
+| Cognitive Load | 3–6 |
 
-**Example scenario:** *"You're 67% through the route to the airport when a multi-vehicle accident blocks the highway ahead. The passenger's flight is in 1h 15min. Three alternative options exist with different time costs."*
-
-**What it reveals:** Does the model update its world model when reality changes, or does it persist with the original plan? Can it generate viable alternatives under time pressure?
+Reveals: whether the model updates internal state or persists with outdated reasoning.
 
 ---
 
-### Task 3 — Rule Reversal `[Executive Function: Inhibitory Control]`
+## 🔄 Task 3 — Rule Reversal  
+**Executive Function: Inhibitory Control**
 
-The model faces modified or inverted traffic rules. It must inhibit its automatic habitual response and apply the new context-specific rule correctly.
+Explicit override of learned global priors.
 
-| Property | Value |
-|---|---|
-| Items | 10 (3 easy, 4 medium, 3 hard) |
+| Items | 10 |
 | Weight | 20% |
-| Cognitive Load | 2–4 variables |
+| Cognitive Load | 2–4 |
 
-**Example scenario:** *"You're driving in a country where roundabout priority is REVERSED — entering vehicles have priority, not circulating ones. A car approaches to enter on your right. What do you do?"*
-
-**What it reveals:** **Perseverative errors** — how often does the model apply habitual knowledge while ignoring explicit contextual instructions? This is a key indicator of true vs. apparent understanding.
+Measures perseverative error rate — a core indicator of rigid cognition.
 
 ---
 
-### Task 4 — Multi-Variable Tracking `[Executive Function: Working Memory]`
+## 🧮 Task 4 — Multi‑Variable Tracking  
+**Executive Function: Working Memory**
 
-The model must simultaneously monitor multiple dynamic variables (fuel levels, earnings, time, fleet status, passenger needs) and answer precise questions about each.
+Simultaneous numeric + semantic load.
 
-| Property | Value |
-|---|---|
-| Items | 10 (3 easy, 4 medium, 3 hard) |
+| Items | 10 |
 | Weight | 15% |
-| Cognitive Load | 3–6 variables |
+| Cognitive Load | 3–6 |
 
-**Example scenario:** *"You started with a full tank (50L), consuming 8L/hour for 3 hours. You completed 3 trips earning \$25K, \$18K, and \$32K. Your daily goal is 10 hours and it's now 9 AM. Answer: fuel remaining? total earnings? hours left to goal?"*
+Detects dissociation between:
 
-**What it reveals:** Performance degradation as cognitive load increases. At what point does the model start making calculation errors or forgetting previously stated information?
+- Verbal reasoning fluency  
+- Numerical accuracy under pressure  
 
 ---
 
-### Task 5 — Priority Conflict `[Executive Function: Cognitive Flexibility]`
+## ⚖️ Task 5 — Priority Conflict  
+**Executive Function: Structured Value Judgment**
 
-The model faces genuinely conflicting objectives with no perfect solution. It must recognize the dilemma, establish an explicit priority hierarchy, and justify what it sacrifices.
+No perfect solution exists.
 
-| Property | Value |
-|---|---|
-| Items | 10 (3 easy, 4 medium, 3 hard) |
+| Items | 10 |
 | Weight | 20% |
-| Cognitive Load | 2–5 variables |
+| Cognitive Load | 2–5 |
 
-**Example scenario:** *"You have ONE vehicle available and TWO simultaneous urgent requests: 8 workers who will lose their daily wage if not transported in 45 min, vs. 1 executive with a \$500M contract meeting in 60 min. Taxis are available with 15-min wait."*
+Requires:
 
-**What it reveals:** Can the model make value judgments under uncertainty and explicit tradeoffs, or does it only follow rigid rules? Does it find creative solutions that serve both parties?
-
----
-
-## 📊 Dataset Summary
-
-| Task | Total | Easy | Medium | Hard | Domain |
-|---|---|---|---|---|---|
-| Route Planning | 10 | 4 | 4 | 2 | Urban routing |
-| Plan Disruption | 10 | 4 | 4 | 2 | Emergency adaptation |
-| Rule Reversal | 10 | 3 | 4 | 3 | Regulatory contexts |
-| Multi-Variable | 10 | 3 | 4 | 3 | Fleet coordination |
-| Priority Conflict | 10 | 3 | 4 | 3 | Ethical transport decisions |
-| **TOTAL** | **50** | **17** | **20** | **13** | **Colombian traffic** |
-
-**Language:** Spanish (Colombian context)  
-**Format:** Structured JSON with verifiable answers  
-**Evaluation:** Semantic keyword matching + correct answer verification  
-**Source:** Synthetically generated based on real Colombian traffic regulations and scenarios  
+1. Dilemma recognition  
+2. Priority hierarchy  
+3. Explicit justification  
+4. Tradeoff acknowledgment  
 
 ---
 
-## 🏗️ Project Structure
-trafficmind_benchmark/
-│
-├── benchmark.py # Main entry point & task definitions
-├── utils.py # Evaluator, keyword maps & utilities
-├── README.md # This file
-│
-├── tasks/
-│ ├── init.py
-│ ├── task1_planning.py # Route Planning task
-│ ├── task2_disruption.py # Plan Disruption task
-│ ├── task3_reversal.py # Rule Reversal task
-│ ├── task4_tracking.py # Multi-Variable Tracking task
-│ └── task5_priority.py # Priority Conflict task
-│
-└── data/
-├── task1_route_planning.json # 10 items
-├── task2_plan_disruption.json # 10 items
-├── task3_rule_reversal.json # 10 items
-├── task4_multi_variable.json # 10 items
-└── task5_priority_conflict.json # 10 items
+# 📊 Dataset Composition
 
-text
+| Task | Easy | Medium | Hard | Total |
+|------|------|--------|------|------|
+| Route Planning | 4 | 4 | 2 | 10 |
+| Plan Disruption | 4 | 4 | 2 | 10 |
+| Rule Reversal | 3 | 4 | 3 | 10 |
+| Multi-Variable | 3 | 4 | 3 | 10 |
+| Priority Conflict | 3 | 4 | 3 | 10 |
+| **TOTAL** | **17** | **20** | **13** | **50** |
+
+✅ 3 difficulty tiers  
+✅ Cognitive load scaling (1–6)  
+✅ Structured JSON format  
+✅ Verifiable ground truth  
 
 ---
 
-## 🚀 Usage
+# 📈 Scoring Framework
+
+Final Score:
+
+```
+Σ (task_pass_rate × task_weight)
+```
+
+Item Pass Condition:
+
+```
+Coverage ≥ 60% of expected cognitive elements
+```
+
+Task 4 Combined Scoring:
+
+```
+Final = (Semantic × 0.4) + (Numeric Accuracy × 0.6)
+```
+
+This prevents superficial keyword gaming.
+
+---
+
+# 🔬 Evaluation Pipeline
+
+```
+Scenario
+   ↓
+Model Response
+   ↓
+Normalization
+   ↓
+Semantic Element Matching
+   ↓
+Task-Specific Logic
+   ↓
+PASS / FAIL
+   ↓
+Weighted Aggregate Score
+```
+
+---
+
+# 📉 Cognitive Load Scaling
+
+TrafficMind explicitly measures degradation under increasing variable complexity.
+
+Hypothesis:
+
+```
+Accuracy ∝ 1 / Cognitive_Load
+```
+
+We expect nonlinear performance decay beyond load ≥ 4.
+
+This transforms the benchmark from static scoring into **cognitive stress testing**.
+
+---
+
+# 🧪 Error Taxonomy (Phase II)
+
+TrafficMind enables classification of:
+
+- Perseverative errors  
+- Numerical hallucinations  
+- Constraint omission  
+- Over-generalized safety responses  
+- Binary simplification of multi-party conflicts  
+
+This allows structural model comparison beyond raw accuracy.
+
+---
+
+# 🧬 Why This Matters for AGI Evaluation
+
+AGI is not:
+
+- Static reasoning
+- Perfect recall
+- Mathematical speed
+
+AGI requires:
+
+- Updating plans when reality changes  
+- Overriding internal priors  
+- Tracking evolving variables  
+- Making structured tradeoffs  
+
+TrafficMind operationalizes these dimensions.
+
+---
+
+# 🚀 Installation
 
 ```bash
-# Install dependencies
 pip install kaggle-benchmarks python-dotenv pandas
 
-# Validate locally (no API required — uses optimal answers as ground truth)
 python benchmark.py --validate
-
-# Run full benchmark with AI model
 python benchmark.py --run
-
-# Run with parallel jobs
 python benchmark.py --run --jobs 4
+python benchmark.py --run --task 2
+```
 
-# Run specific task only
-python benchmark.py --run --task 1
-Environment Setup
-bash
-# .env file required for API access
-MODEL_PROXY_URL=https://generativelanguage.googleapis.com/v1beta/openai/
-MODEL_PROXY_API_KEY=your_api_key_here
-LLM_DEFAULT=gemini-2.0-flash
-LLM_DEFAULT_JUDGE=gemini-2.0-flash
-LLMS_AVAILABLE=gemini-2.0-flash
-📈 Scoring System
-text
-Final Score = Σ (task_pass_rate × task_weight)
+---
 
-Task Weights:
-  Route Planning      →  20%
-  Plan Disruption     →  25%  (highest — most cognitively complex)
-  Rule Reversal       →  20%
-  Multi-Variable      →  15%
-  Priority Conflict   →  20%
+# 🗂 Project Structure
 
-Item Pass Threshold:  ≥ 60% of expected elements covered
-Discriminatory Power (Validated Locally)
-Task	Optimal Answer Score	Expected Random Score	Gap
-Route Planning	65% avg	~15%	50pp
-Plan Disruption	63% avg	~12%	51pp
-Rule Reversal	83% avg	~10%	73pp
-Multi-Variable	97% avg	~20%	77pp
-Priority Conflict	63% avg	~12%	51pp
-Overall pass rate with optimal answers: 78%
-✅ No task scores 0% or 100% → Strong discriminatory power between models
+```
+trafficmind_benchmark/
+│
+├── benchmark.py
+├── utils.py
+├── tasks/
+├── data/
+└── README.md
+```
 
-🔬 Research Hypotheses
-Based on the benchmark structure, we predict the following model behavior patterns:
+Modular. Deterministic. Reproducible.
 
-Models will perform best on Task 1 (static planning with complete information)
-Task 3 will reveal the most perseverative errors — models applying habitual rules despite explicit instructions to the contrary
-Task 4 performance will degrade linearly with cognitive_load — revealing working memory limits
-Task 2 will show the largest variance between models — adaptation is where model quality diverges most
-Task 5 will reveal whether models can make genuine value judgments vs. pattern-matching to "safe" responses
-These hypotheses make TrafficMind useful not just as a benchmark but as a research tool for understanding model cognition.
+---
 
-🧪 Evaluation Methodology
-Each item contains:
+# 📚 Scientific References
 
-scenario: Detailed situation description with all relevant variables
-question: Specific question requiring executive function engagement
-expected_elements: List of cognitive elements the response must address
-optimal_answer / correct_answer: Ground truth reference
-cognitive_load: Integer 1–6 rating of variable complexity
-difficulty: easy / medium / hard classification
-Evaluation pipeline:
+- Diamond, A. (2013). Executive Functions. Annual Review of Psychology.  
+- Miyake, A., et al. (2000). Unity and Diversity of Executive Functions.  
+- Morris, M. R., et al. (2023). Levels of AGI. Google DeepMind.  
+- Chollet, F. (2019). On the Measure of Intelligence.  
+- Colombian National Traffic Code — Ley 769 de 2002.  
 
-text
-Model Response
-      │
-      ▼
-Text Normalization (accent removal, punctuation cleaning)
-      │
-      ▼
-Semantic Keyword Matching per expected_element
-      │
-      ▼
-Coverage Score = matched_elements / total_elements
-      │
-      ▼
-Pass/Fail: Coverage ≥ 0.60 → PASS
+---
 
+# 👤 Author
 
+**Jhon Tailor Alvarez**  
+Independent Researcher  
+Colombia 🇨🇴  
 
-📚 References
-Diamond, A. (2013). Executive Functions. Annual Review of Psychology, 64, 135–168.
-Morris, M. R., et al. (2023). Levels of AGI: Operationalizing Progress on the Path to AGI. Google DeepMind.
-Miyake, A., et al. (2000). The Unity and Diversity of Executive Functions. Cognitive Psychology, 41(1), 49–100.
-Colombian National Traffic Code (Código Nacional de Tránsito Terrestre — Ley 769 de 2002).
+Developed for:
 
+**Measuring Progress Toward AGI — Cognitive Skills Hackathon**  
+Google DeepMind × Kaggle | 2026  
 
+---
 
-👤 Author & Affiliation
-TrafficMind Benchmark
-Developed for the "Measuring Progress toward AGI — Cognitive Skills" Hackathon
-Organized by Google DeepMind & Kaggle | March–June 2026
-Developer: Jhon Tailor Alvarez 
+# 🏁 Final Reflection
 
-Track: Executive Functions
-Domain: Traffic & Transportation (Colombian context)
-Country: Colombia 🇨🇴
+In Colombia,  
+a route is optimal  
+only until the mountain moves.
 
+If your model cannot adapt,  
+it does not understand.
+
+It predicts.
