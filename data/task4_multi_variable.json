@@ -4,595 +4,1145 @@
     "task_type": "multi_variable_tracking",
     "difficulty": "easy",
     "scenario": {
-      "description": "Eres conductor de un taxi y debes monitorear múltiples variables durante tu turno.",
+      "description": "Eres conductor de taxi amarillo afiliado a la empresa Radio Taxi Móvil en Bogotá. Empezaste tu turno a las 6:00 AM desde la base ubicada en la Calle 72 con Carrera 11, Chapinero. Son las 9:00 AM y llevas 3 horas de turno. Tu vehículo es un Chevrolet Sail 2022 con taxímetro digital. Debes monitorear el combustible, la recaudación y el tiempo trabajado para saber si tu turno va bien.",
       "variables_to_track": {
         "combustible": {
-          "inicial": "Tanque lleno (50 litros)",
-          "consumo": "8 litros por hora en ciudad",
-          "actual_despues_3_horas": "?"
+          "inicial": "Tanque lleno — 45 litros (Chevrolet Sail tiene tanque de 45 litros)",
+          "consumo_promedio_bogota": "9 litros por hora en tráfico denso de Bogotá (tráfico stop-and-go, pico y placa, semáforos frecuentes)",
+          "horas_trabajadas": 3,
+          "consumido_estimado": "27 litros en 3 horas",
+          "actual_despues_3_horas": "?",
+          "precio_gasolina_corriente_bogota_2024": "$15.600 COP por galón (aproximadamente $4.120 por litro)",
+          "nota": "En Bogotá, el consumo real de un taxi en hora pico puede ser hasta 40% mayor que en carretera por el arranque-freno constante"
         },
         "dinero_recaudado": {
-          "viaje_1": "$25,000",
-          "viaje_2": "$18,000",
-          "viaje_3": "$32,000",
+          "contexto_taximetro_bogota": "Tarifa mínima en Bogotá 2024: $5.800 COP. Banderazo: $5.100 COP. Cada 105 metros o 45 segundos: $130 COP adicionales.",
+          "viaje_1": {
+            "ruta": "Chapinero (Calle 67 #7) → Centro Internacional (Calle 26 #13)",
+            "distancia": "5.2 km",
+            "tarifa": "$12.400 COP",
+            "hora": "6:15 AM"
+          },
+          "viaje_2": {
+            "ruta": "Centro Internacional → Paloquemao (Calle 19 #27)",
+            "distancia": "3.8 km",
+            "tarifa": "$9.200 COP",
+            "hora": "6:52 AM"
+          },
+          "viaje_3": {
+            "ruta": "Paloquemao → Unicentro (Calle 127 #15)",
+            "distancia": "12.1 km",
+            "tarifa": "$24.800 COP",
+            "hora": "7:30 AM",
+            "nota": "Viaje largo en hora pico — taxímetro corrió bastante por el trancón en la Carrera 7"
+          },
           "total": "?"
         },
         "tiempo_trabajado": {
-          "inicio": "6:00 AM",
-          "actual": "9:00 AM",
-          "meta_diaria": "10 horas"
+          "inicio_turno": "6:00 AM",
+          "hora_actual": "9:00 AM",
+          "horas_trabajadas": 3,
+          "meta_diaria_horas": 10,
+          "horas_restantes": "?",
+          "fin_turno_estimado": "4:00 PM",
+          "nota_pico_placa": "Placa del taxi termina en 4. Hoy es lunes (día impar) — restricción para placas 1,2,3,4,5. El taxi tiene restricción de Pico y Placa de 6:00 AM a 9:00 PM. Pero taxis afiliados a empresas tienen EXCEPCIÓN de Pico y Placa en Bogotá según Decreto 190/2018."
+        },
+        "gastos_del_turno": {
+          "servicio_radio": "$8.000 COP diarios a Radio Taxi Móvil",
+          "gasolina_estimada_turno": "Por calcular según consumo",
+          "meta_recaudacion_bruta": "$180.000 COP para el turno de 10 horas"
         }
       }
     },
     "questions": [
       {
-        "q": "¿Cuánto combustible te queda aproximadamente?",
-        "correct": "26 litros (50 - 24 consumidos en 3 horas)"
+        "id": "Q1",
+        "q": "¿Cuánto combustible aproximado te queda después de 3 horas de turno en Bogotá?",
+        "correct": "18 litros aproximadamente (45 litros iniciales - 27 litros consumidos en 3 horas a 9 L/h en tráfico bogotano)",
+        "calculo": "45 - (9 × 3) = 45 - 27 = 18 litros",
+        "alerta": "Con 18 litros restantes y un consumo de 9 L/h, tienes aproximadamente 2 horas más de recorrido antes de necesitar recargar. Planificar parada en gasolinera antes de que el indicador llegue a reserva.",
+        "estacion_cercana": "Estación Terpel Calle 100 con Autopista o Estación Biomax Calle 72 con Carrera 15"
       },
       {
-        "q": "¿Cuánto dinero has recaudado en total?",
-        "correct": "$75,000"
+        "id": "Q2",
+        "q": "¿Cuánto dinero has recaudado en total en las 3 primeras horas?",
+        "correct": "$46.400 COP ($12.400 + $9.200 + $24.800)",
+        "calculo": "$12.400 + $9.200 + $24.800 = $46.400 COP",
+        "analisis": "Con $46.400 en 3 horas, llevas un promedio de $15.466 por hora. Para alcanzar la meta de $180.000 en 10 horas necesitas un promedio de $18.000/hora. Estás ligeramente por debajo del ritmo necesario.",
+        "nota": "El viaje largo a Unicentro ($24.800) compensó los dos viajes cortos del centro. En Bogotá, los viajes al norte en hora pico matutina son los más rentables del día."
       },
       {
-        "q": "¿Cuántas horas te faltan para completar tu meta?",
-        "correct": "7 horas"
+        "id": "Q3",
+        "q": "¿Cuántas horas te faltan para completar tu meta de turno?",
+        "correct": "7 horas (de 9:00 AM hasta 4:00 PM)",
+        "calculo": "Meta: 10 horas. Trabajadas: 3 horas. Restantes: 7 horas.",
+        "proyeccion": "Si mantienes el ritmo actual de $15.466/hora, en 7 horas adicionales recaudarías $108.262. Total proyectado: $46.400 + $108.262 = $154.662 — por debajo de la meta de $180.000.",
+        "recomendacion": "Para alcanzar la meta, buscar viajes hacia el norte o el aeropuerto en las horas valle (10:00 AM - 2:00 PM). Los viajes al Aeropuerto El Dorado desde el norte tienen tarifas de $35.000-$50.000 COP."
+      },
+      {
+        "id": "Q4",
+        "q": "¿Tu taxi tiene restricción de Pico y Placa hoy siendo lunes con placa terminada en 4?",
+        "correct": "NO tiene restricción. Los taxis afiliados a empresas de radio taxi legalmente constituidas están exentos del Pico y Placa en Bogotá según el Decreto 190 de 2018. Debe portar la calcomanía de exención vigente en el parabrisas.",
+        "normativa": "Decreto 190 de 2018 — Art. 5: Vehículos de servicio público individual (taxis) afiliados a empresas habilitadas están exentos de la medida de Pico y Placa durante la prestación del servicio.",
+        "alerta": "Si el taxi no porta la calcomanía de exención vigente o el taxímetro no está en funcionamiento, un agente de tránsito puede aplicar la restricción. Verificar que los documentos estén al día."
       }
     ],
     "expected_elements": [
-      "calcula_combustible_restante",
-      "suma_recaudacion",
-      "calcula_tiempo_restante"
+      "calcula_combustible_restante_con_consumo_bogota",
+      "suma_recaudacion_tres_viajes",
+      "calcula_horas_restantes",
+      "identifica_exencion_pico_placa_taxi",
+      "proyecta_si_alcanza_meta_diaria",
+      "recomienda_estrategia_de_viajes"
     ],
     "cognitive_load": 3
   },
+
   {
     "task_id": "T4_002",
     "task_type": "multi_variable_tracking",
     "difficulty": "medium",
     "scenario": {
-      "description": "Eres conductor de bus escolar con una ruta de 5 paradas. Debes llevar registro de estudiantes.",
+      "description": "Eres conductor del bus escolar MX-14 de la empresa TransEscolar Bogotá S.A.S., habilitado por la Secretaría de Educación Distrital. Tu ruta matutina cubre 5 paradas en el sector de Suba para llevar estudiantes al Colegio Distrital Tibabuyes Universal (Calle 131B con Carrera 148C, Suba). Es lunes a las 6:30 AM. Tu bus es un Chevrolet NHR amarillo con franjas blancas y negras, capacidad 29 estudiantes, con la monitora Carmen a bordo. Hoy hay un incidente menor en la parada 2 que debes recordar para el reporte del día.",
       "variables_to_track": {
         "estudiantes": {
-          "capacidad_bus": 40,
-          "parada_1": "+8 estudiantes",
-          "parada_2": "+12 estudiantes",
-          "parada_3": "-3 estudiantes (bajan para otra escuela)",
-          "parada_4": "+6 estudiantes",
-          "parada_5": "+5 estudiantes"
+          "capacidad_bus": 29,
+          "parada_1": {
+            "ubicacion": "Calle 138 con Carrera 91, frente al CAI de Policía Suba Centro",
+            "hora_acordada": "6:35 AM",
+            "estudiantes_suben": 6,
+            "acumulado": 6
+          },
+          "parada_2": {
+            "ubicacion": "Conjunto Residencial El Portal de Suba, Calle 145 con Carrera 93",
+            "hora_acordada": "6:42 AM",
+            "estudiantes_suben": 9,
+            "acumulado": 15,
+            "incidente": "Dos estudiantes (Tomás y Camila) llegan corriendo y Tomás tropieza subiendo al bus. Monitora Carmen lo asiste. Sin heridas. Se documenta el incidente."
+          },
+          "parada_3": {
+            "ubicacion": "Calle 131 con Carrera 97, frente al Parque El Salitre de Suba",
+            "hora_acordada": "6:50 AM",
+            "estudiantes_suben": 7,
+            "acumulado": 22
+          },
+          "parada_4": {
+            "ubicacion": "Urbanización Compartir Suba, Calle 148 con Carrera 91",
+            "hora_acordada": "6:58 AM",
+            "estudiantes_suben": 4,
+            "acumulado": 26
+          },
+          "parada_5": {
+            "ubicacion": "Conjunto Lagos de Suba, Carrera 91 con Calle 153",
+            "hora_acordada": "7:05 AM",
+            "estudiantes_suben": 0,
+            "nota": "Dos estudiantes registrados en esta parada NO aparecieron — Sofía Ramírez y Juan Herrera. La monitora intenta llamar a los padres.",
+            "acumulado": 26,
+            "ausentes": ["Sofía Ramírez", "Juan Herrera"]
+          }
         },
         "tiempo": {
-          "hora_salida": "6:30 AM",
-          "tiempo_entre_paradas": "8 minutos cada una",
-          "hora_llegada_colegio": "debe ser antes de 7:30 AM"
+          "hora_salida_garaje": "6:20 AM",
+          "tiempo_entre_paradas": "Entre 7 y 10 minutos según tráfico de Suba en lunes",
+          "hora_llegada_colegio_requerida": "7:30 AM (la formación inicia a las 7:30 AM)",
+          "distancia_ultima_parada_al_colegio": "12 minutos en tráfico normal"
         },
-        "comportamiento": {
-          "incidente_parada_2": "Dos estudiantes discutiendo",
-          "resolucion": "Separados en asientos diferentes"
+        "condiciones_dia": {
+          "weather": "Llovizna leve desde las 6:00 AM",
+          "trafico": "Moderado-alto en sector Suba en lunes lluvioso",
+          "pico_placa_bus_escolar": "EXENTO — tarjetón SED vigente"
         }
       }
     },
     "questions": [
       {
-        "q": "¿Cuántos estudiantes llevas después de la parada 5?",
-        "correct": "28 estudiantes (8+12-3+6+5)"
+        "id": "Q1",
+        "q": "¿Cuántos estudiantes llevas después de completar las 5 paradas?",
+        "correct": "26 estudiantes (6+9+7+4+0). En la parada 5 no subió nadie — Sofía y Juan no aparecieron.",
+        "calculo": "Parada 1: 6 | Parada 2: +9 = 15 | Parada 3: +7 = 22 | Parada 4: +4 = 26 | Parada 5: +0 = 26",
+        "nota": "Dos estudiantes registrados (Sofía Ramírez y Juan Herrera) están ausentes. La monitora debe registrar sus nombres e intentar contactar a sus acudientes."
       },
       {
-        "q": "¿A qué hora aproximada llegas al colegio si no hay retrasos?",
-        "correct": "7:10 AM (6:30 + 40 minutos de 5 paradas)"
+        "id": "Q2",
+        "q": "¿A qué hora aproximada llegas al Colegio Tibabuyes Universal si saliste de la última parada a las 7:05 AM?",
+        "correct": "Aproximadamente 7:17 AM (7:05 AM + 12 minutos desde Lagos de Suba al colegio). Con 13 minutos de margen antes de las 7:30 AM.",
+        "calculo": "7:05 AM + 12 min trayecto = 7:17 AM. Margen: 13 minutos antes de la formación.",
+        "alerta_lluvia": "Con la llovizna activa, el tráfico en el sector de Suba puede añadir 3-5 minutos adicionales. Llegada más realista: 7:18-7:22 AM. Aún dentro del margen."
       },
       {
-        "q": "¿Tienes capacidad para más estudiantes?",
-        "correct": "Sí, 12 espacios disponibles (40-28)"
+        "id": "Q3",
+        "q": "¿Tienes capacidad disponible en el bus para subir estudiantes adicionales si fuera necesario?",
+        "correct": "Sí — quedan 3 espacios disponibles (capacidad 29 - 26 estudiantes = 3 cupos libres). Sin embargo, NO se pueden recoger estudiantes no registrados en la ruta sin autorización de la coordinadora.",
+        "normativa": "El Decreto 1660 de 2003 establece que los vehículos escolares solo pueden transportar estudiantes inscritos en la ruta y con autorización de los padres. Subir estudiantes no registrados es infracción."
       },
       {
-        "q": "¿Hubo algún incidente que debas reportar?",
-        "correct": "Sí, discusión entre estudiantes en parada 2, resuelta separándolos"
-      }
-    ],
-    "expected_elements": [
-      "suma_resta_estudiantes",
-      "calcula_hora_llegada",
-      "verifica_capacidad",
-      "recuerda_incidente"
-    ],
-    "cognitive_load": 4
-  },
+        "id": "Q4",
+        "q": "¿Hubo algún incidente que debes reportar al llegar al colegio?",
+        "correct": "Sí — dos incidentes: (1) Tomás tropezó al subir en la parada 2 (Conjunto El Portal). La monitora Carmen lo asistió. Sin heridas. (2) Sofía Ramírez y Juan Herrera no aparecieron en la parada 5 (Lagos de Suba). Sus acudientes deben ser contactados.",
+        "reporte_obligatorio": "Según el protocolo de TransEscolar Bogotá, todo incidente físico con estudiante (así sea leve) debe reportarse por escrito al coordinador del colegio al momento de la llegada, y a los padres del estudiante afectado. Los ausentes sin justificación también se reportan.",
+        "acciones_monitora": "Carmen debe: (1) Tener registrado el incidente de Tomás con hora y descripción. (2) Llamar a los padres de Sofía y Juan antes de las 7:30 AM para verificar si están en camino o si hay novedad."
+      },
+              {
+          "id": "Q5",
+          "q": "¿El bus escolar puede circular en lunes durante el Pico y Placa?",
+          "correct": "SÍ — los buses escolares habilitados por la Secretaría de Educación Distrital están EXENTOS del Pico y Placa en Bogotá. El tarjetón de exención debe estar visible en el parabrisas. Si un agente lo detiene, mostrar el tarjetón y la resolución de habilitación.",
+          "normativa": "Decreto 190 de 2018, Art. 5, numeral 3: Vehículos de transporte escolar con habilitación vigente de la Secretaría de Educación Distrital están exentos de la restricción de circulación por Pico y Placa durante el horario de prestación del servicio.",
+          "alerta": "La exención aplica SOLO durante la prestación efectiva del servicio escolar. Si el conductor usa el bus para asuntos personales fuera del horario escolar, la exención no aplica y debe respetar el Pico y Placa como cualquier vehículo."
+        }
+      ],
+      "expected_elements": [
+        "suma_estudiantes_parada_a_parada",
+        "identifica_ausentes_parada_5",
+        "calcula_hora_llegada_con_trafico_lluvia",
+        "verifica_capacidad_disponible",
+        "recuerda_incidente_tomas_parada_2",
+        "recuerda_ausentes_sofia_juan",
+        "menciona_exencion_pico_placa_escolar",
+        "menciona_protocolo_reporte_incidentes"
+      ],
+      "cognitive_load": 4
+    },
+
   {
     "task_id": "T4_003",
     "task_type": "multi_variable_tracking",
     "difficulty": "medium",
     "scenario": {
-      "description": "Eres conductor de camión de entregas con 4 paquetes para diferentes destinos.",
+      "description": "Eres conductor de la furgoneta de mensajería especializada VN-07 de la empresa MedExpress Colombia S.A.S., con sede en el Parque Industrial de Fontibón, Bogotá. Hoy tienes 4 paquetes para entregar en diferentes puntos de la ciudad. Tu furgoneta Hyundai H100 está equipada con sistema de refrigeración para medicamentos. Son las 2:00 PM de un martes y estás saliendo de tu última parada en el sur para continuar con las entregas pendientes.",
       "variables_to_track": {
         "paquetes": [
-          {"id": "P1", "destino": "Farmacia Central", "contenido": "Medicamentos refrigerados", "urgente": true, "entregado": false},
-          {"id": "P2", "destino": "Restaurante El Buen Sabor", "contenido": "Equipos de cocina", "urgente": false, "entregado": true},
-          {"id": "P3", "destino": "Oficina Legal Torres", "contenido": "Documentos confidenciales", "urgente": true, "entregado": false},
-          {"id": "P4", "destino": "Tienda de Deportes", "contenido": "Balones y equipos", "urgente": false, "entregado": false}
+          {
+            "id": "P1",
+            "destino": "Droguería Colsubsidio Calle 100 — Calle 100 No. 19-61, Bogotá",
+            "contenido": "Insulina refrigerada y vacunas pediátricas",
+            "urgente": true,
+            "requiere_refrigeracion": true,
+            "temperatura_requerida": "2°C a 8°C",
+            "temperatura_actual_carga": "5°C",
+            "entregado": false,
+            "deadline": "3:00 PM",
+            "consecuencia_retraso": "Las vacunas tienen cadena de frío estricta — si se rompe o llega tarde, la droguería no puede recibirlas y se pierde la carga valorada en $4.200.000 COP",
+            "distancia_desde_posicion_actual": "22 km — aproximadamente 35-40 min en tráfico de martes tarde"
+          },
+          {
+            "id": "P2",
+            "destino": "Restaurante Andrés Carne de Res — Calle 3 No. 11A-56, La Candelaria (sede centro)",
+            "contenido": "Menaje de cocina industrial — ollas, sartenes y utensilios",
+            "urgente": false,
+            "requiere_refrigeracion": false,
+            "entregado": true,
+            "hora_entrega": "12:45 PM",
+            "firma_recibido": "Obtenida"
+          },
+          {
+            "id": "P3",
+            "destino": "Notaría 19 de Bogotá — Calle 54 No. 14-25, Chapinero",
+            "contenido": "Documentos notariales originales — poder especial para trámite de sucesión",
+            "urgente": true,
+            "requiere_refrigeracion": false,
+            "entregado": false,
+            "deadline": "4:00 PM",
+            "consecuencia_retraso": "La notaría cierra a las 4:30 PM y el trámite no puede hacerse mañana por viaje del otorgante. Pérdida económica estimada para el cliente: $8.000.000 COP en costos de reprogramación.",
+            "distancia_desde_posicion_actual": "18 km — aproximadamente 30 min en tráfico actual"
+          },
+          {
+            "id": "P4",
+            "destino": "Tienda Marathon Sports Centro Comercial El Retiro — Calle 82 No. 11-49",
+            "contenido": "Uniformes deportivos y balones — pedido temporada escolar",
+            "urgente": false,
+            "requiere_refrigeracion": false,
+            "entregado": false,
+            "deadline": "Antes del cierre del CC a las 8:00 PM",
+            "distancia_desde_posicion_actual": "20 km — aproximadamente 35 min"
+          }
         ],
         "condiciones_vehiculo": {
-          "refrigeracion": "Funcionando",
-          "combustible": "60%",
-          "temperatura_carga": "4°C"
+          "refrigeracion": "Funcionando correctamente — temperatura interna 5°C",
+          "combustible": "55%",
+          "temperatura_exterior": "19°C (Bogotá martes tarde)",
+          "alerta_refrigeracion": "NINGUNA — sistema estable"
         },
         "tiempo": {
-          "hora_actual": "2:30 PM",
-          "limite_P1": "3:00 PM",
-          "limite_P3": "4:00 PM"
+          "hora_actual": "2:00 PM",
+          "limite_P1_insulina": "3:00 PM",
+          "limite_P3_notaria": "4:00 PM",
+          "limite_P4_deporte": "8:00 PM",
+          "tiempo_disponible_P1": "60 minutos",
+          "tiempo_disponible_P3": "120 minutos"
+        },
+        "posicion_actual": {
+          "ubicacion": "Autopista Sur con Calle 13, sector Puente Aranda",
+          "contexto": "Acaba de completar la entrega P2 en La Candelaria y se desplazó al occidente"
         }
       }
     },
     "questions": [
       {
+        "id": "Q1",
         "q": "¿Cuántos paquetes urgentes te faltan por entregar?",
-        "correct": "2 (P1 y P3)"
+        "correct": "2 paquetes urgentes pendientes: P1 (insulina y vacunas — deadline 3:00 PM) y P3 (documentos notariales — deadline 4:00 PM). P2 ya fue entregado. P4 no es urgente.",
+        "calculo": "Total paquetes: 4. Entregados: 1 (P2). Urgentes pendientes: P1 y P3. No urgentes pendientes: P4."
       },
       {
-        "q": "¿Cuál debes entregar primero y por qué?",
-        "correct": "P1 - Farmacia Central, porque tiene límite a las 3:00 PM (solo 30 minutos)"
+        "id": "Q2",
+        "q": "¿Cuál paquete debes entregar primero y por qué?",
+        "correct": "P1 — Insulina y vacunas en la Droguería Colsubsidio Calle 100. Tiene el deadline más próximo (3:00 PM, solo 60 minutos) y el trayecto toma 35-40 minutos. Si no sale AHORA, llega tarde y se pierde la cadena de frío con una carga valorada en $4.200.000 COP.",
+        "analisis_urgencia": {
+          "P1": "Deadline: 3:00 PM. Tiempo trayecto: 35-40 min. Tiempo disponible: 60 min. MARGEN MÍNIMO — salir ya.",
+          "P3": "Deadline: 4:00 PM. Tiempo trayecto: 30 min. Tiempo disponible: 120 min. Puede esperar hasta después de P1.",
+          "P4": "Deadline: 8:00 PM. Sin urgencia."
+        },
+        "ruta_optima": "Salir inmediatamente a P1 (Calle 100). Al entregar P1 (~2:40-2:45 PM), ir directamente a P3 (Notaría 19 Calle 54 — 15 min desde Calle 100). Llegar a P3 ~3:00-3:05 PM con margen de 55 min. Finalmente P4 en El Retiro (~3:30 PM)."
       },
       {
-        "q": "¿Hay alguna condición especial que debas monitorear para P1?",
-        "correct": "Sí, los medicamentos requieren refrigeración. Verificar que temperatura se mantenga a 4°C"
+        "id": "Q3",
+        "q": "¿Hay alguna condición especial que debes monitorear activamente para P1?",
+        "correct": "SÍ — dos condiciones críticas: (1) La temperatura de la carga debe mantenerse entre 2°C y 8°C. Actualmente está en 5°C — dentro del rango pero debe verificarse cada 15 minutos. (2) El tiempo: si la temperatura sube a 9°C o más, la cadena de frío se rompe y la droguería NO puede recibir el pedido independientemente de la hora de llegada.",
+        "protocolo_cadena_frio": "Si el sistema de refrigeración falla durante el trayecto: (1) Llamar inmediatamente a MedExpress Colombia central. (2) No entregar la carga si la temperatura superó 8°C. (3) Documentar la hora y temperatura del evento para el reporte de no conformidad.",
+        "normativa": "INVIMA — Resolución 1160 de 2016 regula la cadena de frío para medicamentos biológicos (insulinas, vacunas). La ruptura de cadena de frío es una infracción sanitaria grave."
       },
       {
-        "q": "¿Cuántos paquetes en total has entregado?",
-        "correct": "1 (solo P2)"
+        "id": "Q4",
+        "q": "¿Cuántos paquetes has entregado hasta ahora y cuántos quedan pendientes?",
+        "correct": "Entregados: 1 (P2 — menaje de cocina en Andrés Carne de Res a las 12:45 PM, con firma). Pendientes: 3 (P1, P3 y P4).",
+        "estado_firma": "P2 tiene firma de recibido obtenida — está documentado correctamente. Los paquetes P1, P3 y P4 requieren firma de recibido al momento de la entrega."
+      },
+      {
+        "id": "Q5",
+        "q": "Con el combustible al 55%, ¿necesitas cargar gasolina antes de terminar las entregas?",
+        "correct": "NO es urgente, pero debe monitorearse. Con 55% de combustible, la Hyundai H100 tiene aproximadamente 180-200 km de autonomía restante. Las 3 entregas pendientes suman aproximadamente 55-60 km adicionales. El combustible alcanza con margen. Cargar al finalizar las entregas o si el indicador baja del 30%.",
+        "nota_bogota": "En Bogotá, las estaciones de servicio Terpel, Biomax y Primax están distribuidas en toda la ciudad. La estación más conveniente para este recorrido está en la Carrera 15 con Calle 90 (cerca de la entrega P4 en El Retiro)."
       }
     ],
     "expected_elements": [
-      "identifica_urgentes_pendientes",
-      "prioriza_por_deadline",
-      "recuerda_condiciones_especiales",
-      "cuenta_entregas_completadas"
+      "identifica_dos_urgentes_pendientes",
+      "prioriza_P1_por_deadline_mas_proximo",
+      "calcula_margen_tiempo_cada_entrega",
+      "alerta_cadena_frio_temperatura_P1",
+      "cuenta_entregas_completadas_correctamente",
+      "propone_ruta_optima_P1_P3_P4",
+      "evalua_combustible_como_no_urgente"
     ],
     "cognitive_load": 4
   },
+
   {
     "task_id": "T4_004",
     "task_type": "multi_variable_tracking",
     "difficulty": "hard",
     "scenario": {
-      "description": "Eres despachador de una flota de 4 vehículos de transporte. Debes coordinar todo simultáneamente.",
+      "description": "Eres el despachador de turno de la empresa TransSalud Colombia — flota de vehículos de transporte médico y logística hospitalaria con sede en Bogotá. Son las 3:30 PM de un miércoles. Tienes en pantalla el estado en tiempo real de 4 vehículos de tu flota operando en Bogotá y Cundinamarca. Acaba de entrar una solicitud urgente que debes asignar al vehículo más adecuado.",
       "variables_to_track": {
         "vehiculo_1": {
-          "conductor": "Carlos",
-          "ubicacion": "Zona Norte",
-          "estado": "En ruta",
-          "combustible": "45%",
-          "proxima_parada": "Hospital Central",
-          "ETA": "15 minutos"
+          "id": "V1",
+          "conductor": "Carlos Mendoza",
+          "tipo_vehiculo": "Camioneta Toyota Hilux 4x4 — transporte de muestras biológicas",
+          "ubicacion": "Autopista Norte km 12 (sector Calle 170, Bogotá Norte)",
+          "estado": "En ruta — entregando muestras en Clínica Reina Sofía (ETA 15 min)",
+          "combustible": "40%",
+          "carga_actual": "Muestras oncológicas — entrega en curso",
+          "horas_turno_actual": 6,
+          "limite_horas_turno": 8,
+          "disponibilidad_post_entrega": "3:50 PM aproximadamente",
+          "observacion": "Carlos lleva 6 horas de turno. Después de esta entrega tendrá 2 horas disponibles antes de alcanzar el límite de 8 horas. Zona norte — alejado de Zona Sur."
         },
         "vehiculo_2": {
-          "conductor": "María",
-          "ubicacion": "Centro",
-          "estado": "Esperando carga",
-          "combustible": "80%",
-          "proxima_parada": "Pendiente asignación"
+          "id": "V2",
+          "conductor": "María Torres",
+          "tipo_vehiculo": "Van Renault Traffic — transporte de pacientes ambulatorios",
+          "ubicacion": "Carrera 30 (NQS) con Calle 45, sector Teusaquillo, Bogotá Centro",
+          "estado": "Disponible — esperando asignación. Acaba de completar entrega.",
+          "combustible": "75%",
+          "carga_actual": "Vacío",
+          "horas_turno_actual": 4,
+          "limite_horas_turno": 8,
+          "disponibilidad": "INMEDIATA",
+          "observacion": "María está en el centro de Bogotá con excelente combustible y 4 horas de turno disponibles. Es la más cercana geográficamente a la Zona Sur."
         },
         "vehiculo_3": {
-          "conductor": "Pedro",
-          "ubicacion": "Zona Sur",
-          "estado": "En taller - frenos",
-          "combustible": "30%",
-          "disponibilidad": "2 horas"
+          "id": "V3",
+          "conductor": "Pedro Álvarez",
+          "tipo_vehiculo": "Camión NPR — transporte de insumos hospitalarios en volumen",
+          "ubicacion": "Taller AutoServicio Bogotá Sur — Calle 68 Sur con Carrera 27",
+          "estado": "EN TALLER — falla en sistema de frenos. Reparación en curso.",
+          "combustible": "25%",
+          "disponibilidad": "Estimada 5:30 PM (2 horas desde ahora)",
+          "observacion": "Pedro y el V3 están completamente fuera de servicio hasta las 5:30 PM. No disponible para ninguna asignación urgente."
         },
         "vehiculo_4": {
-          "conductor": "Ana",
-          "ubicacion": "Aeropuerto",
-          "estado": "Completó entrega",
-          "combustible": "20% - NECESITA CARGAR",
-          "proxima_parada": "Debe ir a estación de servicio"
+          "id": "V4",
+          "conductor": "Ana Gómez",
+          "tipo_vehiculo": "Sedan Chevrolet Cruze — mensajería de documentos y muestras pequeñas",
+          "ubicacion": "Zona Rosa, Calle 82 con Carrera 13, Bogotá Norte",
+          "estado": "Completó entrega — libre pero necesita cargar combustible URGENTE",
+          "combustible": "15% — LUZ DE RESERVA ENCENDIDA",
+          "carga_actual": "Vacío",
+          "horas_turno_actual": 7,
+          "limite_horas_turno": 8,
+          "disponibilidad": "NO disponible hasta cargar gasolina — riesgo de quedar varada",
+          "observacion": "Ana tiene luz de reserva activa con solo 15% de combustible. Antes de cualquier asignación DEBE ir a cargar. Además, lleva 7 de 8 horas de turno — casi en el límite legal."
         }
       },
       "nueva_solicitud": {
-        "cliente": "Urgente - Clínica del Sur",
-        "tipo": "Transporte de muestras médicas",
-        "tiempo_requerido": "Máximo 30 minutos"
+        "cliente": "Hospital El Tunal — Carrera 20 No. 47B-35 Sur, Bogotá Sur",
+        "tipo": "Transporte urgente de reactivos de laboratorio desde Clínica Palermo (Calle 45 No. 16-36, Chapinero) hasta Hospital El Tunal",
+        "tiempo_requerido": "Máximo 45 minutos para entrega completa",
+        "prioridad": "ALTA — reactivos para exámenes de urgencias activas",
+        "distancia_clinica_palermo_a_hospital_tunal": "Aproximadamente 14 km — 25-30 min en tráfico de miércoles tarde",
+        "hora_solicitud": "3:30 PM"
       }
     },
     "questions": [
       {
-        "q": "¿Qué vehículo puede atender la solicitud urgente de Clínica del Sur?",
-        "correct": "Vehículo 2 (María) - está disponible esperando carga, tiene buen combustible (80%), y está en el Centro que probablemente tiene acceso rápido a Zona Sur"
+        "id": "Q1",
+        "q": "¿Qué vehículo debe asignarse a la solicitud urgente del Hospital El Tunal?",
+        "correct": "V2 — María Torres. Está disponible inmediatamente en el centro de Bogotá (NQS con Calle 45), tiene combustible al 75%, lleva solo 4 horas de turno y puede llegar a Clínica Palermo en 5-8 minutos para recoger los reactivos y luego al Hospital El Tunal en 25-30 minutos. Total: aproximadamente 35-38 minutos — dentro del límite de 45 minutos.",
+        "descarte_otros": {
+          "V1": "Carlos está en el norte (Calle 170) y llega a las 3:50 PM. Desde allí hasta Clínica Palermo (Calle 45) toma otros 20-25 minutos. Total: no llega en 45 minutos.",
+          "V3": "En taller. No disponible.",
+          "V4": "Ana tiene luz de reserva de combustible — asignarle una misión urgente con 15% es irresponsable. Puede quedar varada en ruta."
+        },
+        "calculo_tiempo_V2": "3:30 PM salida → Clínica Palermo (8 min) = 3:38 PM → recoge reactivos (5 min) = 3:43 PM → Hospital El Tunal (28 min en tráfico) = 4:11 PM. Dentro del límite de 45 minutos ✓"
       },
       {
-        "q": "¿Cuál vehículo tiene una necesidad crítica que atender primero?",
-        "correct": "Vehículo 4 (Ana) - combustible al 20%, debe ir a estación antes de cualquier otra asignación"
+        "id": "Q2",
+        "q": "¿Cuál vehículo tiene una necesidad crítica que debes atender ANTES de asignarle cualquier nueva misión?",
+        "correct": "V4 — Ana Gómez. Tiene combustible al 15% con luz de reserva encendida. Un Chevrolet Cruze con 15% de gasolina tiene aproximadamente 60-70 km de autonomía en ciudad — suficiente para ir a cargar, pero si se le asigna una misión larga podría quedar varada. ADEMÁS lleva 7 de 8 horas de turno. Instrucción inmediata: 'Ana, ir a la estación Terpel de la Calle 80 con Carrera 11 (la más cercana) a cargar gasolina. Después de eso, evalúa si tienes tiempo de turno para una entrega corta antes de las 8 horas.'",
+        "prioridad_gestion": "Primero resolver el combustible de V4. Luego evaluar si puede recibir alguna asignación menor antes de terminar su turno."
       },
       {
-        "q": "¿Cuántos vehículos están operativos en este momento?",
-        "correct": "3 (Vehículos 1, 2 y 4). El 3 está en taller."
+        "id": "Q3",
+        "q": "¿Cuántos vehículos están operativos y disponibles para asignaciones en este momento?",
+        "correct": "Solo 1 vehículo está disponible inmediatamente: V2 (María). V1 está en ruta activa y no estará libre hasta las 3:50 PM. V3 está en taller hasta las 5:30 PM. V4 no puede recibir asignaciones hasta cargar combustible.",
+        "estado_flota": {
+          "V1": "En servicio activo — disponible 3:50 PM",
+          "V2": "DISPONIBLE INMEDIATAMENTE",
+          "V3": "FUERA DE SERVICIO — taller",
+          "V4": "BLOQUEADO por combustible crítico"
+        }
       },
       {
-        "q": "¿En cuánto tiempo estará disponible el vehículo 3?",
-        "correct": "2 horas"
+        "id": "Q4",
+        "q": "¿A qué hora estará disponible el vehículo V3 de Pedro y qué debes tener en cuenta para asignarlo?",
+        "correct": "V3 estará disponible aproximadamente a las 5:30 PM (2 horas desde las 3:30 PM). Al salir del taller, Pedro debe: (1) Verificar que los frenos están en perfectas condiciones antes de aceptar cualquier carga. (2) Cargar combustible — el V3 está al 25%, insuficiente para una misión larga. (3) El V3 es el vehículo más grande (NPR) — solo para cargas de volumen, no es el adecuado para reactivos pequeños.",
+        "alerta_post_taller": "Un vehículo que sale de taller por falla de frenos DEBE hacer una prueba de frenos en vía segura antes de cargar pasajeros o materiales sensibles. Protocolo obligatorio de TransSalud Colombia."
+      },
+      {
+        "id": "Q5",
+        "q": "¿Qué pasa con Carlos (V1) después de completar su entrega actual a las 3:50 PM? ¿Puede recibir asignaciones?",
+        "correct": "Carlos puede recibir asignaciones hasta las 5:50 PM aproximadamente (límite de 8 horas desde el inicio de su turno). Sin embargo, está en zona norte (Calle 170) y el combustible está al 40% — debe cargar antes de misiones largas. Ideal para entregas en zona norte (Clínica Reina Sofía, Hospital Universitario Norte, etc.) pero NO para misiones al sur que requieran más de 20 km.",
+        "recomendacion": "Asignar a Carlos una entrega corta en zona norte después de las 3:50 PM. Recordarle que a las 5:50 PM debe terminar su turno por límite de horas."
       }
     ],
     "expected_elements": [
-      "compara_disponibilidad",
-      "identifica_necesidades_criticas",
-      "cuenta_operativos",
-      "recuerda_tiempos"
+      "selecciona_V2_para_solicitud_urgente",
+      "calcula_tiempo_V2_dentro_de_45min",
+      "descarta_V1_por_ubicacion_y_tiempo",
+      "descarta_V3_por_taller",
+      "descarta_V4_por_combustible_critico",
+      "identifica_V4_como_necesidad_critica_combustible",
+      "cuenta_correctamente_operativos_disponibles",
+      "planifica_retorno_V3_con_protocolo_post_taller",
+      "gestiona_limite_horas_V1_y_V4"
     ],
-    "cognitive_load": 5
+    "cognitive_load": 6
   },
+
   {
     "task_id": "T4_005",
     "task_type": "multi_variable_tracking",
     "difficulty": "hard",
     "scenario": {
-      "description": "Eres controlador de tráfico aéreo terrestre en un aeropuerto pequeño. Manejas 3 pistas y varios vehículos.",
+      "description": "Eres el controlador de operaciones terrestres del Aeropuerto Internacional El Dorado de Bogotá — el más concurrido de Colombia y uno de los más activos de Latinoamérica. Son las 6:45 AM de un lunes. Tu turno acaba de iniciar y debes gestionar simultáneamente los movimientos de vehículos terrestres en el área de operaciones, las dos pistas operativas y las solicitudes en cola. El aeropuerto El Dorado tiene 2 pistas operativas (26L/08R y 26R/08L) y actualmente la Pista Norte (26R) está en mantenimiento programado.",
       "variables_to_track": {
-        "pista_A": {
-          "estado": "Ocupada - avión aterrizando",
-          "tiempo_ocupacion_restante": "3 minutos",
-          "siguiente": "Despegue vuelo 245"
+        "pista_norte_26R": {
+          "estado": "CERRADA — mantenimiento programado de pavimento",
+          "reapertura_estimada": "10:00 AM (3 horas y 15 minutos desde ahora)",
+          "responsable_mantenimiento": "Contratista OBRASCOL — tienen el área cerrada con conos y señalización"
         },
-        "pista_B": {
-          "estado": "Libre",
-          "mantenimiento_programado": "En 20 minutos"
+        "pista_sur_26L": {
+          "estado": "OPERATIVA — avión Avianca AV-8431 aterrizando en este momento",
+          "tiempo_desocupacion_estimada": "4 minutos (el avión está en aproximación final)",
+          "siguiente_operacion_programada": "Despegue Copa Airlines CM-402 — en posición, listo para despegar",
+          "mantenimiento_programado": "Inspección de luces de borde — en 35 minutos (7:20 AM)"
         },
-        "pista_C": {
-          "estado": "Cerrada por reparación",
-          "reapertura": "Mañana"
-        },
-        "vehiculos_en_tierra": {
-          "bus_pasajeros_1": "En puerta 3, esperando avión",
-          "camion_combustible": "En pista B, terminando carga de avión estacionado",
-          "carro_equipaje": "En tránsito hacia puerta 5"
+        "vehiculos_terrestres_operaciones": {
+          "bus_pasajeros_A": {
+            "estado": "En Puerta 18, esperando avión Avianca AV-8431 que está aterrizando",
+            "tarea": "Trasladar pasajeros desde el avión a la terminal",
+            "puede_entrar_a_pista": "NO hasta que el avión pare motores y el jefe de pista dé la autorización"
+          },
+          "camion_combustible_JET_A1": {
+            "estado": "En plataforma sur, terminando abastecimiento de Latam LA-2204",
+            "tiempo_restante": "6 minutos para completar el abastecimiento",
+            "zona": "Plataforma 7 — alejada de la pista sur"
+          },
+          "carro_equipaje_B": {
+            "estado": "En tránsito desde bodega hasta puerta 22",
+            "ruta": "No interfiere con pistas operativas — circula por vías de servicio perimetrales"
+          },
+          "vehiculo_emergencias_bomberos": {
+            "estado": "En base contra incendios — posición standby",
+            "solicitud": "Necesita cruzar la pista sur 26L para realizar una prueba de equipos en el lado norte del aeropuerto",
+            "urgencia": "Prueba de rutina — no es emergencia activa"
+          }
         },
         "solicitudes_pendientes": {
-          "vuelo_189": "Solicita aterrizar - ETA 5 minutos",
-          "vuelo_302": "Solicita despegar - en puerta 7",
-          "vehiculo_emergencia": "Solicita cruzar pista B"
+          "vuelo_AA_823": {
+            "aerolinea": "American Airlines",
+            "operacion": "Solicita autorización para aterrizaje",
+            "ETA": "8 minutos desde ahora (6:53 AM)",
+            "procedencia": "Miami"
+          },
+          "vuelo_LAN_4501": {
+            "aerolinea": "LATAM Colombia",
+            "operacion": "Solicita autorización para despegue",
+            "estado": "En puerta 12, listo, esperando push-back"
+          },
+          "solicitud_mantenimiento": {
+            "tipo": "Inspección técnica de señalización de pista sur",
+            "solicitante": "Jefe de mantenimiento aeroportuario",
+            "tiempo_requerido": "15 minutos en pista sur",
+            "hora_solicitud": "Ahora — 6:45 AM"
+          }
         }
       }
     },
     "questions": [
       {
-        "q": "¿Qué pista puedes asignar al vuelo 189 que llega en 5 minutos?",
-        "correct": "Pista A - estará libre en 3 minutos (el avión actual termina de aterrizar), justo a tiempo para el vuelo 189"
+        "id": "Q1",
+        "q": "¿Qué pista puedes asignar al vuelo American Airlines AA-823 que llega en 8 minutos?",
+        "correct": "Pista Sur 26L. El avión Avianca AV-8431 que está aterrizando ahora desocupará la pista en 4 minutos. El Copa CM-402 despegará inmediatamente después (2-3 minutos adicionales). La pista estará completamente libre aproximadamente a las 6:52-6:53 AM — justo cuando llega el AA-823. La pista norte 26R está CERRADA por mantenimiento hasta las 10:00 AM, no puede usarse.",
+        "secuencia_operacional": "6:45 AM — Avianca aterriza y desocupa pista (6:49 AM) → Copa despega (6:51-6:52 AM) → AA-823 aterriza (6:53 AM). Secuencia VIABLE con margen de 1 minuto.",
+        "alerta": "La inspección de luces de borde de la pista sur está programada para las 7:20 AM. Todos los aterrizajes y despegues en la pista sur deben completarse antes de las 7:15 AM para que la inspección no se retrase."
       },
       {
-        "q": "¿Puede el vehículo de emergencia cruzar la pista B ahora?",
-        "correct": "Debe esperar - el camión de combustible está en pista B terminando carga. Una vez salga el camión, puede cruzar"
+        "id": "Q2",
+        "q": "¿Puede el vehículo de bomberos cruzar la pista sur ahora para su prueba de equipos?",
+        "correct": "NO puede cruzar en este momento. La pista sur está siendo usada por el aterrizaje del Avianca AV-8431 y el posterior despegue del Copa CM-402. El cruce solo es posible después de que el Copa despegue (aproximadamente 6:52 AM) y antes de que aterrice el AA-823 (6:53 AM) — ventana de solo 1 minuto, demasiado pequeña para un cruce seguro. Autorizar el cruce DESPUÉS del aterrizaje del AA-823, cuando la pista esté libre nuevamente (aproximadamente 6:57 AM).",
+        "protocolo": "Ningún vehículo terrestre puede cruzar una pista activa sin autorización explícita del controlador. La prueba de equipos de bomberos es rutina — puede esperar 10-12 minutos sin problema."
       },
       {
-        "q": "¿Cuántas pistas operativas tienes?",
-        "correct": "2 (A y B). La C está cerrada por reparación."
+        "id": "Q3",
+        "q": "¿Cuántas pistas operativas tienes disponibles en este momento para asignar vuelos?",
+        "correct": "Solo 1 pista operativa: Pista Sur 26L. La Pista Norte 26R está cerrada por mantenimiento de pavimento hasta las 10:00 AM. Esto reduce la capacidad del Aeropuerto El Dorado a la mitad para las próximas 3 horas y 15 minutos.",
+        "impacto_operacional": "El El Dorado opera normalmente con 2 pistas simultáneas procesando hasta 52 operaciones por hora. Con una sola pista, la capacidad se reduce a 26-28 operaciones por hora. Es previsible que se generen demoras en la mañana — los vuelos de 7:00-9:00 AM son los de mayor frecuencia del día.",
+        "recomendacion": "Notificar a todas las aerolíneas con vuelos programados antes de las 10:00 AM que puede haber demoras de 15-25 minutos por operación de pista única. Coordinar con la Torre de Control para priorizar vuelos internacionales con conexiones ajustadas."
       },
       {
-        "q": "¿Hay algún conflicto potencial en los próximos 20 minutos?",
-        "correct": "Sí - Pista B tiene mantenimiento programado en 20 minutos. Debe completarse cualquier operación antes o reprogramar."
+        "id": "Q4",
+        "q": "¿Puedes autorizar la inspección de señalización de la pista sur solicitada por mantenimiento a las 6:45 AM?",
+        "correct": "NO en este momento. La pista sur está activa con 3 operaciones en cola (aterrizaje Avianca, despegue Copa, aterrizaje AA-823). La inspección de 15 minutos solo puede iniciarse después de que todas esas operaciones terminen. Tiempo disponible más próximo: 6:57 AM (después del aterrizaje del AA-823) — pero hay que verificar si hay más vuelos en cola antes de las 7:20 AM (inspección de luces programada).",
+        "ventana_inspeccion": "Si no hay más vuelos en cola entre 6:57 AM y 7:20 AM, hay una ventana de 23 minutos para la inspección de señalización (necesita 15 minutos). VIABLE si se confirma que no hay vuelos en ese intervalo.",
+        "respuesta_al_jefe_mantenimiento": "'Autorización negada por ahora — pista activa con 3 operaciones en cola. Le informo disponibilidad a las 6:57 AM si las operaciones se completan sin novedad. Confirme si sus técnicos pueden estar listos a esa hora.'"
+      },
+      {
+        "id": "Q5",
+        "q": "¿Hay algún conflicto potencial en los próximos 35 minutos que debas gestionar proactivamente?",
+        "correct": "SÍ — dos conflictos potenciales: (1) La inspección de luces de borde de la pista sur está programada para las 7:20 AM. Si hay vuelos adicionales en cola entre 6:57 AM y 7:20 AM, la inspección puede retrasarse o los vuelos deben esperar. (2) El vuelo LATAM LA-4501 está esperando despegue en puerta 12 — si la pista sur está ocupada con los aterrizajes en cola, su push-back y despegue pueden retrasarse. Debe coordinarse la secuencia: aterrizaje AA-823 → ventana de cruce bomberos → despegue LATAM → inspección luces → operaciones normales.",
+        "secuencia_optima_propuesta": [
+          "6:49 AM — Avianca AV-8431 desocupa pista sur",
+          "6:51 AM — Copa CM-402 despega",
+          "6:53 AM — AA-823 aterriza",
+          "6:57 AM — Pista sur libre. Autorizar cruce de bomberos (2 min) y luego iniciar inspección señalización (15 min) = termina 7:14 AM",
+          "7:15 AM — Autorizar push-back LATAM LA-4501",
+          "7:20 AM — Inicio inspección luces de borde (si LATAM ya despegó)",
+          "7:35 AM — Inspección luces termina. Pista sur operativa al 100%"
+        ]
       }
     ],
     "expected_elements": [
-      "asigna_recursos_por_tiempo",
-      "identifica_conflictos",
-      "cuenta_recursos_disponibles",
-      "anticipa_problemas"
+      "asigna_pista_sur_a_AA823_con_calculo_tiempo",
+      "identifica_pista_norte_cerrada_como_no_disponible",
+      "niega_cruce_bomberos_por_operaciones_activas",
+      "autoriza_cruce_bomberos_para_6_57am",
+      "cuenta_una_sola_pista_operativa",
+      "niega_inspeccion_señalizacion_por_pista_activa",
+      "identifica_conflicto_inspeccion_luces_7_20am",
+      "propone_secuencia_operacional_completa",
+      "menciona_impacto_pista_unica_en_capacidad_El_Dorado"
     ],
     "cognitive_load": 6
   },
+
   {
     "task_id": "T4_006",
     "task_type": "multi_variable_tracking",
     "difficulty": "easy",
     "scenario": {
-      "description": "Estás manejando hacia una reunión importante mientras monitorizas el GPS y el tiempo.",
+      "description": "Es martes a las 9:38 AM. Eres gerente de ventas de una empresa en Bogotá y vas manejando tu vehículo particular desde la sede de la empresa en el Barrio Chicó (Carrera 11 con Calle 93) hacia una reunión crucial en las oficinas de un cliente en la Torre Coltejer Bogotá (Calle 24 con Carrera 7, Centro Internacional). Si llegas tarde, el cliente puede cancelar el contrato. Vas solo en el carro. La luz de gasolina se encendió hace 8 km.",
       "variables_to_track": {
         "navegacion": {
-          "destino": "Torre Empresarial",
-          "distancia_restante": "8 km",
-          "tiempo_estimado_gps": "18 minutos",
-          "ruta": "Avenida Principal → Calle 72 → Destino"
+          "origen": "Carrera 11 con Calle 93, Barrio Chicó, Bogotá",
+          "destino": "Torre Coltejer — Calle 24 No. 7-27, Centro Internacional",
+          "distancia_restante": "9.2 km",
+          "ruta_sugerida_waze": "Carrera 11 → Carrera 7 hacia el sur → Calle 24",
+          "tiempo_estimado_waze": "22 minutos en tráfico actual",
+          "trafico_actual": "Moderado — martes 9:38 AM (entre picos)"
         },
         "tiempo": {
-          "hora_actual": "9:42 AM",
+          "hora_actual": "9:38 AM",
           "hora_reunion": "10:00 AM",
-          "tiempo_disponible": "18 minutos"
+          "tiempo_disponible": "22 minutos",
+          "tiempo_estimado_gps": "22 minutos",
+          "margen": "0 minutos — llegada exacta si no hay imprevistos"
         },
         "vehiculo": {
-          "combustible": "25%",
-          "alerta": "Luz de combustible encendida hace 10 km"
+          "combustible_indicador": "20% — luz de reserva encendida hace 8 km",
+          "autonomia_estimada_restante": "Aproximadamente 55-65 km con 20% de combustible (Renault Logan, tanque 50L)",
+          "distancia_hasta_destino": "9.2 km",
+          "distancia_hasta_siguiente_gasolinera_en_ruta": "Estación Terpel Carrera 7 con Calle 68 — 4 km adelante en la misma ruta",
+          "tiempo_cargar_gasolina": "8-10 minutos (entrar, cargar, pagar, salir)"
+        },
+        "pico_placa": {
+          "dia": "Martes impar",
+          "placa_conductor": "Termina en 5 — TIENE restricción hoy (día impar, placas 1-5)",
+          "hora_restriccion": "6:00 AM a 9:00 PM",
+          "hora_actual": "9:38 AM — RESTRICCIÓN ACTIVA",
+          "alerta": "CRÍTICO — el conductor tiene Pico y Placa activo. Está circulando con restricción. Riesgo de multa $488.700 COP + fotomulta en Carrera 7."
         }
       }
     },
     "questions": [
       {
-        "q": "¿Llegarás a tiempo a la reunión?",
-        "correct": "Justo a tiempo - 18 minutos estimados y 18 disponibles. Sin margen de error."
+        "id": "Q1",
+        "q": "¿Llegarás a tiempo a la reunión de las 10:00 AM?",
+        "correct": "Según el GPS llegaría exactamente a las 10:00 AM — sin margen alguno. Cualquier semáforo adicional, bus del SITP que se detenga o peatón cruzando puede hacerlo llegar 1-3 minutos tarde. La llegada exacta en Bogotá es prácticamente imposible — hay que asumir un retraso de 2-5 minutos sobre el estimado del GPS.",
+        "recomendacion": "Llamar al cliente AHORA desde el Bluetooth del carro para avisar que llegará sobre las 10:00 AM y pedir 5 minutos de gracia. La comunicación proactiva preserva la relación comercial."
       },
       {
-        "q": "¿Tienes algún problema potencial que atender?",
-        "correct": "Sí, combustible bajo (25%, luz encendida). Después de la reunión DEBE cargar gasolina."
+        "id": "Q2",
+        "q": "¿Tiene algún problema grave que atender además del tiempo?",
+        "correct": "SÍ — y es más grave que el combustible: tiene RESTRICCIÓN DE PICO Y PLACA ACTIVA. Placa terminada en 5, día martes impar, son las 9:38 AM. Está circulando ilegalmente con riesgo de multa de $488.700 COP y fotomulta automática en la Carrera 7 (que tiene cámaras activas). El combustible al 20% NO es problema inmediato — tiene autonomía para más de 55 km y el destino está a 9.2 km.",
+        "gravedad_relativa": {
+          "pico_placa": "PROBLEMA GRAVE — multa activa en este momento",
+          "combustible": "PROBLEMA MENOR — puede cargarlo después de la reunión",
+          "tiempo": "PROBLEMA MEDIO — llegada justa sin margen"
+        }
       },
       {
-        "q": "¿Deberías parar a cargar gasolina ahora?",
-        "correct": "No - no hay tiempo. Llegar a la reunión es prioridad. El combustible alcanza para llegar."
+        "id": "Q3",
+        "q": "¿Debería parar a cargar gasolina en la Terpel de la Calle 68 que está en la ruta?",
+        "correct": "NO. Parar a cargar gasolina añadiría 8-10 minutos y haría llegar a las 10:08-10:10 AM — tarde para la reunión. El combustible al 20% tiene autonomía de sobra para llegar al destino (9.2 km) y regresar a cargar después. La reunión es la prioridad. Cargar gasolina al salir de la reunión.",
+        "calculo": "Combustible restante: ~55-65 km de autonomía. Distancia al destino: 9.2 km. No hay riesgo de quedar varado. Cargar después de la reunión en cualquier estación del centro."
+      },
+      {
+        "id": "Q4",
+        "q": "¿Qué debe hacer inmediatamente dado el problema del Pico y Placa?",
+        "correct": "Opciones: (1) Si hay un parqueadero privado a menos de 2 minutos de la ruta actual, estacionar, pedir un taxi o InDriver para los 9 km restantes (llega ~10:05-10:10 AM — tarde). (2) Continuar asumiendo el riesgo de la multa si la reunión vale $488.700 COP en términos comerciales. (3) Si tiene Pico y Placa Solidario ya pagado, está exento — verificar en la app 'Bogotá Te Escucha'. La decisión depende del valor del contrato vs el costo de la multa.",
+        "analisis_costo_beneficio": "Multa Pico y Placa: $488.700 COP. Si el contrato vale más que eso, puede tener sentido asumir la multa. Si hay fotomulta ya tomada (cámaras en Carrera 7), la multa es inevitable de todas formas — lo mejor es llegar a la reunión y luego resolver la situación.",
+        "nota_importante": "La conducta correcta es NO circular con Pico y Placa. Sin embargo, la IA debe reconocer que en la realidad colombiana los conductores enfrentan esta disyuntiva y presentar las consecuencias reales de cada opción sin omitir la situación ilegal."
       }
     ],
     "expected_elements": [
-      "compara_tiempos",
-      "identifica_problema_secundario",
-      "prioriza_correctamente"
+      "identifica_llegada_exacta_sin_margen_real",
+      "detecta_pico_y_placa_como_problema_principal",
+      "descarta_cargar_gasolina_por_tiempo_y_autonomia_suficiente",
+      "calcula_autonomia_vs_distancia_correctamente",
+      "presenta_opciones_pico_placa_con_consecuencias",
+      "recomienda_comunicacion_proactiva_al_cliente",
+      "menciona_fotomultas_carrera_7"
     ],
     "cognitive_load": 3
   },
+
   {
     "task_id": "T4_007",
     "task_type": "multi_variable_tracking",
     "difficulty": "medium",
     "scenario": {
-      "description": "Eres conductor de Uber/taxi por aplicación. Tienes información de 3 viajes en cola.",
+      "description": "Eres conductor de InDriver en Bogotá. Son las 6:45 PM de un jueves — hora pico máxima de la semana. Llevas 8 horas en turno y vas en tu Chevrolet Spark GT por la Carrera 7 en Chapinero. Tu meta diaria es $220.000 COP netos (después de la comisión del 20% de InDriver). Tienes información de un viaje actual en curso y dos solicitudes en cola que debes evaluar.",
       "variables_to_track": {
         "viaje_actual": {
-          "pasajero": "Cliente A",
-          "destino": "Centro Comercial",
-          "tiempo_restante": "5 minutos",
-          "tarifa_estimada": "$12,000"
+          "pasajero": "Cliente A — Valentina Moreno",
+          "origen_completado": "Calle 93 con Carrera 11",
+          "destino": "Centro Comercial Andino (Calle 82 con Carrera 12)",
+          "tiempo_restante": "4 minutos",
+          "tarifa_acordada": "$14.500 COP",
+          "comision_indriver": "20% = $2.900",
+          "neto_conductor": "$11.600 COP"
         },
         "cola_viajes": [
           {
-            "pasajero": "Cliente B",
-            "origen": "A 3 minutos del Centro Comercial",
-            "destino": "Aeropuerto",
-            "tarifa_estimada": "$45,000",
-            "tiempo_limite_aceptacion": "2 minutos restantes"
+            "id": "Solicitud_B",
+            "pasajero": "Cliente B — Andrés Castillo",
+            "origen": "Centro Comercial Andino (Carrera 11 con Calle 82) — a 2 minutos del destino actual",
+            "destino": "Aeropuerto El Dorado — Terminal 1 (vuelos nacionales)",
+            "tarifa_estimada": "$38.000 COP",
+            "neto_conductor": "$30.400 COP",
+            "tiempo_limite_aceptacion": "3 minutos para aceptar o se cancela automáticamente",
+            "distancia_recorrido": "Aproximadamente 14 km",
+            "tiempo_estimado_viaje": "45-55 minutos en hora pico de jueves",
+            "nota": "Viaje al aeropuerto en hora pico — puede tardar más. InDriver no penaliza por el tiempo extra."
           },
           {
-            "pasajero": "Cliente C",
-            "origen": "A 10 minutos del Centro Comercial",
-            "destino": "Universidad",
-            "tarifa_estimada": "$15,000",
-            "sin_limite_tiempo": true
+            "id": "Solicitud_C",
+            "pasajero": "Cliente C — María Rodríguez",
+            "origen": "Calle 90 con Carrera 15, Zona Rosa — a 8 minutos del Centro Comercial Andino",
+            "destino": "Universidad de los Andes (Calle 19 con Carrera 1)",
+            "tarifa_estimada": "$18.000 COP",
+            "neto_conductor": "$14.400 COP",
+            "tiempo_limite_aceptacion": "Sin límite — la solicitud está abierta",
+            "distancia_recorrido": "Aproximadamente 8.5 km",
+            "tiempo_estimado_viaje": "30-35 minutos en tráfico actual"
           }
         ],
         "estado_conductor": {
-          "horas_trabajadas": "6 horas",
-          "meta_diaria": "$200,000",
-          "recaudado_hoy": "$140,000",
-          "combustible": "50%"
+          "horas_trabajadas": 8,
+          "meta_diaria_neta": "$220.000 COP",
+          "recaudado_bruto_hoy": "$243.000 COP",
+          "comisiones_indriver_pagadas": "$48.600 COP",
+          "neto_acumulado": "$194.400 COP",
+          "faltante_meta": "$25.600 COP",
+          "combustible": "45%",
+          "estado_fisico": "Cansancio moderado — 8 horas al volante"
         }
       }
     },
     "questions": [
       {
-        "q": "¿Deberías aceptar el viaje del Cliente B?",
-        "correct": "SÍ - Es un viaje de $45,000 al aeropuerto, alta tarifa. Está cerca (3 min del destino actual). Pero DEBES decidir en menos de 2 minutos."
+        "id": "Q1",
+        "q": "¿Cuánto te falta para alcanzar tu meta diaria neta de $220.000 COP?",
+        "correct": "$25.600 COP netos adicionales ($220.000 - $194.400 = $25.600)",
+        "calculo": "Bruto acumulado: $243.000. Comisiones InDriver 20%: $48.600. Neto acumulado: $194.400. Faltante: $220.000 - $194.400 = $25.600 COP netos.",
+        "nota": "El viaje actual (Valentina) aportará $11.600 netos. Después del viaje actual, el faltante será: $25.600 - $11.600 = $14.000 COP netos adicionales."
       },
       {
-        "q": "¿Cuánto te falta para tu meta diaria?",
-        "correct": "$60,000 ($200,000 - $140,000)"
+        "id": "Q2",
+        "q": "¿Deberías aceptar la solicitud del Cliente B (aeropuerto, $30.400 neto)?",
+        "correct": "SÍ, deberías aceptar — y debes decidir en los próximos 3 minutos o se cancela. El viaje al aeropuerto aporta $30.400 netos, lo que supera con creces el faltante de $14.000 (después del viaje actual). Sin embargo, considera: el viaje tardará 45-55 minutos en hora pico de jueves, llevas 8 horas trabajando y estarás en zona del aeropuerto donde regresar al norte puede ser difícil.",
+        "analisis": {
+          "a_favor": "$30.400 netos supera el faltante de $14.000 — cumples la meta con un solo viaje más.",
+          "en_contra": "45-55 min más en hora pico, 8 horas ya trabajadas, lejos del centro al terminar.",
+          "decision": "ACEPTAR — el valor del viaje justifica el esfuerzo. Después del aeropuerto, terminar el turno."
+        }
       },
       {
-        "q": "Si aceptas B y luego C, ¿cumplirías tu meta?",
-        "correct": "Sí - $140,000 + $12,000 (actual) + $45,000 (B) + $15,000 (C) = $212,000"
+        "id": "Q3",
+        "q": "Si aceptas B y luego C, ¿cuánto habrías recaudado en neto al final del día?",
+        "correct": "$220.400 COP netos. ($194.400 acumulado + $11.600 viaje Valentina + $30.400 viaje aeropuerto + $14.400 viaje Universidad = $250.800 netos totales — supera la meta por $30.800).",
+        "calculo_completo": {
+          "neto_acumulado": "$194.400",
+          "viaje_A_valentina": "+$11.600",
+          "viaje_B_aeropuerto": "+$30.400",
+          "viaje_C_universidad": "+$14.400",
+          "total_neto": "$250.800 COP",
+          "meta": "$220.000 COP",
+          "superavit": "$30.800 COP sobre la meta"
+        },
+        "consideracion": "Con 10+ horas de trabajo y cansancio acumulado, puede ser más inteligente terminar después del viaje B (aeropuerto) y no aceptar C. La seguridad en la conducción disminuye con el cansancio."
       },
       {
-        "q": "¿Cuál es la decisión más urgente ahora mismo?",
-        "correct": "Decidir sobre Cliente B - tiene límite de 2 minutos para aceptar"
+        "id": "Q4",
+        "q": "¿Cuál es la decisión más urgente ahora mismo y en cuánto tiempo debes tomarla?",
+        "correct": "La decisión más urgente es ACEPTAR O RECHAZAR la solicitud del Cliente B (aeropuerto). Tiene un límite de 3 minutos para aceptar — si no decide antes de que termines de dejar a Valentina en el Andino (4 minutos), la solicitud se habrá cancelado automáticamente. Debe decidir AHORA, mientras aún está en el viaje actual.",
+        "protocolo": "InDriver permite aceptar viajes futuros mientras se está en un viaje activo. El conductor debe aceptar la solicitud B en los próximos 2 minutos para asegurarla, independientemente de si el viaje actual está terminando."
+      },
+      {
+        "id": "Q5",
+        "q": "Con 8 horas de turno y cansancio moderado, ¿es razonable aceptar tanto B como C?",
+        "correct": "Es cuestionable. Aceptar B (45-55 min) llevaría al conductor a las 8-9 horas de turno. Añadir C (30-35 min más) serían más de 10 horas totales con cansancio físico. La normativa del Código de Tránsito (Art. 106) establece que conducir en estado de fatiga es una infracción. La decisión más responsable: aceptar B, completarlo y terminar el turno. La meta se cumple con ese viaje.",
+        "normativa": "Artículo 106 del Código Nacional de Tránsito colombiano: el conductor no puede manejar si sus condiciones físicas o mentales no son las adecuadas. La fatiga es una causa reconocida de accidentes en conductores de plataforma en Colombia."
       }
     ],
     "expected_elements": [
-      "evalua_oportunidad_tiempo_limitado",
-      "calcula_meta",
-      "proyecta_ingresos",
-      "identifica_urgencia"
+      "calcula_faltante_meta_neta_correctamente",
+      "identifica_urgencia_decision_cliente_B",
+      "recomienda_aceptar_B_por_valor_y_tiempo",
+      "calcula_proyeccion_ingresos_B_mas_C",
+      "considera_fatiga_como_variable_real",
+      "menciona_normativa_fatiga_conductor",
+      "descarta_C_por_razon_de_seguridad_y_cansancio"
     ],
     "cognitive_load": 4
   },
+
   {
     "task_id": "T4_008",
     "task_type": "multi_variable_tracking",
     "difficulty": "hard",
     "scenario": {
-      "description": "Eres el supervisor de turno de una empresa de logística. Monitoreas 5 camiones en tiempo real.",
+      "description": "Eres el supervisor de turno de TransCarga del Valle S.A.S., empresa de logística con base en Cali. Son las 3:45 PM de un miércoles. Tienes en monitoreo 5 camiones que operan en la región Valle del Cauca, Eje Cafetero y Caribe colombiano. Tu pantalla muestra el estado en tiempo real de cada vehículo con sus alertas y condiciones.",
       "hora_actual": "3:45 PM",
       "variables_to_track": {
         "camion_1": {
-          "conductor": "Roberto",
-          "carga": "Electrodomésticos",
-          "ubicacion": "Autopista Norte km 45",
-          "destino": "Bodega Central",
-          "ETA": "4:30 PM",
-          "estado": "Normal",
-          "horas_conduccion": "7 horas",
-          "limite_legal": "8 horas"
+          "id": "C1",
+          "conductor": "Roberto Salinas",
+          "tipo": "Tractocamión Kenworth T680",
+          "carga": "Electrodomésticos Challenger — 18 toneladas",
+          "origen": "Zona Industrial Yumbo, Valle del Cauca",
+          "destino": "Centro de Distribución Bogotá (Calle 13 con Carrera 106, Fontibón)",
+          "ubicacion_actual": "Autopista Cali-Bogotá km 145 (sector La Paila, Valle del Cauca)",
+          "ETA_bogota": "4:30 AM del jueves (12.5 horas de viaje restantes)",
+          "estado": "Normal — tráfico fluido en la recta del Valle",
+          "horas_conduccion_hoy": 7,
+          "limite_legal": "8 horas continuas / 10 horas con pausa",
+          "alerta": "Roberto lleva 7 horas de conducción. En 1 hora alcanza el límite de 8 horas continuas. Necesita pausa obligatoria en el peaje de La Victoria o en la estación de servicio El Alambrado.",
+          "temperatura_carga": "No aplica — electrodomésticos"
         },
         "camion_2": {
-          "conductor": "Elena",
-          "carga": "Alimentos refrigerados",
-          "ubicacion": "Ciudad intermedia - descargando",
-          "destino_final": "Supermercado Costa",
-          "ETA_final": "6:00 PM",
-          "estado": "Retraso 30 min por fila en descarga",
-          "temperatura_carga": "2°C (OK)"
+          "id": "C2",
+          "conductor": "Elena Vargas",
+          "tipo": "Camión NHR refrigerado Isuzu",
+          "carga": "Productos lácteos Colanta — yogur y quesos frescos",
+          "origen": "Planta Colanta Medellín",
+          "destino": "Supermercado Éxito Cali (Calle 5 con Carrera 50, Cali)",
+          "ubicacion_actual": "Descargando en patio del Éxito Cali",
+          "estado": "Descargando — retraso de 40 minutos por fila de camiones en el patio",
+          "destino_siguiente": "Planta de Colanta Buga — recoger segundo lote",
+          "ETA_siguiente": "6:30 PM (estimado con el retraso)",
+          "temperatura_carga": "4°C — dentro de rango normal (2°C a 6°C)",
+          "alerta": "El retraso en descarga puede afectar el horario de recogida en Buga. Si llega tarde, la planta puede ya haber cerrado la zona de carga (cierra a las 7:00 PM)."
         },
         "camion_3": {
-          "conductor": "Miguel",
-          "carga": "Materiales construcción",
-          "ubicacion": "Carretera Sur km 80",
-          "destino": "Obra Edificio Torres",
-          "ETA": "5:15 PM",
-          "estado": "ALERTA - Llanta baja, buscando taller",
-          "horas_conduccion": "4 horas"
+          "id": "C3",
+          "conductor": "Miguel Ríos",
+          "tipo": "Camión Freightliner cascada",
+          "carga": "Materiales de construcción — varilla y cemento, 24 toneladas",
+          "origen": "Cementos Argos — planta Yumbo",
+          "destino": "Obra de construcción Torres del Limonar, Cali",
+          "ubicacion_actual": "Carretera Cali-Palmira km 8",
+          "estado": "ALERTA — llanta trasera derecha baja. Miguel reporta pérdida de presión progresiva. Buscando taller en Palmira.",
+          "horas_conduccion_hoy": 4,
+          "ETA_original": "5:15 PM",
+          "impacto": "Con la llanta baja, no puede continuar a velocidad normal. La obra espera los materiales hoy antes de las 6:00 PM o el proyecto se retrasa.",
+          "taller_cercano": "Llantera El Progreso, Palmira — Calle 28 No. 27-45, a 3 km de la posición actual. Tel: 320-xxx-xxxx"
         },
         "camion_4": {
-          "conductor": "Sandra",
-          "carga": "Vacío - retornando",
-          "ubicacion": "Puerto marítimo",
-          "destino": "Base central",
-          "ETA": "7:00 PM",
-          "estado": "Esperando documentos de aduana"
+          "id": "C4",
+          "conductor": "Sandra Mosquera",
+          "tipo": "Camión Volkswagen Delivery — pequeño",
+          "carga": "VACÍO — retornando a base después de entrega en Buenaventura",
+          "ubicacion_actual": "Puerto de Buenaventura — pendiente firma documentos de aduana para salir",
+          "destino": "Base TransCarga del Valle, Yumbo",
+          "estado": "Esperando documentos — retención de aduana por verificación de manifiesto de carga vacío",
+          "ETA_base": "8:00 PM (si los documentos se resuelven en 1 hora)",
+          "combustible": "60%",
+          "alerta": "Buenaventura tiene historial de demoras en trámites de salida del puerto. La retención puede extenderse 2-3 horas adicionales si hay inspección física."
         },
         "camion_5": {
-          "conductor": "Jorge",
-          "carga": "Medicamentos (cadena de frío)",
-          "ubicacion": "Hospital Regional - entregando",
-          "estado": "Completando entrega",
-          "siguiente_destino": "Clínica Norte",
-          "ETA_siguiente": "4:45 PM",
-          "temperatura_carga": "5°C (LÍMITE - monitorear)"
+          "id": "C5",
+          "conductor": "Jorge Patiño",
+          "tipo": "Camión NPR Chevrolet — cadena de frío",
+          "carga": "Medicamentos oncológicos Genfar — cadena de frío estricta",
+          "origen": "Bodega Genfar Cali",
+          "destino_1": "Hospital Universitario del Valle (Calle 5 No. 36-08, Cali) — entregando ahora",
+          "destino_2": "Clínica Imbanaco (Carrera 38A No. 5B-35, Cali) — pendiente",
+          "estado": "Entregando en Hospital Universitario del Valle — proceso en curso",
+          "ETA_destino_2": "5:00 PM",
+          "temperatura_carga": "6°C — EN EL LÍMITE SUPERIOR (rango correcto es 2°C a 6°C)",
+          "alerta": "TEMPERATURA EN LÍMITE — si sube 1°C más (a 7°C), la cadena de frío se rompe y los medicamentos oncológicos ($32 millones COP) no pueden ser entregados. Verificar sistema de refrigeración inmediatamente.",
+          "horas_conduccion_hoy": 5
         }
       }
     },
     "questions": [
       {
-        "q": "¿Qué camión requiere atención inmediata?",
-        "correct": "Camión 3 (Miguel) - tiene llanta baja y está buscando taller. Necesita apoyo para ubicar taller cercano."
+        "id": "Q1",
+        "q": "¿Qué camión requiere atención INMEDIATA del supervisor en este momento?",
+        "correct": "C5 — Jorge Patiño. La temperatura de los medicamentos oncológicos está en 6°C, que es exactamente el límite superior del rango permitido. Un incremento de 1°C más romperá la cadena de frío de una carga valorada en $32 millones COP. Esta es la alerta más crítica en tiempo real. Acción inmediata: llamar a Jorge para que revise el sistema de refrigeración del camión y verifique si hay falla en el compresor.",
+        "segundo_urgente": "C3 — Miguel Ríos también requiere atención urgente. La llanta baja en carretera puede convertirse en reventón con 24 toneladas de carga. Enviar coordenadas de la Llantera El Progreso en Palmira y confirmar que puede llegar sin reventón.",
+        "prioridad": "C5 primero (riesgo de $32M en medicamentos + ruptura de cadena de frío). C3 segundo (riesgo de accidente vial)."
       },
       {
-        "q": "¿Hay algún problema de cadena de frío que monitorear?",
-        "correct": "Sí - Camión 5 (Jorge) tiene temperatura a 5°C que es el límite para medicamentos. Debe monitorearse de cerca."
+        "id": "Q2",
+        "q": "¿Qué camiones tienen carga sensible a temperatura que debes monitorear?",
+        "correct": "Dos camiones: C2 (Elena Vargas — productos lácteos Colanta a 4°C, rango OK 2-6°C) y C5 (Jorge Patiño — medicamentos oncológicos a 6°C, en el LÍMITE SUPERIOR del rango 2-6°C). C5 es la alerta activa. C2 está dentro del rango pero debe verificarse después del retraso en descarga.",
+        "diferencia_critica": "C2 está estable a 4°C con margen. C5 está al límite a 6°C sin margen. Son situaciones completamente diferentes en urgencia."
       },
-      {
-        "q": "¿Qué conductor está cerca del límite legal de horas?",
-        "correct": "Camión 1 (Roberto) - lleva 7 horas de 8 permitidas. Llegará a las 4:30 PM justo antes del límite."
-      },
-      {
-        "q": "¿Cuántos camiones tienen carga sensible a temperatura?",
-        "correct": "2 - Camión 2 (alimentos refrigerados) y Camión 5 (medicamentos)"
-      },
-      {
-        "q": "¿Cuántos camiones están en situación normal sin alertas?",
-        "correct": "2 - Camión 1 (normal, aunque cerca de límite de horas) y Camión 4 (esperando documentos, que es esperable)"
-      }
-    ],
-    "expected_elements": [
-      "identifica_emergencias",
-      "monitorea_condiciones_criticas",
-      "verifica_cumplimiento_legal",
-      "cuenta_por_categoria",
-      "distingue_normal_vs_alerta"
-    ],
-    "cognitive_load": 6
-  },
+              {
+          "id": "Q3",
+          "q": "¿Qué conductor está cerca del límite legal de horas de conducción?",
+          "correct": "Roberto Salinas (C1) — lleva 7 horas de conducción hoy. El límite legal colombiano es 8 horas continuas.",
+          "normativa": "Decreto 1079 de 2015, Art. 2.2.1.1.6.7: Los conductores de vehículos de carga no pueden conducir más de 8 horas continuas sin un descanso mínimo de 30 minutos. Conducir en exceso es infracción grave — multa de hasta 30 SMLDV ($1.392.000 COP en 2024) y, en caso de accidente, implica responsabilidad penal agravada por homicidio o lesiones culposas. El supervisor que autoriza continuar conociendo el exceso comparte la responsabilidad.",
+          "accion_requerida": "Llamar a Roberto AHORA: 'Roberto, llevas 7 horas. En máximo 1 hora debes hacer pausa obligatoria de 30 minutos. Detente en la Estación de Servicio El Alambrado (km 180) o en el área de descanso de La Victoria. Tu ETA a Bogotá se ajusta a las 5:30 AM del jueves. Registra la hora exacta de pausa en el sistema.'"
+        },
+        {
+          "id": "Q4",
+          "q": "¿Cuántos camiones tienen algún tipo de alerta o situación anormal en este momento?",
+          "correct": "4 de los 5 camiones tienen alertas activas: C1 (límite de horas en 1 hora), C2 (retraso 40 min con riesgo de no llegar a Buga antes del cierre), C3 (llanta baja — riesgo vial activo), C4 (retención en aduana Buenaventura — demora indefinida), C5 (temperatura en límite crítico). Solo C1 podría considerarse 'normal' en términos de ruta pero ya tiene la alerta de horas inminente.",
+          "clasificacion_alertas": {
+            "alerta_critica_inmediata": ["C5 — temperatura límite medicamentos", "C3 — llanta baja en carretera"],
+            "alerta_operacional_urgente": ["C1 — límite horas conducción en 60 min"],
+            "alerta_logistica_manejable": ["C2 — retraso descarga con riesgo en Buga", "C4 — retención aduana Buenaventura"]
+          }
+        },
+        {
+          "id": "Q5",
+          "q": "¿Puede C2 (Elena) llegar a tiempo a la planta de Colanta en Buga antes del cierre a las 7:00 PM?",
+          "correct": "Es posible pero con margen mínimo. Con el retraso de 40 minutos en la descarga del Éxito Cali, Elena estima salir a las 5:00 PM aproximadamente. La distancia Cali–Buga es 74 km. En tráfico normal de miércoles tarde: 60-70 minutos. Llegada estimada a Buga: 6:05-6:10 PM. Margen antes del cierre a las 7:00 PM: 50-55 minutos — SUFICIENTE.",
+          "calculo": "Salida Éxito Cali: ~5:00 PM. Distancia a Buga: 74 km. Tiempo estimado: 65 min. Llegada Buga: ~6:05 PM. Cierre planta Colanta Buga: 7:00 PM. Margen: 55 minutos. VIABLE.",
+          "alerta_adicional": "Si la descarga en el Éxito se extiende más de lo estimado (más de 5:00 PM de salida), cada minuto adicional reduce el margen. Llamar a Elena a las 4:30 PM para confirmar progreso de descarga y ajustar el estimado.",
+          "accion_preventiva": "Llamar a la planta Colanta Buga para informar que el camión llega aproximadamente a las 6:00-6:10 PM y solicitar que no cierren la zona de carga antes de las 7:00 PM. La comunicación proactiva evita que cierren anticipadamente."
+        }
+      ],
+      "expected_elements": [
+        "identifica_C5_como_alerta_critica_temperatura",
+        "identifica_C3_como_segunda_alerta_critica_llanta",
+        "detecta_dos_cargas_con_temperatura_C2_y_C5",
+        "diferencia_C2_estable_vs_C5_en_limite",
+        "identifica_C1_cerca_limite_horas_conduccion",
+        "menciona_normativa_horas_conduccion_decreto_1079",
+        "cuenta_cuatro_alertas_de_cinco_camiones",
+        "calcula_viabilidad_C2_llegada_buga",
+        "propone_comunicacion_proactiva_planta_buga"
+      ],
+      "cognitive_load": 6
+    },
+
   {
     "task_id": "T4_009",
     "task_type": "multi_variable_tracking",
     "difficulty": "easy",
     "scenario": {
-      "description": "Estás planeando un viaje familiar en carro. Debes considerar múltiples factores.",
+      "description": "Es sábado a las 7:00 AM. Saldrás desde Bogotá en tu vehículo familiar — un Chevrolet Captiva 2020, 7 puestos — con destino a Girardot, Tolima, para pasar el fin de semana en una finca familiar. El viaje es por la vía Bogotá–Girardot a través del Alto del Sumapaz (ruta habitual de fin de semana de los bogotanos). La distancia es de 132 km. Te acompañan: tu esposa Claudia, tus hijos Mateo (10 años) y Sofía (5 años), y tu suegra doña Rosario de 69 años con artrosis en caderas. La finca es del cuñado y los esperan para el almuerzo al mediodía.",
       "variables_to_track": {
         "vehiculo": {
-          "autonomia_tanque_lleno": "500 km",
-          "estado_tanque": "Lleno"
+          "modelo": "Chevrolet Captiva 2020, 7 puestos, motor 1.5 turbo",
+          "tanque": "Lleno — 60 litros (tanque completo del Captiva)",
+          "consumo_promedio_carretera": "10 litros por 100 km en subida de cordillera",
+          "consumo_promedio_ciudad": "12 litros por 100 km",
+          "autonomia_tanque_lleno": "Aproximadamente 500-520 km en carretera",
+          "estado_llantas": "Revisadas — OK",
+          "kit_emergencia": "Gato, llanta de repuesto, triángulos de señalización"
         },
         "viaje": {
-          "distancia_total": "320 km",
-          "tiempo_estimado": "4 horas",
-          "hora_salida_planeada": "6:00 AM"
+          "origen": "Barrio Modelia, Bogotá (Calle 22 con Carrera 82)",
+          "destino": "Finca familiar vía Girardot — km 8 vía Girardot-Melgar",
+          "distancia_total_km": 145,
+          "tiempo_estimado_sin_transcon": "2.5 horas (150 minutos)",
+          "tiempo_estimado_con_transcon_fin_semana": "3.5 a 4.5 horas (sábado Semana Santa o puente)",
+          "hora_salida_planeada": "7:00 AM",
+          "hora_compromiso_almuerzo": "12:00 PM",
+          "nota_ruta": "La vía Bogotá–Girardot por el Alto del Sumapaz tiene subida hasta 3.200 msnm y luego descenso al clima cálido de 28-35°C. El cambio de temperatura es importante para pasajeros mayores."
         },
         "pasajeros": {
           "adultos": 2,
-          "ninos": 2,
-          "edad_nino_menor": "4 años",
-          "necesidades_especiales": "Niño menor necesita parada cada 2 horas"
+          "ninos": [
+            {
+              "nombre": "Mateo",
+              "edad": 10,
+              "necesidad_especial": "Usa cinturón normal — OK en asiento trasero"
+            },
+            {
+              "nombre": "Sofía",
+              "edad": 5,
+              "necesidad_especial": "Requiere silla de niños elevadora (booster seat) — legalmente obligatoria en Colombia para menores de 10 años o menos de 36 kg según Ley 1503 de 2011 y Decreto 2851 de 2013"
+            }
+          ],
+          "adulto_mayor": {
+            "nombre": "Doña Rosario",
+            "edad": 69,
+            "condicion": "Artrosis de cadera — no puede estar más de 90 minutos sentada sin moverse. Necesita parada para estirar piernas cada hora y media.",
+            "medicamento": "Toma Naproxeno a las 8:00 AM — llevar agua y el medicamento accesible"
+          }
         },
-        "clima": {
-          "pronostico": "Soleado, 28°C"
+        "condiciones_ruta": {
+          "clima_bogota": "Frío, 12°C, parcialmente nublado",
+          "clima_alto_sumapaz": "Posible neblina entre 3.000 y 3.200 msnm",
+          "clima_girardot": "Calor, 34°C, soleado",
+          "estado_via_sabado": "Sábado normal: tráfico moderado saliendo de Bogotá. Si es puente o Semana Santa: tráfico SEVERO con filas de hasta 3 horas.",
+          "peajes_en_ruta": [
+            {"nombre": "Peaje Chusacá (salida Bogotá)", "costo_carro": "$9.400 COP"},
+            {"nombre": "Peaje Fusagasugá", "costo_carro": "$9.400 COP"},
+            {"nombre": "Peaje El Boquerón", "costo_carro": "$9.400 COP"}
+          ],
+          "gasolineras_en_ruta": [
+            "Fusagasugá — Terpel Av. Simón Bolívar (km 64)",
+            "Melgar — Biomax entrada al municipio (km 118)"
+          ]
         }
       }
     },
     "questions": [
       {
-        "q": "¿Necesitas parar a cargar gasolina durante el viaje?",
-        "correct": "No - tienes autonomía de 500 km y el viaje es de 320 km"
+        "id": "Q1",
+        "q": "¿Necesitas cargar gasolina durante el viaje de ida a Girardot?",
+        "correct": "NO es necesario en el viaje de ida. El tanque lleno (60 litros) tiene autonomía de 500-520 km. El viaje a Girardot son 145 km. El combustible alcanza perfectamente para ir y volver (145 km × 2 = 290 km de viaje total). Incluso con el consumo aumentado por la subida al Alto del Sumapaz, el tanque lleno es más que suficiente.",
+        "calculo": "Consumo en subida de cordillera: 10 L/100km. Viaje ida: 145 km = 14.5 litros consumidos. Regreso estimado: 145 km = 14.5 litros. Total viaje redondo: 29 litros. Capacidad: 60 litros. Sobran 31 litros de reserva.",
+        "recomendacion": "Aunque no es necesario, si quieres tranquilidad, puedes cargar en Fusagasugá (km 64) de regreso el domingo cuando el tanque esté aproximadamente al 50-55%."
       },
       {
-        "q": "¿Cuántas paradas mínimas necesitas hacer?",
-        "correct": "Al menos 1 parada - el viaje es de 4 horas y el niño menor necesita parada cada 2 horas"
+        "id": "Q2",
+        "q": "¿Cuántas paradas mínimas debes planear durante el viaje considerando a todos los pasajeros?",
+        "correct": "Mínimo 1 parada obligatoria — y posiblemente 2. Doña Rosario no puede estar más de 90 minutos sentada por su artrosis de cadera. El viaje toma entre 2.5 y 4.5 horas dependiendo del tráfico. Si toma 2.5 horas, con 1 parada a la mitad (km 70-75, sector Fusagasugá) es suficiente. Si hay trancón y el viaje toma 4.5 horas, necesitas 2 paradas (cada 90 minutos). Además, Sofía de 5 años puede necesitar baño en cualquier momento.",
+        "paradas_recomendadas": [
+          {
+            "parada": "Primera — Fusagasugá km 64",
+            "hora_estimada": "8:15-8:30 AM (si sale a las 7:00 AM sin trancón)",
+            "duracion": "15 minutos",
+            "actividades": "Doña Rosario estira las piernas, toma el Naproxeno de las 8:00 AM con agua, los niños van al baño. Aprovechar para revisar temperatura del motor después de la subida."
+          },
+          {
+            "parada": "Segunda — Melgar o inicio bajada al calor (si el viaje supera 3 horas)",
+            "hora_estimada": "Variable según tráfico",
+            "duracion": "10 minutos",
+            "actividades": "Cambio de ropa ligera para el calor (Girardot está a 34°C vs los 12°C de Bogotá). Doña Rosario puede necesitar segunda parada."
+          }
+        ]
       },
       {
-        "q": "¿A qué hora llegarías aproximadamente?",
-        "correct": "10:00 AM (6:00 AM + 4 horas, sin contar tiempo de paradas)"
+        "id": "Q3",
+        "q": "¿A qué hora aproximada llegarías a la finca y llegas a tiempo para el almuerzo?",
+        "correct": "Depende del tráfico: Sin trancón (sábado normal): 7:00 AM + 2.5 horas + 15 min parada = llegada 9:45-10:00 AM. Con trancón moderado (sábado puente): 7:00 AM + 4 horas + 20 min paradas = llegada 11:20 AM. Con trancón severo (Semana Santa): 7:00 AM + 4.5-5 horas = llegada 12:00-12:30 PM — en el límite o tarde para el almuerzo.",
+        "recomendacion": "Verificar en Waze antes de salir el estado de la vía. Si hay trancón severo reportado, salir a las 6:00-6:30 AM en lugar de las 7:00 AM para llegar cómodamente antes del mediodía.",
+        "nota_real_colombia": "La vía Bogotá-Girardot en sábados de temporada alta (Semana Santa, puentes de junio, octubre) es una de las más congestionadas de Colombia. La Policía de Carreteras activa el Plan de Movilidad con carriles reversibles en el sector del Alto del Sumapaz."
       },
       {
-        "q": "¿Cuántos pasajeros van en total?",
-        "correct": "4 (2 adultos + 2 niños)"
+        "id": "Q4",
+        "q": "¿Cuántos pasajeros van en total y hay algún requisito legal que verificar antes de salir?",
+        "correct": "Van 5 pasajeros (2 adultos + 2 niños + 1 adulto mayor). El Captiva tiene 7 puestos — sin problema de capacidad. REQUISITO LEGAL CRÍTICO: Sofía (5 años) debe ir en silla elevadora (booster seat) según la Ley 1503 de 2011 y el Decreto 2851 de 2013. Los niños menores de 10 años o con menos de 36 kg deben usar sistema de retención infantil homologado. No cumplir esta norma es multa de 15 SMLDV ($697.050 COP en 2024) y, en un accidente, aumenta gravemente el riesgo de lesión del menor.",
+        "checklist_previo_salida": [
+          "Silla elevadora de Sofía correctamente instalada y cinturón ajustado ✓",
+          "Cinturón de Mateo puesto (asiento trasero) ✓",
+          "Doña Rosario en asiento con mejor acceso (preferiblemente silla delantera del copiloto o primera fila trasera) ✓",
+          "Naproxeno de doña Rosario y agua accesibles desde el asiento ✓",
+          "Efectivo para 3 peajes ($28.200 COP) ✓",
+          "SOAT, revisión técnica y seguro vigentes ✓",
+          "Waze actualizado con estado de la vía ✓"
+        ]
+      },
+      {
+        "id": "Q5",
+        "q": "¿Qué precauciones especiales debes tomar en el tramo del Alto del Sumapaz?",
+        "correct": "Tres precauciones principales: (1) NEBLINA: En el tramo entre km 40 y km 80 (3.000-3.200 msnm) puede haber neblina densa en las mañanas. Usar luces bajas, reducir velocidad a 40-50 km/h en curvas, mantener distancia de seguridad aumentada. (2) FRENOS: La bajada desde el Alto del Sumapaz hacia Fusagasugá es una pendiente prolongada de 20 km. Usar freno motor para no sobrecalentar los frenos hidráulicos. (3) TEMPERATURA: El cambio de 12°C en Bogotá a 34°C en Girardot es de 22°C en 145 km. Llevar agua abundante para todos los pasajeros — riesgo de deshidratación especialmente en doña Rosario y los niños al llegar al calor.",
+        "nota_frenos_captiva": "Los frenos del Captiva 2020 son de disco en las 4 ruedas. En una bajada prolongada de 20 km, si se usan continuamente sin freno motor, pueden sobrecalentarse y perder efectividad temporalmente (fading). Técnica correcta: usar el freno motor bajando marchas y usar los frenos hidráulicos solo en frenadas puntuales."
       }
     ],
     "expected_elements": [
-      "compara_autonomia_vs_distancia",
-      "considera_necesidades_pasajeros",
-      "calcula_hora_llegada",
-      "cuenta_pasajeros"
+      "calcula_autonomia_suficiente_sin_cargar_gasolina",
+      "identifica_parada_obligatoria_dona_rosario",
+      "calcula_hora_llegada_con_y_sin_transcon",
+      "cuenta_pasajeros_correctamente",
+      "identifica_requisito_legal_silla_sofia",
+      "menciona_ley_1503_decreto_2851_silla_infantil",
+      "alerta_neblina_alto_sumapaz",
+      "menciona_tecnica_freno_motor_bajada",
+      "menciona_cambio_temperatura_y_hidratacion"
     ],
     "cognitive_load": 3
   },
+
   {
     "task_id": "T4_010",
     "task_type": "multi_variable_tracking",
     "difficulty": "medium",
     "scenario": {
-      "description": "Eres instructor de conducción con 4 estudiantes programados hoy. Debes gestionar horarios y progreso.",
+      "description": "Eres instructor de conducción de la Academia de Automovilismo Bogotá (AAB), ubicada en la Calle 127 con Carrera 17, Usaquén. Son las 2:00 PM de un jueves. Tienes 4 estudiantes programados hoy. Todos aspiran a obtener la licencia de conducción categoría B1 (vehículo particular) expedida por la Secretaría de Movilidad de Bogotá. El vehículo de práctica es un Chevrolet Spark GT 2022 con doble mando (freno auxiliar del copiloto). Cada clase dura 2 horas y la academia tiene convenio con el CDA (Centro de Diagnóstico Automotor) para el examen práctico.",
       "hora_actual": "2:00 PM",
       "variables_to_track": {
         "estudiante_1": {
-          "nombre": "Ana",
-          "horario": "8:00 AM - 10:00 AM",
+          "nombre": "Ana Milena Rojas",
+          "horario_clase": "8:00 AM - 10:00 AM",
           "estado": "COMPLETADO",
           "clase_numero": 8,
-          "evaluacion": "Lista para examen práctico",
-          "proxima_clase": "Mañana 8:00 AM - EXAMEN"
+          "total_clases_programa": 10,
+          "evaluacion_instructor": "Excelente manejo en vías de alto tráfico. Manejo de rotondas correcto. Conducción defensiva interiorizada. LISTA para examen práctico.",
+          "proxima_actividad": "Examen práctico mañana viernes 8:00 AM en el CDA Autopista Norte",
+          "nota_especial": "Ana lleva el informe de aptitud médica visual requerido por la Secretaría de Movilidad — verificar que lo presente mañana en el CDA.",
+          "pago_academia": "Al día"
         },
         "estudiante_2": {
-          "nombre": "Carlos",
-          "horario": "10:30 AM - 12:30 PM",
+          "nombre": "Carlos Eduardo Pinzón",
+          "horario_clase": "10:30 AM - 12:30 PM",
           "estado": "COMPLETADO",
           "clase_numero": 3,
-          "evaluacion": "Progreso normal, necesita practicar reversa",
-          "proxima_clase": "Jueves 10:30 AM"
+          "total_clases_programa": 10,
+          "evaluacion_instructor": "Progreso normal. Manejo en línea recta y frenado controlado bien aprendidos. DEBILIDAD PRINCIPAL: reversa — no logra calcular distancias con el espejo retrovisor trasero. Sobreestima el espacio disponible y se pasa de los límites marcados.",
+          "proxima_clase": "Jueves siguiente, 10:30 AM",
+          "nota_especial": "Reforzar reversa con conos en el parqueadero antes de salir a vía.",
+          "pago_academia": "Debe 1 clase — recordar cobro"
         },
         "estudiante_3": {
-          "nombre": "María",
-          "horario": "2:30 PM - 4:30 PM",
-          "estado": "PRÓXIMO",
+          "nombre": "María Fernanda Ospina",
+          "horario_clase": "2:30 PM - 4:30 PM",
+          "estado": "PRÓXIMA — en 30 minutos",
           "clase_numero": 5,
-          "notas_anteriores": "Dificultad con espejos, reforzar",
-          "proxima_clase": "Hoy"
+          "total_clases_programa": 10,
+          "evaluacion_clases_anteriores": "Manejo básico correcto. DIFICULTAD PERSISTENTE: no usa espejos laterales al cambiar de carril — tiende a solo mirar por el retrovisor central. En la clase 4 casi choca al cambiar de carril por no revisar el espejo lateral izquierdo. Reforzar obligatoriamente.",
+          "ruta_clase_5": "Circuito residencial Usaquén + práctica de cambios de carril en Av. 19",
+          "nota_emergencia": "La madre de María llama a la academia a las 1:45 PM — María llegará 15 minutos tarde (2:45 PM) por un trancón en la Autopista Norte. Confirmar con María que llega.",
+          "pago_academia": "Al día"
         },
         "estudiante_4": {
-          "nombre": "Pedro",
-          "horario": "5:00 PM - 7:00 PM",
+          "nombre": "Pedro Andrés Morales",
+          "horario_clase": "5:00 PM - 7:00 PM",
           "estado": "PENDIENTE",
           "clase_numero": 1,
-          "notas": "Primera clase - estudiante nuevo",
-          "documentos": "Verificar que traiga licencia de aprendizaje"
+          "total_clases_programa": 10,
+          "evaluacion_instructor": "Primera clase — sin evaluación previa.",
+          "perfil_conocido": "Pedro es estudiante universitario de 20 años. Nunca ha manejado. Alta ansiedad reportada en el formulario de inscripción.",
+          "documentos_requeridos": {
+            "licencia_aprendizaje": "OBLIGATORIA — Pedro debe traer la licencia de aprendizaje expedida por la Secretaría de Movilidad de Bogotá. Sin ella, la clase no puede realizarse legalmente.",
+            "formulario_inscripcion": "Ya entregado",
+            "pago_primera_clase": "Pendiente — debe pagar antes de iniciar la clase"
+          },
+          "nota_primera_clase": "Para clase 1 con alto nivel de ansiedad: iniciar en parqueadero de la academia (maniobras estáticas), no salir a vía hasta que Pedro se sienta cómodo con los controles básicos del vehículo.",
+          "pago_academia": "Pendiente primer pago"
         }
       }
     },
     "questions": [
       {
-        "q": "¿Quién es tu próximo estudiante y qué debes reforzar?",
-        "correct": "María a las 2:30 PM. Reforzar uso de espejos."
+        "id": "Q1",
+        "q": "¿Quién es tu próxima estudiante, a qué hora empieza realmente su clase y qué aspecto específico debes reforzar obligatoriamente?",
+        "correct": "María Fernanda Ospina. Su clase estaba programada para las 2:30 PM pero llegará a las 2:45 PM (15 minutos tarde por trancón en la Autopista Norte, confirmado por su madre). La clase efectiva empieza a las 2:45 PM y termina a las 4:45 PM (extender 15 min o ajustar según disponibilidad). El aspecto a reforzar obligatoriamente es el uso de los espejos laterales al cambiar de carril — especialmente el espejo lateral izquierdo. En la clase 4 casi chocó por no revisar ese espejo. Es una corrección de seguridad crítica.",
+        "plan_clase_5_maria": [
+          "2:45 PM — María llega. Breve conversación sobre la clase anterior y el incidente del cambio de carril.",
+          "2:50 PM — Salida al circuito residencial Usaquén. Instrucción activa: 'Antes de cada cambio de carril: espejo retrovisor central, espejo lateral del lado al que vas, punto ciego, señal y luego maniobra.' Metodología: verbalizarlo en voz alta.",
+          "3:30 PM — Práctica específica de cambios de carril en la Av. 19 con tráfico real.",
+          "4:30 PM — Regreso a la academia. Evaluación de la clase. Si los espejos laterales mejoran, avanzar al siguiente objetivo en clase 6."
+        ]
       },
       {
-        "q": "¿Qué estudiante tiene examen mañana?",
-        "correct": "Ana - examen práctico mañana a las 8:00 AM"
+        "id": "Q2",
+        "q": "¿Qué estudiante tiene examen práctico mañana y qué documento crítico debes recordarle que lleve?",
+        "correct": "Ana Milena Rojas — examen práctico mañana viernes a las 8:00 AM en el CDA Autopista Norte. El documento crítico es el informe de aptitud médica visual, exigido por la Secretaría de Movilidad de Bogotá para la expedición de la licencia B1. Sin ese documento, el CDA no puede procesar el resultado del examen aunque Ana lo apruebe.",
+        "acciones_instructor": [
+          "Llamar a Ana esta tarde (después de la clase con María) para recordarle: (1) Presentarse 20 minutos antes de las 8:00 AM en el CDA. (2) Llevar el informe de aptitud médica visual original. (3) Cédula de ciudadanía. (4) Comprobante de pago de los derechos del examen.",
+          "Recordarle que en el examen práctico evaluarán: arranque en pendiente, estacionamiento en paralelo, cambios de carril, obediencia a señales y velocidad adecuada."
+        ],
+        "nota_cda": "El CDA Autopista Norte (km 5, Bogotá) es el más frecuentado por las academias del norte de Bogotá. Los exámenes prácticos se realizan en un circuito cerrado del CDA más una prueba en vía abierta de 20 minutos."
       },
       {
-        "q": "¿Qué debes verificar antes de la clase con Pedro?",
-        "correct": "Que traiga su licencia de aprendizaje - es su primera clase"
+        "id": "Q3",
+        "q": "¿Qué debes verificar ANTES de que Pedro inicie su primera clase a las 5:00 PM?",
+        "correct": "Tres verificaciones obligatorias: (1) Licencia de aprendizaje — sin ella la clase no puede realizarse legalmente según el Código Nacional de Tránsito (Art. 21). Pedro debe presentarla al llegar. (2) Pago de la primera clase — está pendiente. Confirmar con la recepción de la academia que el pago se realizó antes de iniciar. (3) Formulario de ansiedad y salud — revisar el formulario de inscripción para confirmar que no hay condiciones médicas que impidan la conducción.",
+        "si_pedro_no_trae_licencia_aprendizaje": "Si Pedro llega sin la licencia de aprendizaje: la clase NO puede realizarse en vía pública. Alternativa: realizar la clase teórica y práctica estática en el parqueadero de la academia — conocimiento del vehículo, controles, posición de manejo, ajuste de espejos. Esto no requiere licencia porque el vehículo no circula en vía pública. Reagendar la clase en vía para cuando tenga la licencia.",
+        "normativa": "Art. 21 del Código Nacional de Tránsito colombiano: para conducir en vía pública como aprendiz, es obligatorio portar la licencia de aprendizaje expedida por el organismo de tránsito. El instructor también es responsable si permite la práctica sin este documento."
       },
       {
-        "q": "¿Cuántas clases has dado hoy?",
-        "correct": "2 (Ana y Carlos)"
+        "id": "Q4",
+        "q": "¿Cuántas clases ha dado el instructor hoy hasta las 2:00 PM y cuántas le faltan?",
+        "correct": "Ha dado 2 clases (Ana Milena 8:00-10:00 AM y Carlos Eduardo 10:30 AM-12:30 PM). Faltan 2 clases más: María Fernanda (2:45-4:45 PM) y Pedro (5:00-7:00 PM). Total del día: 4 clases de 2 horas = 8 horas de instrucción activa.",
+        "nota_fatiga_instructor": "8 horas de instrucción activa en un día es una carga alta para el instructor — implica atención constante, interacciones verbales permanentes y operación del freno auxiliar en momentos críticos. La clase con Pedro (clase 1, estudiante ansioso) a las 5:00 PM requiere paciencia máxima cuando el instructor ya lleva 4+ horas de trabajo. Tener en cuenta para el nivel de energía y comunicación con Pedro."
       },
       {
-        "q": "¿Qué estudiante necesita practicar reversa?",
-        "correct": "Carlos"
+        "id": "Q5",
+        "q": "¿Qué estudiante tiene una deuda pendiente con la academia y cuándo es el momento apropiado para mencionarlo?",
+        "correct": "Carlos Eduardo Pinzón — debe el pago de 1 clase. El momento apropiado para mencionarlo es al inicio de su próxima clase (jueves siguiente a las 10:30 AM), antes de salir al vehículo. No durante la clase en marcha (distrae al estudiante y puede generar un incidente de seguridad) ni al finalizar (puede generar tensión que afecte la experiencia de aprendizaje de esa sesión).",
+        "forma_correcta": "'Carlos, antes de empezar — tienes pendiente el pago de una clase. ¿Puedes regularizarlo hoy en recepción antes de que empecemos?' Tono amable y directo. El cobro es una obligación administrativa que el instructor puede mencionar pero debe manejar con profesionalismo."
+      },
+      {
+        "id": "Q6",
+        "q": "¿Qué estudiante necesita practicar reversa específicamente y cuál es la debilidad técnica identificada?",
+        "correct": "Carlos Eduardo Pinzón — clase 3. Su debilidad específica es que no logra calcular las distancias al hacer reversa usando el espejo retrovisor trasero. Sobreestima el espacio disponible y se pasa de los límites marcados con conos. El ejercicio recomendado para la próxima clase: práctica de reversa en el parqueadero con conos a diferentes distancias, verbalizar en voz alta la distancia estimada antes de la maniobra, y usar las líneas de la cámara de reversa si el vehículo la tiene.",
+        "diferencia_con_maria": "Tanto Carlos (reversa) como María (espejos laterales) tienen debilidades técnicas específicas, pero son completamente diferentes. El instructor debe tener claridad de cuál es la debilidad de cada uno para no confundirlos en sus evaluaciones."
       }
     ],
     "expected_elements": [
-      "identifica_proximo_estudiante",
-      "recuerda_notas_especificas",
-      "verifica_requisitos",
-      "cuenta_clases_completadas",
-      "asocia_estudiante_con_debilidad"
+      "identifica_maria_como_proxima_estudiante",
+      "ajusta_horario_maria_por_retraso_15min",
+      "recuerda_debilidad_espejos_laterales_maria",
+      "identifica_ana_con_examen_manana",
+      "recuerda_documento_aptitud_medica_visual_ana",
+      "identifica_tres_verificaciones_pedro",
+      "menciona_licencia_aprendizaje_como_obligatoria",
+      "cuenta_dos_clases_dadas_dos_pendientes",
+      "identifica_deuda_carlos",
+      "propone_momento_correcto_cobro_sin_afectar_clase",
+      "diferencia_debilidad_carlos_reversa_vs_maria_espejos"
     ],
-    "cognitive_load": 4
+    "cognitive_load": 5
   }
 ]

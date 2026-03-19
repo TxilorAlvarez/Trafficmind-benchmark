@@ -4,548 +4,1436 @@
     "task_type": "route_planning",
     "difficulty": "easy",
     "scenario": {
-      "description": "Es lunes a las 7:30 AM. Debes llevar a un estudiante desde el Barrio Santa Fe hasta el Colegio Nacional ubicado en el Centro. El tráfico matutino es moderado.",
+      "description": "Es lunes a las 6:30 AM. Eres conductor de un servicio de transporte escolar privado (van Renault Traffic amarilla con franjas blancas y negras, debidamente rotulada como 'ESCOLAR' y con monitor a bordo). Debes recoger a un estudiante en el Barrio Tunjuelito (sur de Bogotá, cerca de la Autopista Sur con Calle 47 Sur) y llevarlo al Colegio Gimnasio Vermont, ubicado en la vía Suba–Cota, sector Noroccidental de Bogotá. Hoy es lunes (día impar en el calendario), tu placa termina en 3, por lo que TIENES restricción de Pico y Placa entre las 6:00 AM y las 9:00 PM. Sin embargo, los vehículos de transporte escolar debidamente habilitados están EXENTOS de la restricción de Pico y Placa en Bogotá según el Decreto 190 de 2018, siempre que porten el tarjetón vigente de la Secretaría de Educación. El tráfico matutino del lunes es de los más pesados de la semana. La familia del estudiante pagó por un servicio puerta a puerta.",
       "map_data": {
-        "origin": "Barrio Santa Fe",
-        "destination": "Colegio Nacional - Centro",
+        "origin": {
+          "barrio": "Tunjuelito",
+          "referencia": "Carrera 14 con Calle 47 Sur, frente al Parque El Tunal",
+          "localidad": "Tunjuelito",
+          "estrato": 3
+        },
+        "destination": {
+          "nombre": "Colegio Gimnasio Vermont",
+          "direccion": "Vía Suba–Cota Km 3, sector Hayuelos / entrada a Cota",
+          "zona": "Noroccidente de Bogotá / borde con municipio de Cota"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Avenida Principal",
-            "distance_km": 5.2,
-            "estimated_time_normal": 15,
-            "current_traffic": "moderado",
-            "passes_school_zone": true
+            "id": "A",
+            "name": "Ruta A — Av. Caracas / NQS hacia el norte, conexión Av. Suba",
+            "descripcion_detallada": "Salir de Tunjuelito por la Autopista Sur hacia el norte, conectar con la Av. NQS (Carrera 30) en el sector de Puente Aranda, continuar al norte por la NQS hasta la Calle 80, girar al occidente por la Calle 80 hasta la Av. Boyacá, y luego tomar la Av. Suba hacia el noroccidente hasta la vía Suba–Cota.",
+            "distance_km": 28,
+            "estimated_time_normal_min": 50,
+            "estimated_time_rush_min": 85,
+            "current_traffic": "muy_congestionado",
+            "peaje": false,
+            "passes_school_zone": true,
+            "observaciones": "La NQS en hora pico matutina del lunes es uno de los corredores más congestionados de Bogotá. El cruce NQS con Calle 80 es un nudo crítico identificado por la SDM. La Av. Suba también colapsa entre Calle 100 y Calle 127 en horas pico. Hay alta probabilidad de bloqueo de intersecciones por conductores infractores.",
+            "riesgo_pico_placa": "EXENTO como escolar habilitado — portar tarjetón visible",
+            "ciclovía": "No aplica (lunes)"
           },
           {
-            "name": "Ruta B - Calle Comercial",
-            "distance_km": 6.1,
-            "estimated_time_normal": 18,
-            "current_traffic": "ligero",
-            "passes_school_zone": false
+            "id": "B",
+            "name": "Ruta B — Av. Boyacá directa sur-norte",
+            "descripcion_detallada": "Salir de Tunjuelito por la Calle 47 Sur hacia el occidente, conectar con la Av. Boyacá (Carrera 72) en el sector de Kennedy Norte, tomar la Boyacá directo hacia el norte pasando por Fontibón, Engativá, y conectar con la vía Suba–Cota a la altura de la Calle 170 / Autopista Medellín.",
+            "distance_km": 30,
+            "estimated_time_normal_min": 55,
+            "estimated_time_rush_min": 75,
+            "current_traffic": "congestionado",
+            "peaje": false,
+            "passes_school_zone": true,
+            "observaciones": "La Av. Boyacá es más fluida que la NQS en el tramo sur-centro. Su punto crítico es la intersección con la Calle 26 (Av. El Dorado) por las obras del Metro de Bogotá (Tramo 1, activas en 2024-2025). En el tramo norte (Engativá–Suba) fluye mejor. Es la opción más predecible para vehículos escolares.",
+            "riesgo_pico_placa": "EXENTO como escolar habilitado",
+            "obras_activas": "Intersección Boyacá con Calle 26 — obras Metro Bogotá, demoras adicionales estimadas 10-15 min"
           },
           {
-            "name": "Ruta C - Circunvalar",
-            "distance_km": 7.5,
-            "estimated_time_normal": 20,
-            "current_traffic": "libre",
-            "passes_school_zone": false
+            "id": "C",
+            "name": "Ruta C — Av. Circunvalar / Carrera 7ma hacia el norte",
+            "descripcion_detallada": "Salir de Tunjuelito hacia el oriente, subir por la Calle 47 Sur hacia San Cristóbal, conectar con la Av. Circunvalar a la altura de la Calle 1ra y seguir hacia el norte por los cerros orientales. Bajar hacia la Carrera 7ma a la altura de la Calle 100, continuar norte por la Carrera 7ma hasta la Calle 170, y tomar la vía Suba–Cota.",
+            "distance_km": 38,
+            "estimated_time_normal_min": 70,
+            "estimated_time_rush_min": 90,
+            "current_traffic": "moderado_en_circunvalar / pesado_en_calle_100_norte",
+            "peaje": false,
+            "passes_school_zone": true,
+            "observaciones": "La Circunvalar tiene tráfico moderado pero es una vía de un solo carril por sector con curvas pronunciadas. No es apta para vans escolares con niños a bordo en hora pico por el riesgo vial en curvas y la presencia de ciclistas y peatones sin demarcación. La Carrera 7ma colapsa entre Calle 100 y Calle 127 (Chapinero–Usaquén). Esta ruta es más larga y no ofrece ventaja real.",
+            "riesgo_adicional": "Curvas peligrosas en Circunvalar con neblina o humedad matutina"
           }
         ],
         "current_conditions": {
-          "weather": "despejado",
-          "road_works": "ninguna",
-          "special_events": "ninguno"
+          "weather": "despejado con neblina baja en cerros orientales",
+          "road_works": "Obras Metro Bogotá activas en Calle 26 con Boyacá. Intervención vial en NQS con Calle 13.",
+          "special_events": "Lunes típico — tráfico matutino máximo en toda la ciudad. Inicio de semana escolar.",
+          "pico_placa_hoy": "Restricción para placas terminadas en 1, 2, 3, 4, 5 (día impar). Aplica de 6:00 AM a 9:00 PM.",
+          "cultura_vial_alerta": "Alta incidencia de motos circulando entre carriles, buses del SITP haciendo paradas en sitios no autorizados y taxis haciendo U en avenidas principales."
         }
       },
+      "vehicle_info": {
+        "tipo": "Van escolar Renault Traffic",
+        "color": "Amarillo con franjas blancas y negras",
+        "rotulacion": "ESCOLAR — Secretaría de Educación de Bogotá",
+        "placa_termina_en": 3,
+        "exento_pico_placa": true,
+        "tarjeton_vigente": true,
+        "monitor_a_bordo": true,
+        "capacidad_estudiantes": 9
+      },
       "constraints": [
-        "Hora de llegada máxima: 8:00 AM",
-        "El estudiante debe llegar a tiempo para clase"
+        "Hora máxima de llegada al colegio: 7:45 AM (el colegio abre portería solo hasta esa hora para ingreso normal)",
+        "El estudiante debe ser recogido puntualmente a las 6:35 AM — los padres trabajan y se van inmediatamente",
+        "El vehículo es escolar habilitado: exento de Pico y Placa pero debe portar tarjetón visible en el parabrisas",
+        "Conducir con precaución máxima — hay un menor a bordo",
+        "El monitor debe verificar que el estudiante esté con cinturón antes de arrancar"
       ]
     },
-    "question": "¿Cuál es la mejor ruta para llegar a tiempo? Proporciona tu plan paso a paso y justifica tu elección.",
+    "question": "¿Cuál es la mejor ruta para salir de Tunjuelito y llegar al Gimnasio Vermont antes de las 7:45 AM? Ten en cuenta el Pico y Placa, las obras activas, las condiciones reales del tráfico bogotano en hora pico de lunes y la responsabilidad de transportar un menor. Proporciona tu plan paso a paso y justifica tu elección.",
     "expected_elements": [
+      "verifica_exencion_pico_placa_escolar",
       "selecciona_ruta_especifica",
-      "considera_tiempo_disponible",
-      "justifica_eleccion",
-      "plan_paso_a_paso"
+      "considera_obras_activas_metro",
+      "considera_congestion_real_lunes",
+      "justifica_eleccion_con_datos_reales",
+      "plan_paso_a_paso_con_horarios",
+      "menciona_responsabilidad_menor_a_bordo",
+      "menciona_cultura_vial_bogotana"
     ],
-    "optimal_answer": "La mejor opción es la Ruta B - Calle Comercial. Aunque es 0.9 km más larga que la Ruta A, el tráfico ligero compensa la distancia extra. Con 30 minutos disponibles y un tiempo estimado de 18 minutos, hay margen de seguridad. La Ruta A, aunque más corta, tiene tráfico moderado y pasa por zona escolar, lo que podría causar retrasos impredecibles a esta hora.",
-    "cognitive_load": 2
+    "optimal_answer": {
+      "ruta_elegida": "Ruta B — Av. Boyacá directa sur-norte",
+      "justificacion": "La Ruta B por la Av. Boyacá es la opción más equilibrada para este trayecto. Aunque tiene el inconveniente puntual de las obras del Metro en la intersección con Calle 26, este tramo puede sortearse tomando la Calle 13 como desvío previo hacia la Boyacá Norte, evitando la intersección conflictiva. La NQS (Ruta A) está históricamente más congestionada los lunes en hora pico y su cruce con Calle 80 es un punto de colapso frecuente que haría impredecible la hora de llegada. La Ruta C por la Circunvalar es descartada por ser más larga, tener condiciones de vía no aptas para una van con menor a bordo en hora pico, y no ofrecer ahorro de tiempo real.",
+      "plan_paso_a_paso": [
+        "6:30 AM — Verificar que el tarjetón escolar está visible en el parabrisas y que el monitor está a bordo.",
+        "6:35 AM — Recoger al estudiante en Carrera 14 con Calle 47 Sur (Tunjuelito). Monitor baja, recibe al menor, verifica cinturón de seguridad.",
+        "6:37 AM — Salir hacia el occidente por la Calle 47 Sur en dirección a la Av. Boyacá (Carrera 72).",
+        "6:45 AM — Tomar la Av. Boyacá hacia el norte, mantener carril derecho para evitar conflictos con buses del SITP.",
+        "7:00 AM — Al acercarse a la Calle 26, si el tráfico por obras del Metro está muy represado, desviar por la Calle 22 o Calle 19 hacia el occidente y reingresar a la Boyacá en la Calle 30.",
+        "7:15 AM — Continuar por la Boyacá Norte pasando por Engativá. En este tramo el flujo mejora notablemente.",
+        "7:25 AM — Conectar con la vía hacia Suba / Cota a la altura de la Calle 170. Tomar la vía Suba–Cota hacia el noroccidente.",
+        "7:40 AM — Llegada estimada al Colegio Gimnasio Vermont, con 5 minutos de margen antes del cierre de portería.",
+        "Consideración adicional: Si en algún punto el tráfico supera lo estimado, activar las luces de emergencia (sin usarlas ilegalmente como prioridad), informar al colegio con anticipación vía llamada y NO adelantar en zonas prohibidas ni invadir carriles del SITP para ganar tiempo."
+      ],
+      "nota_pico_placa": "La placa terminada en 3 tiene restricción el día de hoy (lunes impar), PERO el vehículo escolar habilitado por la Secretaría de Educación está legalmente exento. El tarjetón debe estar visible. En caso de ser detenido por un agente de tránsito, mostrar el tarjetón y la resolución de habilitación del servicio escolar.",
+      "cultura_vial_alerta": "En Bogotá es común que otros conductores bloqueen intersecciones, que buses del SITP se detengan fuera de paraderos y que motos circulen por el carril de la derecha a alta velocidad. Mantener distancia de seguridad aumentada, especialmente al abrir la puerta para recoger al estudiante."
+    },
+    "cognitive_load": 3
   },
+
   {
     "task_id": "T1_002",
     "task_type": "route_planning",
     "difficulty": "easy",
     "scenario": {
-      "description": "Es domingo a las 2:00 PM. Debes transportar a una familia desde el Centro Comercial Plaza Norte hasta el Parque Municipal para un picnic.",
+      "description": "Es domingo a las 1:30 PM. Eres conductor de plataforma (InDriver) y debes llevar a una familia de 4 personas (dos adultos y dos niños pequeños) desde el Centro Comercial Santafé (Calle 185 con Autopista Norte, Bogotá) hasta el Parque Natural Chicaque, ubicado en el municipio de San Antonio del Tequendama, vía Mosquera, a aproximadamente 40 km del centro de Bogotá. La familia quiere disfrutar el paisaje andino, no tiene prisa, y prefiere no pagar peajes si es posible. Es domingo de Ciclovía en Bogotá, lo que cierra varias vías al tráfico vehicular entre 7:00 AM y 3:00 PM, aunque a la 1:30 PM ya está en proceso de levantarse en algunos sectores. El clima está despejado en Bogotá pero puede haber neblina en las vías que suben hacia Chicaque (zona de bosque de niebla a 2.000 msnm).",
       "map_data": {
-        "origin": "Centro Comercial Plaza Norte",
-        "destination": "Parque Municipal",
+        "origin": {
+          "nombre": "Centro Comercial Santafé",
+          "direccion": "Autopista Norte con Calle 185, Bogotá",
+          "localidad": "Suba"
+        },
+        "destination": {
+          "nombre": "Parque Natural Chicaque",
+          "ubicacion": "Vía Mosquera–San Antonio del Tequendama, Cundinamarca",
+          "altitud": "1.800 a 2.200 msnm",
+          "distancia_desde_bogota": "Aproximadamente 38-42 km desde el centro"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Autopista",
-            "distance_km": 8.0,
-            "estimated_time_normal": 12,
-            "current_traffic": "libre",
-            "toll": true,
-            "toll_cost": 3500
+            "id": "A",
+            "name": "Ruta A — Autopista Norte / Calle 80 / Av. Medellín hacia Mosquera y Chicaque",
+            "descripcion_detallada": "Desde el C.C. Santafé tomar la Autopista Norte hacia el sur hasta la Calle 80, girar al occidente por la Calle 80 / Autopista Medellín hacia Funza–Mosquera. Desde Mosquera tomar la vía secundaria hacia San Antonio del Tequendama y el Parque Chicaque.",
+            "distance_km": 52,
+            "estimated_time_min": 80,
+            "current_traffic": "moderado_saliendo_bogota / fluido_en_cundinamarca",
+            "peaje": true,
+            "peajes_en_ruta": [
+              {"nombre": "Peaje Mondoñedo", "costo_carro": 6400}
+            ],
+            "observaciones": "Es la ruta más directa. La Calle 80 puede tener congestión residual de la mañana aunque es domingo. La vía hacia Chicaque desde Mosquera es pavimentada hasta 3 km antes del parque, luego hay un tramo destapado de montaña con curvas pronunciadas. Paisaje tipo sabana-cordillera.",
+            "paisaje_score": 6
           },
           {
-            "name": "Ruta B - Avenida Libertad",
-            "distance_km": 6.5,
-            "estimated_time_normal": 20,
-            "current_traffic": "moderado",
-            "toll": false,
-            "toll_cost": 0
+            "id": "B",
+            "name": "Ruta B — Av. Boyacá / Bosa / Autopista Sur / Soacha / vía Silvania hacia Chicaque",
+            "descripcion_detallada": "Tomar la Av. Boyacá hacia el sur, pasar por Bosa, conectar con la Autopista Sur hacia Soacha y desde allí tomar la vía hacia Silvania, con desvío a Tena y San Antonio del Tequendama para llegar a Chicaque por el costado sur.",
+            "distance_km": 65,
+            "estimated_time_min": 100,
+            "current_traffic": "ligero_en_domingo",
+            "peaje": false,
+            "observaciones": "Ruta más larga pero sin peajes. Pasa por la entrada a Soacha (históricamente congestionada incluso los domingos por vendedores ambulantes y cruces informales). La vía hacia Tena es más pintoresca, con paisaje de cañón del río Bogotá y vegetación tropical baja. Tramo final de 8 km hacia Chicaque es de montaña con curvas.",
+            "paisaje_score": 9,
+            "alerta": "La vía Bogotá–Soacha en la Autopista Sur tiene alta presencia de vendedores ambulantes, motos sin casco y cruces peatonales informales. Reducir velocidad."
           },
           {
-            "name": "Ruta C - Ruta Escénica",
-            "distance_km": 10.2,
-            "estimated_time_normal": 25,
+            "id": "C",
+            "name": "Ruta C — Circunvalar / Bosa / La Mesa (vía rápida con peaje doble)",
+            "descripcion_detallada": "Ruta por la vía Bogotá–La Mesa (vía del antiguo camino real), pasando por Soacha, Sibaté y luego La Mesa para entrar a Chicaque por el costado occidental.",
+            "distance_km": 78,
+            "estimated_time_min": 110,
             "current_traffic": "libre",
-            "toll": false,
-            "toll_cost": 0
+            "peaje": true,
+            "peajes_en_ruta": [
+              {"nombre": "Peaje Sibaté", "costo_carro": 5800},
+              {"nombre": "Peaje La Mesa", "costo_carro": 7200}
+            ],
+            "observaciones": "Ruta panorámica por excelencia, baja hacia el clima cálido de La Mesa (800 msnm) antes de subir a Chicaque. Muy largo para el objetivo. Dos peajes costosos. No recomendada si se quiere llegar antes del atardecer.",
+            "paisaje_score": 10
           }
         ],
         "current_conditions": {
-          "weather": "soleado",
-          "road_works": "ninguna",
-          "special_events": "ninguno"
+          "weather": "Despejado en Bogotá, posible neblina en vías de montaña hacia Chicaque (zona de bosque de niebla)",
+          "road_works": "Ninguna en domingo",
+          "special_events": "Ciclovía activa hasta las 3:00 PM en vías internas de Bogotá. Algunos sectores de la Calle 80 pueden tener flujo reducido aún.",
+          "estado_via_chicaque": "Tramo final 3 km sin pavimentar, con barro leve por lluvias recientes de la semana"
         }
       },
+      "vehicle_info": {
+        "tipo": "Sedan particular (plataforma InDriver)",
+        "placa_termina_en": 7,
+        "dia": "Domingo",
+        "pico_placa": "NO aplica en domingo para vehículos particulares"
+      },
       "constraints": [
-        "No hay prisa, es un paseo familiar",
-        "Preferiblemente evitar peajes",
-        "La familia disfruta los paisajes bonitos"
+        "La familia prefiere no pagar peajes si la diferencia de tiempo no es grande",
+        "Los niños pequeños disfrutan el paisaje — la ruta escénica suma valor",
+        "No hay hora límite de llegada, pero el parque cierra a las 5:00 PM y ya son la 1:30 PM",
+        "El tramo final hacia Chicaque tiene 3 km sin pavimentar — el vehículo es sedan (no 4x4)"
       ]
     },
-    "question": "¿Qué ruta recomiendas y por qué?",
+    "question": "¿Qué ruta recomiendas para llevar a esta familia al Parque Chicaque, considerando su preferencia por el paisaje, la ausencia de peajes, el tiempo disponible antes del cierre del parque y las condiciones reales de las vías colombianas?",
     "expected_elements": [
       "selecciona_ruta_especifica",
-      "considera_preferencias_familia",
-      "considera_peaje",
-      "justifica_eleccion"
+      "considera_preferencia_sin_peajes",
+      "considera_tiempo_disponible_antes_cierre_parque",
+      "considera_paisaje_como_variable",
+      "alerta_tramo_sin_pavimentar_con_sedan",
+      "menciona_condiciones_reales_vias_colombia",
+      "justifica_eleccion_equilibrada"
     ],
-    "optimal_answer": "Recomiendo la Ruta C - Ruta Escénica. Aunque es la más larga (10.2 km), cumple perfectamente con los requisitos: no tiene peaje, el tráfico está libre, y ofrece paisajes bonitos que la familia puede disfrutar. Como no hay prisa, los 25 minutos de viaje se convierten en parte de la experiencia del paseo.",
-    "cognitive_load": 2
+    "optimal_answer": {
+      "ruta_elegida": "Ruta B — Av. Boyacá / Soacha / Tena / San Antonio del Tequendama",
+      "justificacion": "La Ruta B es la mejor opción para esta familia. No tiene peajes, ofrece un paisaje notable (puntuación 9/10) con el descenso hacia el cañón del río Bogotá y la vegetación que cambia de frío andino a templado, y aunque es más larga (65 km, ~100 min), saliendo a la 1:30 PM se llegaría aproximadamente a las 3:10-3:15 PM, dejando casi 2 horas para disfrutar el parque antes del cierre a las 5:00 PM. La Ruta A, aunque más corta, tiene peaje y un paisaje de sabana menos atractivo. La Ruta C tiene dos peajes costosos y llegaría al parque cerca de las 3:40-4:00 PM, con muy poco margen antes del cierre.",
+      "alertas_importantes": [
+        "ALERTA TRAMO FINAL: Los últimos 3 km hacia el Parque Chicaque son sin pavimentar. Con un sedan en condición normal, es transitable si no ha llovido fuerte recientemente. Se recomienda consultar el estado del camino al parque llamando al (1) 245-xxxx antes de salir. Si el camino está muy lodoso, el sedan puede quedar atascado.",
+        "ALERTA SOACHA: Reducir velocidad al atravesar el casco urbano de Soacha. Alta presencia de motos sin casco, vendedores en la vía y cruces peatonales informales sin semáforo.",
+        "NEBLINA: En el ascenso final hacia Chicaque puede haber neblina espesa en las tardes. Usar luces bajas y reducir velocidad en curvas."
+      ],
+      "plan_paso_a_paso": [
+        "1:30 PM — Salir del C.C. Santafé tomando la Autopista Norte hacia el sur.",
+        "1:40 PM — Conectar con la Av. Boyacá hacia el sur, pasar por Bosa.",
+        "1:55 PM — Entrar a la Autopista Sur, atravesar el ingreso a Soacha con precaución (velocidad máxima 30 km/h en zona urbana).",
+        "2:15 PM — Tomar el desvío hacia Silvania/Tena por la vía secundaria, disfrutando el descenso hacia el cañón.",
+        "2:45 PM — Llegar a San Antonio del Tequendama, tomar la vía señalizada hacia Chicaque.",
+        "3:10 PM — Llegada estimada al Parque Natural Chicaque. Verificar estado del estacionamiento y acceso al sendero.",
+        "Recomendación: Llamar al parque antes de salir para confirmar disponibilidad de cupos (el parque tiene capacidad limitada los domingos)."
+      ]
+    },
+    "cognitive_load": 3
   },
+
   {
     "task_id": "T1_003",
     "task_type": "route_planning",
     "difficulty": "medium",
     "scenario": {
-      "description": "Es viernes a las 5:45 PM (hora pico). Debes llevar a un ejecutivo desde las Oficinas del Centro Empresarial hasta el Aeropuerto Internacional. Su vuelo sale a las 7:30 PM y debe estar 1 hora antes.",
+      "description": "Es viernes a las 5:15 PM. Eres conductor de un servicio ejecutivo (plataforma Cabify categoría Black). Tu pasajero es un ejecutivo extranjero (directivo de una empresa alemana) que necesita ir desde las Oficinas de la Torre Colpatria (Carrera 7 con Calle 24, Bogotá Centro Internacional) hasta el Aeropuerto Internacional El Dorado — Terminal 2 (vuelos internacionales). Su vuelo con destino a Frankfurt sale a las 8:00 PM y según protocolo debe llegar al aeropuerto antes de las 6:30 PM (check-in internacional cierra 90 minutos antes). Hoy es viernes — el peor día de tráfico en Bogotá. Está lloviendo moderadamente. Hay un accidente reportado en la Calle 26 (Av. El Dorado) a la altura de la Carrera 50 (confirmado por Waze y Radio Tráfico). La Calle 26 es normalmente la vía directa al aeropuerto.",
       "map_data": {
-        "origin": "Centro Empresarial - Zona Financiera",
-        "destination": "Aeropuerto Internacional",
+        "origin": {
+          "nombre": "Torre Colpatria",
+          "direccion": "Carrera 7 con Calle 24, Bogotá",
+          "localidad": "Santa Fe / Centro Internacional"
+        },
+        "destination": {
+          "nombre": "Aeropuerto El Dorado — Terminal 2 (Internacional)",
+          "direccion": "Av. El Dorado (Calle 26) con Av. Calle 26 km 2.5, Bogotá"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Autopista Principal",
-            "distance_km": 22.0,
-            "estimated_time_normal": 25,
-            "estimated_time_rush_hour": 55,
-            "current_traffic": "muy_congestionado",
-            "toll": true,
-            "toll_cost": 8500
+            "id": "A",
+            "name": "Ruta A — Calle 26 (Av. El Dorado) directa al aeropuerto",
+            "descripcion_detallada": "Desde Torre Colpatria bajar por la Carrera 7 o Carrera 10 hacia la Calle 26. Tomar la Av. El Dorado hacia el occidente directo hasta el aeropuerto.",
+            "distance_km": 14,
+            "estimated_time_normal_min": 25,
+            "estimated_time_actual_min": 75,
+            "current_traffic": "colapsado",
+            "peaje": false,
+            "observaciones": "DESCARTADA. Accidente activo a la altura de Carrera 50 con Calle 26 bloquea dos de tres carriles. Lluvia modera la ya lenta velocidad. Adicionalmente, las obras del Metro de Bogotá (tramo Calle 26) mantienen reducción permanente de carriles. En hora pico de viernes lluvioso, la Calle 26 puede llegar a 5-8 km/h de velocidad promedio. Riesgo altísimo de no llegar a tiempo.",
+            "estado_actual": "ACCIDENTE ACTIVO — No recomendada"
           },
           {
-            "name": "Ruta B - Avenida Circunvalar",
-            "distance_km": 28.0,
-            "estimated_time_normal": 35,
-            "estimated_time_rush_hour": 45,
-            "current_traffic": "congestionado",
-            "toll": false,
-            "toll_cost": 0
+            "id": "B",
+            "name": "Ruta B — Carrera 30 (NQS) hacia el norte, conexión Av. El Dorado por el Dorado desde el occidente",
+            "descripcion_detallada": "Desde Torre Colpatria, tomar la Av. de los Comuneros (Calle 6) hacia el occidente hasta la Carrera 30 (NQS). Tomar la NQS hacia el norte hasta la Calle 53 o Calle 63, girar al occidente por la Calle 53 hasta la Av. Boyacá, bajar por la Boyacá hacia el sur hasta la Calle 26, y entrar al aeropuerto por el acceso occidental (Terminal 2 Internacional).",
+            "distance_km": 22,
+            "estimated_time_actual_min": 45,
+            "current_traffic": "congestionado_pero_en_movimiento",
+            "peaje": false,
+            "observaciones": "La NQS en viernes tarde está congestionada pero en movimiento. El tramo Boyacá-Calle 26 occidental está libre del accidente. Opción viable si se sale antes de las 5:30 PM. La lluvia aumenta el tiempo estimado en un 15-20%.",
+            "estado_actual": "VIABLE — Monitorear"
           },
           {
-            "name": "Ruta C - Carretera Antigua",
-            "distance_km": 35.0,
-            "estimated_time_normal": 45,
-            "estimated_time_rush_hour": 50,
-            "current_traffic": "moderado",
-            "toll": false,
-            "toll_cost": 0
+            "id": "C",
+            "name": "Ruta C — Av. Circunvalar / Calle 100 / Av. Eldorado desde el norte por la Av. Ciudad de Cali",
+            "descripcion_detallada": "Subir por la Carrera 7 hacia el norte hasta la Calle 100, girar al occidente por la Calle 100 hasta la Av. Boyacá o Av. Ciudad de Cali, bajar al sur hasta la Av. El Dorado y entrar al aeropuerto por el costado norte.",
+            "distance_km": 32,
+            "estimated_time_actual_min": 70,
+            "current_traffic": "muy_congestionado_en_carrera_7_norte",
+            "peaje": false,
+            "observaciones": "Demasiado larga y el tramo norte de la Carrera 7 (Chapinero-Usaquén) colapsa los viernes. No viable para este tiempo límite.",
+            "estado_actual": "DESCARTADA — Tiempo insuficiente"
           }
         ],
         "current_conditions": {
-          "weather": "lluvia_ligera",
-          "road_works": "Ruta A tiene obras en km 15",
-          "special_events": "ninguno"
+          "weather": "Lluvia moderada en toda la ciudad. Visibilidad reducida. Calzadas mojadas — mayor distancia de frenado requerida.",
+          "road_works": "Obras Metro Bogotá activas en Calle 26 (reducción de 3 a 1 carril en tramos). Intervención en NQS con Calle 13.",
+          "special_events": "Viernes de hora pico máxima. Velocidad promedio en vías principales: 12-18 km/h.",
+          "accidente_confirmado": "Calle 26 carrera 50 — colisión entre bus SITP y camioneta. Dos carriles bloqueados. Grúa solicitada. Tiempo estimado de despeje: 45-60 min.",
+          "fuentes": ["Waze — reporte verificado", "Radio Tráfico Bogotá (106.9 FM)", "App Moovit"]
         }
       },
+      "vehicle_info": {
+        "tipo": "Sedan ejecutivo (Cabify Black)",
+        "placa_termina_en": 8,
+        "dia": "Viernes impar (semana par) — restricción para placas 1,2,3,4,5. Placa terminada en 8: SIN RESTRICCIÓN hoy."
+      },
       "constraints": [
-        "DEBE llegar al aeropuerto antes de las 6:30 PM",
-        "Tiempo disponible: 45 minutos",
-        "Es hora pico de viernes",
-        "Hay lluvia ligera"
+        "DEADLINE ABSOLUTO: Llegar al aeropuerto antes de las 6:30 PM — check-in internacional cierra 90 min antes del vuelo",
+        "Tiempo disponible desde ahora (5:15 PM): 75 minutos máximo",
+        "El pasajero es extranjero — no puede perder el vuelo (costos de reprogramación muy altos y posibles compromisos de negocios)",
+        "Lluvia moderada activa — reducir velocidad y aumentar distancia de seguridad",
+        "Accidente activo en Calle 26 — ruta principal bloqueada",
+        "Mantener compostura y profesionalismo — es servicio ejecutivo"
       ]
     },
-    "question": "Analiza las opciones y determina la mejor ruta. El pasajero no puede perder su vuelo.",
+    "question": "Analiza todas las rutas disponibles, descarta las inviables y determina el plan de acción para llevar al ejecutivo al aeropuerto a tiempo. Justifica con tiempos reales, condiciones actuales y alternativas de contingencia.",
     "expected_elements": [
-      "analiza_todas_las_rutas",
-      "considera_hora_pico",
-      "considera_condiciones_clima",
-      "considera_obras_via",
-      "calcula_tiempo_llegada",
-      "selecciona_ruta_viable",
-      "justifica_con_margen_seguridad"
+      "descarta_ruta_A_por_accidente_y_obras",
+      "descarta_ruta_C_por_tiempo_insuficiente",
+      "selecciona_ruta_B_como_viable",
+      "calcula_tiempo_estimado_con_lluvia",
+      "verifica_margen_de_seguridad",
+      "menciona_accidente_y_obras_metro",
+      "plan_paso_a_paso_con_horarios",
+      "contingencia_si_trafico_empeora",
+      "menciona_cultura_vial_viernesbogota"
     ],
-    "optimal_answer": "Recomiendo la Ruta C - Carretera Antigua. Análisis: Ruta A está descartada porque con tráfico muy congestionado (55 min) más las obras en km 15 y la lluvia, fácilmente superaría los 60 minutos. Ruta B con 45 minutos en hora pico es arriesgada sin margen de error. Ruta C, aunque más larga, tiene tráfico solo moderado (50 min estimados), y al no depender de la autopista principal, es más predecible. Con la lluvia ligera, es mejor una ruta con menos variables. Saliendo ahora (5:45 PM), llegaríamos aproximadamente a las 6:35 PM, justo a tiempo pero recomendaría considerar un servicio express si está disponible.",
-    "cognitive_load": 4
+    "optimal_answer": {
+      "ruta_elegida": "Ruta B — NQS / Boyacá / acceso occidental al aeropuerto",
+      "justificacion": "La Ruta A está completamente descartada: el accidente activo en Calle 26 + obras del Metro + lluvia + viernes pico es una combinación que fácilmente resulta en 75-90 minutos de viaje, lo que haría perder el vuelo. La Ruta C también se descarta: 70 minutos estimados sin margen de error y la Carrera 7 norte colapsa los viernes tarde. La Ruta B es la única viable: aunque congestionada, está en movimiento y evita completamente el accidente. Con lluvia moderada, el estimado de 45 minutos puede subir a 52-55 minutos, llegando entre 6:07 y 6:10 PM — con 20-23 minutos de margen antes del cierre de check-in.",
+      "calculo_tiempo": {
+        "salida": "5:15 PM",
+        "tiempo_estimado_base": "45 min",
+        "factor_lluvia": "+15% = 52 min",
+        "llegada_estimada": "6:07 PM",
+        "margen_antes_deadline": "23 minutos",
+        "evaluacion": "VIABLE — con margen ajustado pero suficiente"
+      },
+      "plan_paso_a_paso": [
+        "5:15 PM — Informar al pasajero de inmediato sobre el accidente en Calle 26 y el plan alterno. Mantener tono profesional y tranquilizador.",
+        "5:16 PM — Salir de Torre Colpatria por la Carrera 7 hacia el sur hasta la Calle 6 (Av. de los Comuneros).",
+        "5:20 PM — Tomar la Calle 6 hacia el occidente hasta la Carrera 30 (NQS). Precaución: motos filtrando entre carriles en lluvia.",
+        "5:25 PM — Tomar la NQS hacia el norte. Mantener carril izquierdo o central para evitar conflictos con buses.",
+        "5:40 PM — A la altura de la Calle 53, girar al occidente. Continuar hasta la Av. Boyacá.",
+        "5:50 PM — Tomar la Av. Boyacá hacia el sur hasta la Calle 26 occidental.",
+        "6:00 PM — Entrar al aeropuerto por el acceso occidental de la Av. El Dorado (este acceso evita el punto del accidente que está al oriente).",
+        "6:07 PM — Llegada estimada a Terminal 2 Internacional. Dejar al pasajero en la zona de descenso de vehículos.",
+        "Recomendación al pasajero: informarle que haga check-in online si aún no lo ha hecho, para ganar tiempo."
+      ],
+      "contingencia": "Si al llegar a la NQS el tráfico está peor de lo esperado y el tiempo proyectado supera 65 minutos, considerar llamar al aeropuerto para solicitar asistencia prioritaria (algunos aeropuertos tienen protocolo para pasajeros con vuelo inminente). También verificar si el pasajero puede hacer check-in móvil y solo necesita llegar a la puerta de embarque.",
+      "nota_cultura_vial": "En viernes lluvioso en Bogotá, es común que conductores de particulares bloqueen intersecciones para 'ganar' posición, lo que en realidad agrava el trancón. Mantener la calma, no bloquear intersecciones y aprovechar los semáforos eficientemente es la mejor estrategia."
+    },
+    "cognitive_load": 5
   },
+
   {
     "task_id": "T1_004",
     "task_type": "route_planning",
     "difficulty": "medium",
     "scenario": {
-      "description": "Es miércoles a las 10:00 AM. Eres conductor de una ruta escolar y debes recoger a 4 estudiantes en diferentes puntos para llevarlos a una excursión en el Museo de Historia Natural.",
+      "description": "Es miércoles a las 9:30 AM. Eres el conductor de una ruta escolar habilitada (bus escalera marca Chevrolet NHR, capacidad 20 estudiantes, color amarillo con franjas reglamentarias). Debes recoger a 5 estudiantes de diferentes puntos en el norte de Bogotá para llevarlos al Museo del Oro (Calle 16 con Carrera 5, Centro Histórico de Bogotá) donde tienen una excursión programada con el Banco de la República. La coordinadora del colegio te llama a las 9:30 AM para confirmar que todos deben estar en el museo a las 11:00 AM, pues la visita guiada tiene hora de inicio fija y no se reprogramará. Uno de los estudiantes (Valentina) vive en un conjunto cerrado cuya portería tiene acceso restringido — los vehículos de más de 2 toneladas no pueden entrar, por lo que debe esperarte en la portería principal.",
       "map_data": {
-        "origin": "Garaje de la Escuela - Barrio Norte",
-        "destination": "Museo de Historia Natural - Centro Histórico",
+        "origin": {
+          "nombre": "Garaje del Colegio Liceo Boston",
+          "direccion": "Calle 147 con Carrera 19, Barrio Cedritos, Bogotá",
+          "localidad": "Usaquén"
+        },
+        "destination": {
+          "nombre": "Museo del Oro — Banco de la República",
+          "direccion": "Calle 16 No. 5-41, La Candelaria, Bogotá Centro"
+        },
         "pickup_points": [
           {
-            "student": "Ana",
-            "location": "Residencial Los Pinos",
-            "from_school": "3 km este"
+            "estudiante": "Samuel",
+            "ubicacion": "Calle 153 con Carrera 15, Barrio Niza — frente al CAI de Policía",
+            "distancia_del_garaje": "2.5 km al sur",
+            "horario_acordado": "9:45 AM",
+            "observacion": "El padre trabaja en turno nocturno y duerme — si el bus no llega a tiempo, nadie lleva al niño. No tiene alternativa de transporte."
           },
           {
-            "student": "Carlos",
-            "location": "Urbanización El Lago",
-            "from_school": "2 km sur"
+            "estudiante": "Valeria",
+            "ubicacion": "Conjunto Reserva del Parque, Calle 161 con Carrera 9A — Portería principal",
+            "distancia_del_garaje": "1.8 km al norte",
+            "horario_acordado": "9:40 AM",
+            "observacion": "Bus no puede entrar al conjunto (más de 2 ton). Valeria debe esperar en la portería. Si no llegan a la hora acordada, la familia tiene instrucciones de no dejarla esperar más de 10 minutos sola."
           },
           {
-            "student": "María",
-            "location": "Conjunto Torres del Parque",
-            "from_school": "4 km oeste"
+            "estudiante": "Tomás",
+            "ubicacion": "Carrera 7 con Calle 155, sector Autopista Norte — parqueadero del Éxito de la 153",
+            "distancia_del_garaje": "3 km al nororiente",
+            "horario_acordado": "9:50 AM",
+            "observacion": "Punto de fácil acceso. Padre lo dejará en el parqueadero y se irá. Niño esperará solo máximo 15 minutos."
           },
           {
-            "student": "Pedro",
-            "location": "Barrio San José",
-            "from_school": "1.5 km norte"
+            "estudiante": "Isabella",
+            "ubicacion": "Av. Boyacá con Calle 147, frente al Centro Comercial Bulevar Niza",
+            "distancia_del_garaje": "4 km al occidente",
+            "horario_acordado": "10:00 AM",
+            "observacion": "Madre puede esperarla hasta las 10:10 AM como máximo antes de tener que ir al trabajo."
+          },
+          {
+            "estudiante": "Martín",
+            "ubicacion": "Calle 140 con Carrera 19, Barrio Barrancas — frente a la panadería La Espiga",
+            "distancia_del_garaje": "2 km al sur",
+            "horario_acordado": "10:10 AM",
+            "observacion": "Es el más cercano al centro — se puede recoger último para optimizar la ruta hacia el museo."
           }
         ],
         "current_conditions": {
-          "weather": "despejado",
-          "road_works": "ninguna",
-          "special_events": "ninguno"
+          "weather": "Cielo nublado, temperatura 14°C. Sin lluvia activa.",
+          "road_works": "Intervención menor en la Carrera 7 con Calle 116 — demora estimada 5 min.",
+          "special_events": "Nada especial. Miércoles horas valle (entre picos). Flujo moderado en vías principales.",
+          "pico_placa": "Miércoles día par: restricción para placas terminadas en 6,7,8,9,0. Bus escolar habilitado: EXENTO."
         }
       },
+      "vehicle_info": {
+        "tipo": "Bus escolar Chevrolet NHR",
+        "color": "Amarillo con franjas blancas y negras",
+        "capacidad": 20,
+        "placa": "Termina en 4 — sin restricción adicional. Exento como escolar.",
+        "monitor_a_bordo": true,
+        "peso_vehiculo": "2.8 toneladas (no puede ingresar al conjunto de Valeria)"
+      },
       "constraints": [
-        "Todos los estudiantes deben ser recogidos",
-        "Hora de llegada al museo: 11:00 AM",
-        "Minimizar el tiempo total de recorrido",
-        "Los estudiantes no deben esperar más de 20 minutos en el bus"
+        "Todos los 5 estudiantes deben ser recogidos SIN EXCEPCIÓN",
+        "Hora de llegada al Museo del Oro: 11:00 AM (máximo)",
+        "Ningún estudiante puede esperar solo más de 10-15 minutos en su punto de recogida",
+        "El bus no puede entrar al conjunto de Valeria — debe esperarla en la portería",
+        "Optimizar el orden de recogida para minimizar retrocesos y tiempos de espera"
       ]
     },
-    "question": "Determina el orden óptimo para recoger a los estudiantes y la ruta hacia el museo. Justifica tu plan.",
+    "question": "Determina el orden óptimo para recoger a los 5 estudiantes, justifica geográficamente el recorrido, verifica que todos los horarios acordados sean cumplibles, calcula la hora de llegada al museo y alerta sobre cualquier riesgo logístico.",
     "expected_elements": [
-      "determina_orden_recogida",
-      "optimiza_ruta",
-      "considera_tiempo_espera_estudiantes",
-      "calcula_tiempo_total",
-      "plan_paso_a_paso"
+      "analiza_ubicacion_geografica_cada_punto",
+      "determina_orden_optimo_sin_retrocesos",
+      "verifica_cumplimiento_horarios_acordados",
+      "alerta_restriccion_entrada_conjunto_valeria",
+      "alerta_estudiantes_solos_con_tiempo_limite",
+      "calcula_hora_llegada_museo",
+      "plan_paso_a_paso_con_horarios",
+      "considera_exencion_pico_placa_escolar"
     ],
-    "optimal_answer": "Orden óptimo de recogida: 1) Pedro (Barrio San José - 1.5 km norte, más cercano), 2) Ana (Residencial Los Pinos - desde Pedro hacia el este), 3) Carlos (Urbanización El Lago - bajando hacia el sur), 4) María (Conjunto Torres del Parque - último antes de ir al centro). Esta ruta forma un circuito eficiente norte→este→sur→oeste→centro, minimizando retrocesos. Tiempo estimado: 45-50 minutos total, llegando al museo aproximadamente 10:50 AM. El primer estudiante (Pedro) esperará máximo 35 minutos, lo cual excede ligeramente el límite de 20 minutos. Alternativa: recoger a María primero (oeste), luego Pedro (norte), Ana (este), Carlos (sur), museo (centro).",
-    "cognitive_load": 4
+    "optimal_answer": {
+      "orden_recogida": ["Valeria (norte, portería)", "Samuel (sur-oeste)", "Tomás (nororiente)", "Isabella (occidente)", "Martín (sur, camino al centro)"],
+      "justificacion_orden": "Valeria debe ser la PRIMERA en recogerse porque: (1) está al norte del garaje, en dirección contraria al recorrido final hacia el sur, (2) la familia tiene instrucción de no dejarla esperar más de 10 minutos, y (3) si se deja para después habría que retroceder. Saliendo del garaje a las 9:35 AM, el bus llega a Valeria a las 9:40 AM exactos. Luego se baja Samuel (9:47 AM, 2 min antes de su horario), después Tomás tomando la Carrera 7 norte brevemente (9:53 AM). Luego se cruza hacia el occidente por la Calle 147 para recoger a Isabella en el Bulevar (10:01 AM). Finalmente Martín en Barrancas, que queda en la ruta natural hacia el centro (10:10 AM). Llegada estimada al Museo del Oro: 10:48 AM.",
+      "plan_paso_a_paso": [
+        "9:30 AM — Recibir llamada de coordinadora. Confirmar ruta. Verificar tarjetón escolar y que el monitor esté a bordo.",
+        "9:35 AM — Salir del Garaje Liceo Boston (Calle 147 #19). Tomar la Carrera 19 hacia el norte.",
+        "9:40 AM — PARADA 1: Valeria — Portería del Conjunto Reserva del Parque, Calle 161 #9A. El monitor baja, recibe a Valeria, la sube, verifica cinturón. Tiempo en parada: 3 min.",
+        "9:43 AM — Salir hacia el sur por la Carrera 9A, conectar con la Calle 153 hacia el occidente.",
+        "9:47 AM — PARADA 2: Samuel — Calle 153 #15, frente al CAI. Monitor baja, recibe a Samuel. Tiempo en parada: 3 min.",
+        "9:50 AM — Tomar la Carrera 15 hacia el norte hasta la Calle 155, girar al oriente hacia la Carrera 7.",
+        "9:54 AM — PARADA 3: Tomás — Parqueadero Éxito Calle 153 / Carrera 7. Monitor recibe a Tomás. Tiempo en parada: 3 min.",
+        "9:57 AM — Desde la Carrera 7, tomar la Calle 147 hacia el occidente.",
+        "10:02 AM — PARADA 4: Isabella — Av. Boyacá #147, frente a Bulevar Niza. Monitor recibe a Isabella. Tiempo en parada: 3 min. (Madre puede esperar hasta 10:10 AM — llegamos a las 10:02, perfecto.)",
+        "10:05 AM — Tomar la Av. Boyacá hacia el sur hasta la Calle 140.",
+        "10:09 AM — PARADA 5: Martín — Calle 140 #19, panadería La Espiga. Monitor recibe a Martín. Tiempo en parada: 3 min.",
+        "10:12 AM — Iniciar ruta hacia el Museo del Oro. Tomar la Carrera 19 hacia el sur, conectar con la Calle 100, tomar la NQS o la Carrera 7 hacia el sur hasta el Centro Histórico.",
+        "10:48 AM — Llegada estimada al Museo del Oro. 12 minutos de margen antes de las 11:00 AM.",
+        "10:50 AM — Monitor acompaña a los 5 estudiantes hasta la entrada del museo. Confirmar con el guía la llegada del grupo."
+      ],
+      "alertas_logisticas": [
+        "CRÍTICO: Valeria no puede esperar sola en portería — debe ser la primera parada obligatoriamente.",
+        "ATENCIÓN Tomás: Si hay demora en las paradas anteriores, Tomás puede quedar esperando solo más de 15 min en el parqueadero. Si se proyecta retraso, llamar al padre para que espere con él.",
+        "OBRAS Carrera 7 #116: Tomar desvío por Carrera 9 para evitar los 5 min adicionales de demora.",
+        "VERIFICAR: Capacidad del bus es 20 estudiantes, se recogen 5 — sin problema de capacidad.",
+        "MUSEO: La Candelaria tiene restricciones de estacionamiento. El bus puede hacer parada temporal en la Carrera 5 o en la Calle 16 — el monitor baja con los estudiantes mientras el conductor busca donde parquear el bus."
+      ],
+      "cognitive_load": 4
+    }
   },
+
   {
     "task_id": "T1_005",
     "task_type": "route_planning",
     "difficulty": "hard",
     "scenario": {
-      "description": "Es sábado a las 3:00 PM. Eres conductor de una ambulancia (sin emergencia activa) y debes trasladar a un paciente con movilidad reducida desde el Hospital Regional hasta su domicilio en las afueras de la ciudad. El paciente acaba de salir de una cirugía de rodilla y necesita un viaje lo más suave posible.",
+      "description": "Es sábado a las 2:00 PM. Eres conductor de una ambulancia de traslado no urgente de una empresa de remisiones médicas (EPS Compensar). Debes trasladar a don Rodrigo, un paciente de 68 años, desde la Clínica del Country (Calle 84 #16-44, Bogotá) hasta su domicilio en la vereda El Charquito, municipio de Soacha, Cundinamarca, a 28 km de la clínica. Don Rodrigo acaba de salir de una cirugía de reemplazo de rodilla (prótesis total). El ortopedista dio instrucciones escritas: 'Evitar al máximo vibraciones, topes y baches. El paciente NO debe flexionar la rodilla más de 45 grados durante el traslado. Una mala posición o golpe fuerte puede desplazar la prótesis recién implantada'. La ambulancia es una van Sprinter adaptada con camilla fija. La familia informa que la vía de acceso final a la vereda El Charquito (los últimos 4 km) es una trocha sin pavimentar que en temporada de lluvia se vuelve lodosa. Esta semana llovió martes y jueves.",
       "map_data": {
-        "origin": "Hospital Regional - Centro",
-        "destination": "Vereda La Esperanza - Km 15 vía rural",
+        "origin": {
+          "nombre": "Clínica del Country",
+          "direccion": "Calle 84 No. 16-44, Barrio El Chicó, Bogotá",
+          "localidad": "Chapinero / Chicó"
+        },
+        "destination": {
+          "nombre": "Domicilio de don Rodrigo — Vereda El Charquito",
+          "ubicacion": "Vereda El Charquito, municipio de Soacha, Cundinamarca",
+          "distancia_clinica": "28 km aproximados",
+          "acceso_final": "4 km de trocha sin pavimentar"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Autopista + Vía Rural",
-            "distance_km": 18.0,
-            "estimated_time": 25,
-            "road_quality": "autopista_excelente + rural_regular",
-            "speed_bumps": 3,
-            "unpaved_sections": "2 km al final"
+            "id": "A",
+            "name": "Ruta A — Carrera 7 / Calle 26 / Autopista Sur / Soacha / Trocha vereda",
+            "descripcion_detallada": "Desde la Clínica del Country, bajar por la Carrera 7 o Carrera 11 hacia el sur, tomar la Calle 26 hacia el occidente, continuar por la Autopista Sur hacia Soacha. Al llegar a Soacha, tomar vía secundaria hacia la vereda El Charquito por el costado sur.",
+            "distance_km": 30,
+            "estimated_time_min": 65,
+            "road_quality": {
+              "tramo_urbano_bogota": "Buena (Carrera 7 y Calle 26)",
+              "autopista_sur": "Regular — múltiples huecos en el tramo Soacha",
+              "tramo_soacha_urbano": "Malo — calles sin mantenimiento, huecos profundos, vendedores en vía",
+              "trocha_vereda_4km": "MUY MALO — destapado, piedras sueltas, posible barro por lluvias recientes"
+            },
+            "speed_bumps": 18,
+            "observaciones": "La Autopista Sur en el tramo de Soacha tiene historial de huecos severos no reparados. El tramo urbano de Soacha es notoriamente descuidado. Los 4 km de trocha final después de la lluvia del jueves son el principal riesgo para el paciente post-quirúrgico.",
+            "riesgo_paciente": "ALTO — múltiples huecos + trocha lodosa + 18 topes"
           },
           {
-            "name": "Ruta B - Avenida Principal + Vía Veredal",
-            "distance_km": 22.0,
-            "estimated_time": 35,
-            "road_quality": "urbana_buena + veredal_mala",
-            "speed_bumps": 12,
-            "unpaved_sections": "5 km"
+            "id": "B",
+            "name": "Ruta B — Av. Boyacá / Bosa / Autopista Sur (variante) / Soacha Centro / Trocha vereda",
+            "descripcion_detallada": "Desde la clínica bajar por la Carrera 11 o Carrera 15 hacia el sur, tomar la Av. Boyacá hacia el sur pasando por Kennedy y Bosa. Conectar con la variante de la Autopista Sur que evita el tramo más deteriorado de Soacha.",
+            "distance_km": 38,
+            "estimated_time_min": 80,
+            "road_quality": {
+              "tramo_carrera11_boyaca": "Buena",
+              "boyaca_kennedy_bosa": "Regular — algunos baches, 8 topes",
+              "variante_autopista_sur": "Regular — mejor que la ruta directa por Calle 26",
+              "soacha_acceso_vereda": "Malo — igual para el tramo final de trocha independientemente de la ruta"
+            },
+            "speed_bumps": 8,
+            "observaciones": "Más larga en distancia pero significativamente mejor en calidad de vía para el paciente. Evita el tramo más destruido de la Autopista Sur en el sector de entrada a Soacha. La trocha final (4 km) es inevitable por cualquier ruta — es la única forma de llegar a la vereda El Charquito.",
+            "riesgo_paciente": "MEDIO — menos topes, mejor pavimento en tramo principal, pero trocha final es igual que cualquier ruta"
           },
           {
-            "name": "Ruta C - Circunvalar + Nueva Vía Rural",
-            "distance_km": 25.0,
-            "estimated_time": 40,
-            "road_quality": "circunvalar_buena + rural_nueva_excelente",
-            "speed_bumps": 2,
-            "unpaved_sections": "0 km"
+            "id": "C",
+            "name": "Ruta C — Carrera 7 sur / Vía Usme / Soacha Oriental / Trocha vereda",
+            "descripcion_detallada": "Alternativa por el oriente: bajar por la Carrera 7 hasta el sur de la ciudad, conectar con la vía Usme, y acceder a la vereda El Charquito por el costado oriental desde Usme.",
+            "distance_km": 52,
+            "estimated_time_min": 110,
+            "road_quality": {
+              "tramo_carrera7_sur": "Buena hasta la Calle 68 sur, luego deteriora progresivamente",
+              "via_usme": "Regular con zonas malas — vía de montaña con curvas pronunciadas",
+              "acceso_oriental_vereda": "DESCONOCIDO — no confirmado si es transitable para ambulancia Sprinter de 3.2 toneladas"
+            },
+            "speed_bumps": 22,
+            "observaciones": "Ruta más larga. El acceso por el oriente a la vereda no está confirmado como transitable para una Sprinter. Alta incertidumbre logística. Supera ampliamente el límite de 90 minutos tolerables para el paciente post-anestesia.",
+            "riesgo_paciente": "ALTO — tiempo excesivo (110 min supera el límite de 90 min), calidad de vía no confirmada, 22 topes"
           }
         ],
         "current_conditions": {
-          "weather": "despejado",
-          "road_works": "Ruta B tiene baches reportados",
-          "special_events": "Ciclovía en parte de Ruta A (reduce un carril)"
+          "weather": "Sábado despejado en Bogotá. En Soacha (zona más baja): parcialmente nublado con brisa.",
+          "road_works": "Ninguna activa en sábado.",
+          "special_events": "Ciclovía en Bogotá hasta las 2:00 PM — a esta hora ya levantando. Posible flujo residual en algunos puntos del centro y norte.",
+          "estado_trocha_vereda": "Confirmado por familiar vía telefónica antes de salir: 'La trocha está lodosa en el primer kilómetro por la lluvia del jueves. El resto (3 km) está seco y compacto.' La Sprinter puede pasar el tramo seco, pero el primer kilómetro lodoso requiere precaución extrema.",
+          "cultura_vial_soacha": "Alta informalidad vial en el municipio. Mototaxistas sin casco, cruces peatonales no señalizados, perros sueltos en la vía, comercio informal sobre la calzada. Reducir velocidad obligatorio al ingresar al casco urbano."
         }
       },
+      "vehicle_info": {
+        "tipo": "Ambulancia de traslado — Mercedes-Benz Sprinter 516 adaptada",
+        "equipamiento": "Camilla fija con sistema de inmovilización lateral, correas de sujeción de camilla al piso, oxígeno de apoyo, botiquín de emergencia post-quirúrgica",
+        "tripulacion": "Conductor + Auxiliar de enfermería (obligatorio en traslados post-quirúrgicos según normativa de la EPS)",
+        "peso_vehiculo": "3.2 toneladas cargada",
+        "traccion": "4x2 — NO es 4x4. Riesgo real de quedar atascada en barro profundo.",
+        "altura_libre_chasis": "22 cm del suelo — puede rozar en piedras grandes de la trocha"
+      },
       "constraints": [
-        "PRIORIDAD: Comodidad del paciente post-quirúrgico",
-        "Evitar movimientos bruscos y superficies irregulares",
-        "El paciente puede viajar hasta 45 minutos sin problema",
-        "Combustible no es restricción"
+        "PRIORIDAD MÉDICA ABSOLUTA: Minimizar vibraciones, topes y golpes según instrucción escrita del ortopedista en la historia clínica.",
+        "El paciente tiene 68 años, acaba de salir de cirugía de reemplazo total de rodilla — cualquier golpe fuerte puede desplazar la prótesis recién implantada.",
+        "La rodilla NO debe flexionarse más de 45 grados durante el traslado — posición en extensión sobre la camilla.",
+        "La trocha final (4 km) es INEVITABLE por cualquier ruta — la velocidad máxima en ese tramo debe ser 5-10 km/h.",
+        "La ambulancia es 4x2 — si la trocha está muy lodosa puede quedar atascada con el paciente adentro.",
+        "El auxiliar de enfermería debe monitorear signos vitales cada 20 minutos durante todo el traslado.",
+        "Tiempo máximo tolerable de viaje: 90 minutos (el paciente está bajo efectos residuales de anestesia y el dolor aumenta con el tiempo en posición fija).",
+        "Antes de salir: llamar a la familia para confirmar si la trocha es transitable y coordinar vehículo 4x4 de apoyo si es necesario."
       ]
     },
-    "question": "Selecciona la ruta óptima considerando la condición del paciente. Explica tu razonamiento médico-logístico.",
+    "question": "Selecciona la ruta óptima para el traslado de don Rodrigo, considerando su condición post-quirúrgica, las instrucciones médicas, el estado real de las vías colombianas y el riesgo específico de la trocha final con una ambulancia 4x2. Explica tu razonamiento médico-logístico completo y detalla las precauciones para el tramo sin pavimentar.",
     "expected_elements": [
-      "prioriza_comodidad_paciente",
-      "analiza_calidad_vias",
-      "considera_numero_topes",
-      "considera_tramos_sin_pavimentar",
-      "descarta_rutas_inadecuadas",
-      "justifica_con_criterio_medico"
+      "prioriza_instruccion_medica_vibracion",
+      "descarta_ruta_A_por_18_topes_y_autopista_sur_deteriorada",
+      "descarta_ruta_C_por_tiempo_excesivo_y_via_no_confirmada",
+      "selecciona_ruta_B_como_menos_agresiva_para_paciente",
+      "calcula_tiempo_total_dentro_limite_90_min",
+      "alerta_traccion_4x2_en_trocha_lodosa",
+      "protocolo_transbordo_4x4_si_trocha_no_transitable",
+      "menciona_rol_auxiliar_enfermeria_y_monitoreo_signos_vitales",
+      "considera_condiciones_reales_vias_soacha",
+      "justificacion_medico_logistica_completa",
+      "plan_paso_a_paso_con_horarios_detallados"
     ],
-    "optimal_answer": "Selecciono la Ruta C - Circunvalar + Nueva Vía Rural. Justificación médico-logística: Para un paciente post-cirugía de rodilla, cada vibración, bache o movimiento brusco puede causar dolor significativo y potencialmente afectar la recuperación. Análisis: Ruta A tiene solo 3 topes pero 2 km sin pavimentar al final - descartada. Ruta B tiene 12 topes y 5 km sin pavimentar más baches reportados - definitivamente descartada. Ruta C, aunque es la más larga (25 km, 40 min), tiene solo 2 topes y 0 km sin pavimentar gracias a la nueva vía rural. Los 40 minutos están dentro del límite de 45 minutos que el paciente puede tolerar. La comodidad supera la eficiencia de tiempo en este caso clínico.",
+    "optimal_answer": {
+      "ruta_elegida": "Ruta B — Av. Boyacá / Kennedy / Bosa / variante Autopista Sur",
+      "justificacion_medico_logistica": "Para un paciente post-cirugía de reemplazo total de rodilla, cada vibración, tope o golpe brusco representa un riesgo clínico real. La prótesis recién implantada requiere entre 48 y 72 horas para estabilizarse en el tejido óseo y cualquier desplazamiento por impacto puede requerir una segunda intervención quirúrgica. Por eso la prioridad NO es la rapidez, sino la suavidad del trayecto. Análisis comparativo: La Ruta A tiene 18 topes y utiliza el tramo de la Autopista Sur hacia Soacha, históricamente uno de los peores en mantenimiento vial de Cundinamarca — los huecos en ese sector son profundos y frecuentes, lo que generaría impactos repetitivos sobre la rodilla operada. DESCARTADA. La Ruta C supera los 110 minutos, excede el límite médico tolerable de 90 minutos para un paciente post-anestesia, tiene 22 topes y el acceso oriental a la vereda no está confirmado como transitable para la Sprinter. DESCARTADA. La Ruta B tiene solo 8 topes, utiliza la Av. Boyacá y una variante de la Autopista Sur en mejores condiciones, y aunque es más larga en distancia (38 km), el tiempo estimado de 80 minutos está dentro del margen médico de 90 minutos. Es la ruta que minimiza el trauma mecánico al paciente dentro de las opciones disponibles.",
+      "calculo_tiempo": {
+        "tiempo_ruta_b_estimado_base": "80 minutos",
+        "factor_velocidad_reducida_soacha": "+5 minutos (zona urbana informal)",
+        "tiempo_trocha_4km_a_10kmh": "+24 minutos (primer km a 5 km/h = 12 min, resto 3 km a 15 km/h = 12 min)",
+        "tiempo_total_real_estimado": "85-88 minutos",
+        "limite_medico_tolerable": "90 minutos",
+        "evaluacion": "AJUSTADO pero VIABLE. Dentro del margen médico con 2-5 minutos de reserva. Requiere salida sin demoras.",
+        "nota": "Si hay cualquier retraso imprevisto que haga superar los 90 minutos, el auxiliar de enfermería debe evaluar la condición del paciente y si hay dolor agudo o signos de complicación, priorizar el regreso a la clínica más cercana."
+      },
+      "protocolo_previo_salida": [
+        "PASO 1 — Llamada de confirmación a la familia (ANTES de sacar al paciente de la clínica): Preguntar exactamente el estado del primer kilómetro de trocha. Si el barro tiene más de 15 cm de profundidad, solicitar que un vehículo 4x4 (campero, Jeep Willys o camioneta doble tracción) espere al final del pavimento para el transbordo del paciente.",
+        "PASO 2 — Informar al ortopedista tratante del plan de traslado y confirmar que las instrucciones escritas están en la historia clínica que viaja con el paciente.",
+        "PASO 3 — Verificar que la camilla está en posición horizontal con la rodilla en extensión completa (0 grados de flexión). Los inmovilizadores laterales deben estar activos y las correas de sujeción de la camilla al piso, tensadas.",
+        "PASO 4 — Registrar signos vitales basales: tensión arterial, frecuencia cardíaca, saturación de oxígeno y escala de dolor (0-10). Documentar en el formato de traslado.",
+        "PASO 5 — Verificar oxígeno de apoyo disponible. El paciente post-anestesia puede requerir oxígeno suplementario durante el traslado.",
+        "PASO 6 — Avisar al auxiliar sobre los 8 topes en la ruta para que sostenga la rodilla del paciente con suavidad antes de cada uno."
+      ],
+      "plan_paso_a_paso": [
+        "2:00 PM — Salir de la Clínica del Country por la Calle 84. Tomar la Carrera 11 hacia el sur. PRECAUCIÓN: La zona de Chapinero sur tiene calzadas con irregularidades — velocidad máxima 25 km/h en este tramo inicial.",
+        "2:08 PM — Conectar con la Av. Boyacá (Carrera 72) en el sector de Galerías. Tomar la Boyacá hacia el sur. En este tramo la calzada es de mejor calidad. Velocidad constante de 50 km/h. Sin frenadas bruscas.",
+        "2:18 PM — Tramo Boyacá por Kennedy. El auxiliar avisa al paciente: 'Don Rodrigo, vienen 8 topes en esta zona. Lo sostengo antes de cada uno.' Reducir a 15 km/h antes de cada tope, pasar despacio, acelerar suavemente.",
+        "2:30 PM — Entrar a Bosa. Tomar la variante que conecta con la Autopista Sur evitando el tramo más deteriorado del sector de entrada a Soacha (por Cazucá). Seguir señalización hacia Soacha Centro.",
+        "2:50 PM — Ingresar al municipio de Soacha. REDUCIR VELOCIDAD A 20-25 km/h obligatorio. Zona de alta informalidad vial: mototaxistas que se cruzan sin señalar, peatones que cruzan sin semáforo, perros en la vía. Tener la bocina disponible.",
+        "3:00 PM — Seguir la vía secundaria hacia la vereda El Charquito. En este tramo la vía se estrecha. Si hay vendedores ambulantes ocupando la calzada, esperar con paciencia — no hacer maniobras bruscas con el paciente a bordo.",
+        "3:15 PM — Llegada al inicio de la trocha (4 km). DETENER EL VEHÍCULO COMPLETAMENTE. El auxiliar evalúa al paciente: registrar signos vitales, verificar nivel de dolor (escala 0-10), confirmar posición correcta de la rodilla. Si hay dolor mayor a 6/10, llamar al médico tratante antes de continuar.",
+        "3:15 PM — Evaluar visualmente el estado del primer kilómetro de trocha. Si hay barro profundo (más de 15 cm), ACTIVAR PROTOCOLO DE TRANSBORDO: llamar a la familia para que el vehículo 4x4 avance hasta la ambulancia. No intentar forzar el paso con la Sprinter 4x2 en barro profundo.",
+        "3:15-3:40 PM — Si la trocha es transitable: Recorrer los 4 km a MÁXIMO 5-10 km/h. Primer kilómetro (lodoso): 5 km/h, sin girar bruscamente el volante, sin frenar de golpe. Si hay una piedra grande en el camino, detenerse, bajarse y moverla antes de continuar. Los 3 km restantes (secos): 10-15 km/h máximo.",
+        "3:40 PM — Llegada estimada al domicilio en vereda El Charquito. El auxiliar baja primero, verifica el acceso para la camilla (puertas, escalones, espacio). La familia debe tener lista la cama donde quedará el paciente, a la misma altura que la camilla si es posible.",
+        "3:45 PM — Traslado de don Rodrigo de la camilla a la cama. MOVIMIENTO CONJUNTO entre el conductor, el auxiliar y al menos un familiar. Nunca flexionar la rodilla más de 45 grados durante este movimiento.",
+        "3:50 PM — El auxiliar entrega al familiar las indicaciones post-quirúrgicas escritas del ortopedista, registra los signos vitales finales y firma el formato de traslado. Confirmar con la familia número de contacto de urgencias en caso de complicación durante la noche."
+      ],
+      "alertas_criticas": [
+        "CRÍTICO — TRACCIÓN 4x2: La Sprinter 4x2 NO puede atravesar barro profundo (más de 15 cm). Si queda atascada con el paciente post-quirúrgico adentro, genera una situación de emergencia mayor. PROTOCOLO OBLIGATORIO: Llamar a la familia desde la clínica para confirmar estado de la trocha y coordinar vehículo 4x4 de respaldo antes de salir.",
+        "CRÍTICO — PROTOCOLO DE TRANSBORDO: Si la trocha no es transitable para la Sprinter, el transbordo del paciente debe hacerse en camilla, con el auxiliar acompañando en el vehículo 4x4. La ambulancia espera en el punto donde termina el pavimento. Este protocolo debe estar coordinado con la familia ANTES de salir de la clínica.",
+        "TOPES — AVISO PREVIO OBLIGATORIO: El auxiliar debe avisar verbalmente al paciente 10-15 segundos antes de cada tope: 'Don Rodrigo, viene un tope, lo voy a sostener.' Esto permite que el paciente se prepare mentalmente y reduce la percepción de dolor.",
+        "SIGNOS VITALES — MONITOREO CADA 20 MINUTOS: Si durante el traslado aparece dolor agudo en la rodilla mayor a 7/10, hinchazón súbita visible, fiebre o cambios en la conciencia, detener el vehículo inmediatamente, llamar al médico tratante y evaluar si se regresa a la clínica más cercana (Hospital de Soacha o Clínica del Country si aún están cerca).",
+        "SOACHA — ZONA DE ALTA INFORMALIDAD: Reducir velocidad a 20 km/h en el casco urbano. Alta presencia de mototaxistas sin casco que se cruzan abruptamente, zonas de mercado informal sobre la calzada y cruces sin señalización. Una frenada brusca para evitar un impacto puede ser igualmente perjudicial para el paciente.",
+        "COMUNICACIÓN CONSTANTE: El conductor debe mantener comunicación con la central de la EPS Compensar durante todo el traslado. Si el tiempo supera los 85 minutos, avisar a la central para que tenga preparado el protocolo de contingencia."
+      ],
+      "nota_final": "En Colombia, el transporte médico domiciliario hacia zonas veredales representa uno de los mayores retos logístico-sanitarios del sistema de salud. La combinación de vías en mal estado, informalidad vial, accesos rurales sin pavimentar y geografía accidentada exige que el conductor de ambulancia tome decisiones que van mucho más allá del simple GPS: requiere criterio clínico básico, conocimiento real del territorio, comunicación activa con la familia y el equipo médico, y la capacidad de adaptar el plan en tiempo real si las condiciones del terreno o del paciente cambian durante el trayecto. La diferencia entre llegar bien y llegar mal puede ser la diferencia entre una recuperación exitosa y una segunda cirugía."
+    },
     "cognitive_load": 5
   },
+
   {
     "task_id": "T1_006",
     "task_type": "route_planning",
     "difficulty": "easy",
     "scenario": {
-      "description": "Es martes a las 9:00 AM. Debes llevar un paquete urgente desde la oficina de correos del centro hasta una empresa en la zona industrial.",
+      "description": "Es martes a las 8:45 AM. Eres mensajero motorizado (moto mensajería) de la empresa legal MotoExpress Bogotá. Debes recoger un sobre con documentos legales urgentes (escrituras de una propiedad) en la Notaría 45 de Bogotá, ubicada en la Carrera 7 con Calle 57 (sector Chapinero), y entregarlo antes de las 10:00 AM en las oficinas de la firma de abogados Martínez & Asociados, ubicadas en la Calle 100 con Carrera 7A, Torre Empresarial Norte, Piso 12, Usaquén. Tu moto es una Honda CB 190 placa *** terminada en 2. Hoy es martes (día impar): restricción para placas 1, 2, 3, 4 y 5. TIENES restricción de Pico y Placa hasta las 9:00 PM. Sin embargo, las motos en Bogotá tienen su propio sistema de Pico y Placa (Decreto 475 de 2013 y sus modificaciones): las motos también tienen restricción en días hábiles de 6:00 AM a 9:00 AM y de 5:00 PM a 8:00 PM. Son las 8:45 AM — faltan 15 minutos para que termine la restricción de motos. El cliente llama preguntando si puede salir ya.",
       "map_data": {
-        "origin": "Oficina de Correos - Centro",
-        "destination": "Empresa TechCorp - Zona Industrial Norte",
+        "origin": {
+          "nombre": "Notaría 45 de Bogotá",
+          "direccion": "Carrera 7 No. 57-23, Barrio Chapinero Central",
+          "localidad": "Chapinero"
+        },
+        "destination": {
+          "nombre": "Firma Martínez & Asociados",
+          "direccion": "Calle 100 No. 7A-20, Torre Empresarial Norte, Piso 12",
+          "localidad": "Usaquén"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Directa por Avenida Industrial",
-            "distance_km": 7.5,
-            "estimated_time": 18,
-            "current_traffic": "moderado"
+            "id": "A",
+            "name": "Ruta A — Carrera 7 directa hacia el norte",
+            "descripcion_detallada": "Desde la Notaría en la Calle 57 con Carrera 7, continuar por la Carrera 7 hacia el norte hasta la Calle 100. Girar al occidente media cuadra hasta la Torre Empresarial.",
+            "distance_km": 5.2,
+            "estimated_time_normal_min": 12,
+            "estimated_time_rush_min": 28,
+            "current_traffic": "congestionado",
+            "peaje": false,
+            "observaciones": "La Carrera 7 entre la Calle 57 y Calle 100 es el corredor más congestionado de Chapinero en hora pico matutina. Sin embargo, para una moto (a partir de las 9:00 AM cuando termina su restricción), puede avanzar entre carriles con precaución. Es la ruta más corta y directa. Hay cámaras de Pico y Placa en la Carrera 7 con Calle 72 y Calle 85.",
+            "camaras_salvavidas": ["Carrera 7 con Calle 72", "Carrera 7 con Calle 85"],
+            "riesgo_pico_placa_moto": "RESTRICCIÓN ACTIVA hasta las 9:00 AM — salir DESPUÉS de las 9:01 AM"
           },
           {
-            "name": "Ruta B - Por el Anillo Vial",
-            "distance_km": 11.0,
-            "estimated_time": 22,
-            "current_traffic": "libre"
+            "id": "B",
+            "name": "Ruta B — Carrera 11 paralela hacia el norte",
+            "descripcion_detallada": "Tomar la Carrera 11 hacia el norte desde la Calle 57. La Carrera 11 es una vía paralela a la Carrera 7 con menor flujo vehicular pero mismo sentido. Llegar a la Calle 100 y girar al oriente hasta la Carrera 7.",
+            "distance_km": 6.1,
+            "estimated_time_normal_min": 15,
+            "estimated_time_rush_min": 22,
+            "current_traffic": "moderado",
+            "peaje": false,
+            "observaciones": "La Carrera 11 tiene menos cámaras de control pero también tiene restricción de Pico y Placa para motos hasta las 9:00 AM. Sin embargo, fluye mejor que la Carrera 7. Buena opción secundaria.",
+            "riesgo_pico_placa_moto": "RESTRICCIÓN ACTIVA hasta las 9:00 AM en TODA la ciudad para motos"
           }
         ],
         "current_conditions": {
-          "weather": "nublado",
-          "road_works": "ninguna",
-          "special_events": "ninguno"
+          "weather": "Nublado, temperatura 13°C. Sin lluvia activa pero humedad alta — calzada ligeramente húmeda.",
+          "road_works": "Ninguna relevante en este tramo.",
+          "special_events": "Hora pico matutina normal. Martes con flujo estándar.",
+          "pico_placa_motos": {
+            "restriccion_activa": true,
+            "horario_restriccion": "6:00 AM a 9:00 AM (mañana) y 5:00 PM a 8:00 PM (tarde)",
+            "hora_actual": "8:45 AM",
+            "minutos_para_fin_restriccion": 15,
+            "camaras_en_ruta": "Confirmadas en Carrera 7 con Calle 72 y Calle 85",
+            "multa_por_infraccion": "$488.700 COP (4 SMLDV) + posible inmovilización de la moto"
+          }
         }
       },
+      "vehicle_info": {
+        "tipo": "Moto Honda CB 190",
+        "placa_termina_en": 2,
+        "categoria": "Mensajería — no exenta de Pico y Placa de motos",
+        "casco": "Obligatorio. Multa por no usarlo: $488.700 COP",
+        "documentos_vigentes": "SOAT y revisión técnica al día"
+      },
       "constraints": [
-        "El paquete debe entregarse antes de las 10:00 AM",
-        "Es un documento legal importante"
+        "RESTRICCIÓN ACTIVA: Pico y Placa de motos hasta las 9:00 AM — NO puede salir antes de las 9:01 AM",
+        "Entrega debe realizarse ANTES de las 10:00 AM",
+        "Los documentos son escrituras originales — NO pueden perderse ni mojarse",
+        "Cámaras de control en la ruta — multa de $488.700 COP + inmovilización si circula antes de las 9:00 AM",
+        "Calzada húmeda — riesgo de deslizamiento en curvas"
       ]
     },
-    "question": "¿Qué ruta tomas para la entrega urgente?",
+    "question": "¿Puede el mensajero salir ahora (8:45 AM) o debe esperar? ¿Cuál ruta toma una vez sea legal circular? ¿Llega a tiempo para la entrega de las 10:00 AM? Justifica con tiempos reales y la normativa vigente.",
     "expected_elements": [
-      "selecciona_ruta",
-      "considera_urgencia",
-      "calcula_tiempo_llegada",
-      "justifica_eleccion"
+      "identifica_restriccion_pico_placa_motos",
+      "determina_que_debe_esperar_hasta_9am",
+      "calcula_tiempo_disponible_tras_espera",
+      "selecciona_ruta_optima",
+      "verifica_que_llega_antes_10am",
+      "menciona_riesgo_multa_y_camaras",
+      "menciona_condicion_humedad_calzada",
+      "justifica_decision_legal_y_logistica"
     ],
-    "optimal_answer": "Tomo la Ruta A - Directa por Avenida Industrial. Con 18 minutos estimados y saliendo a las 9:00 AM, llegaría aproximadamente a las 9:20 AM, con 40 minutos de margen antes del límite de las 10:00 AM. Aunque el tráfico es moderado, el margen de tiempo es suficiente. La Ruta B, aunque tiene tráfico libre, toma 4 minutos más y no aporta beneficio adicional dado el tiempo disponible.",
-    "cognitive_load": 2
+    "optimal_answer": {
+      "decision_inmediata": "NO puede salir a las 8:45 AM. La restricción de Pico y Placa para motos está activa hasta las 9:00 AM. Si sale ahora, pasa frente a las cámaras de la Carrera 7 con Calle 72 durante la restricción y recibe una multa de $488.700 COP más posible inmovilización del vehículo, lo que haría IMPOSIBLE la entrega a tiempo. Debe esperar en la Notaría hasta las 9:01 AM.",
+      "analisis_tiempo": {
+        "hora_salida_legal": "9:01 AM",
+        "ruta_elegida": "Ruta A — Carrera 7 directa",
+        "tiempo_estimado_post_restriccion": "20-25 minutos (el tráfico empieza a mejorar levemente después de las 9:00 AM)",
+        "hora_llegada_estimada": "9:21 a 9:26 AM",
+        "tiempo_subir_piso_12_y_entregar": "10 minutos adicionales (portería, ascensor, recepción firma)",
+        "hora_entrega_final": "9:36 AM aproximadamente",
+        "margen_antes_deadline": "24 minutos antes de las 10:00 AM",
+        "evaluacion": "VIABLE — con margen cómodo si sale puntual a las 9:01 AM"
+      },
+      "plan_paso_a_paso": [
+        "8:45 AM — Informar al cliente: 'No puedo salir aún por restricción de Pico y Placa de motos. Salgo a las 9:01 AM y llego antes de las 10:00 AM. No se preocupe.'",
+        "8:45 - 9:00 AM — Mientras espera: proteger el sobre de escrituras dentro de una bolsa plástica (calzada húmeda, riesgo de salpicadura). Verificar que el casco esté puesto. Preparar la ruta.",
+        "9:01 AM — Salir de la Notaría 45 tomando la Carrera 7 hacia el norte.",
+        "9:05 AM — Pasar por la Calle 72 con Carrera 7: restricción ya levantada, cámara no genera multa. Continuar.",
+        "9:10 AM — Pasar por la Calle 85: zona de colegios, reducir velocidad a 30 km/h según normativa.",
+        "9:18 AM — Llegar a la Calle 100 con Carrera 7. Girar al occidente hasta la Torre Empresarial Norte.",
+        "9:20 AM — Estacionar la moto en zona permitida. No dejar en andén — infracción. Verificar parqueadero de motos del edificio.",
+        "9:21 AM — Subir a piso 12. En recepción de Martínez & Asociados: solicitar firma de recibido con nombre, cédula y hora. Esto es obligatorio para documentos legales.",
+        "9:31 AM — Entrega completada. Fotografiar el recibido y enviarlo al cliente.",
+        "PRECAUCIÓN EN RUTA: Calzada húmeda. No adelantar por la derecha en curvas. Mantener distancia de seguridad con buses del SITP que frenan abruptamente."
+      ],
+      "nota_normativa": "En Bogotá, el Pico y Placa de motos es una de las normas con mayor evasión y también con mayor vigilancia electrónica. Las cámaras en la Carrera 7 operan de forma automática y la multa llega al domicilio del propietario. Circular 15 minutos antes del levantamiento de la restricción no vale la pena: la multa ($488.700) equivale a casi 3 días de trabajo de un mensajero promedio."
+    },
+    "cognitive_load": 3
   },
+
   {
     "task_id": "T1_007",
     "task_type": "route_planning",
     "difficulty": "medium",
     "scenario": {
-      "description": "Es jueves a las 6:30 PM. Debes transportar equipos de sonido frágiles desde un almacén hasta un salón de eventos para una boda que comienza a las 8:00 PM.",
+      "description": "Es jueves a las 5:30 PM. Eres conductor independiente con furgoneta Hyundai H100 (capacidad de carga: 1 tonelada). Tienes contratado un servicio de transporte de equipos de sonido y luces para un evento de matrimonio. Debes recoger los equipos en el Almacén SoundPro (Calle 17 Sur con Carrera 30, sector Puente Aranda, Bogotá) y entregarlos antes de las 7:30 PM en el Salón Real de Eventos (Autopista Norte Km 7, sector entre Calle 170 y Calle 183, Bogotá Norte). Los equipos incluyen: 2 torres de sonido de 1.200 vatios, 1 consola de mezclas digital valorada en $18 millones COP, cables y luces LED colgantes. El proveedor te advierte que la consola de mezclas es extremadamente sensible a golpes — si se daña, debes responder económicamente. Es hora pico de jueves, una de las peores de la semana en Bogotá. Hay reporte de trancón severo en la NQS (Carrera 30) hacia el norte por un accidente en la Calle 30 con NQS, y hay un partido de fútbol en el Estadio El Campín (entre Carreras 30 y 36, Calles 53 a 57) que termina aproximadamente a las 6:30 PM, generando caos vehicular adicional en toda la zona norte de Puente Aranda y Teusaquillo.",
       "map_data": {
-        "origin": "Almacén AudioPro - Zona Sur",
-        "destination": "Salón Eventos Elegance - Zona Norte",
+        "origin": {
+          "nombre": "Almacén SoundPro",
+          "direccion": "Calle 17 Sur No. 30-15, Puente Aranda",
+          "localidad": "Puente Aranda"
+        },
+        "destination": {
+          "nombre": "Salón Real de Eventos",
+          "direccion": "Autopista Norte Km 7, entre Calle 170 y 183, Bogotá Norte",
+          "localidad": "Suba / Usaquén norte"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Autopista Urbana",
-            "distance_km": 15.0,
-            "estimated_time_rush": 40,
-            "road_quality": "excelente",
-            "speed_bumps": 0
+            "id": "A",
+            "name": "Ruta A — NQS (Carrera 30) directo al norte",
+            "descripcion_detallada": "Desde Puente Aranda tomar la Carrera 30 (NQS) hacia el norte directamente. Continuar por la NQS pasando por el Estadio El Campín, Calle 80, Calle 100, hasta conectar con la Autopista Norte en el sector de Calle 134 o Calle 170.",
+            "distance_km": 22,
+            "estimated_time_rush_min": 90,
+            "road_quality": "buena_pero_colapsada",
+            "speed_bumps": 2,
+            "current_traffic": "COLAPSADO",
+            "observaciones": "DESCARTADA. Doble problema: (1) Accidente activo en NQS con Calle 30 bloquea carriles. (2) El partido en El Campín termina a las 6:30 PM y la masa de hinchas copará todas las vías aledañas a la Carrera 30 entre Calle 53 y Calle 63. El tráfico en este tramo puede llegar a 0-5 km/h. Tiempo real estimado: más de 90 minutos. Completamente inviable.",
+            "riesgo_carga": "ALTO — tiempos de parada brusca frecuentes dañan la consola"
           },
           {
-            "name": "Ruta B - Avenidas Secundarias",
-            "distance_km": 12.0,
-            "estimated_time_rush": 50,
-            "road_quality": "buena_con_algunos_baches",
-            "speed_bumps": 8
+            "id": "B",
+            "name": "Ruta B — Av. Boyacá hacia el norte / conexión Autopista Norte",
+            "descripcion_detallada": "Desde Puente Aranda, tomar la Calle 17 Sur hacia el occidente hasta la Av. Boyacá (Carrera 72). Tomar la Av. Boyacá hacia el norte, pasando por Fontibón, Engativá, conectando con la Calle 80 o la Calle 170 para acceder a la Autopista Norte.",
+            "distance_km": 32,
+            "estimated_time_rush_min": 55,
+            "road_quality": "buena",
+            "speed_bumps": 4,
+            "current_traffic": "congestionado_pero_en_movimiento",
+            "observaciones": "La Av. Boyacá evita completamente la zona del Estadio y el accidente de la NQS. En hora pico de jueves, fluye a una velocidad promedio de 25-35 km/h en el tramo norte (Engativá-Suba). Hay 4 topes pero todos reductores de velocidad de tipo resalto bajo (no los agresivos de zonas residenciales). Al conectar con la Autopista Norte, el flujo mejora.",
+            "riesgo_carga": "BAJO — pocos topes, calzada en buen estado"
           },
           {
-            "name": "Ruta C - Calle Residencial",
-            "distance_km": 10.0,
-            "estimated_time_rush": 35,
-            "road_quality": "regular",
-            "speed_bumps": 15
+            "id": "C",
+            "name": "Ruta C — Av. Américas / Av. 68 / Calle 80 / Autopista Norte",
+            "descripcion_detallada": "Desde Puente Aranda tomar la Av. Américas hacia el occidente, conectar con la Av. 68 o la Av. Ciudad de Cali hacia el norte, tomar la Calle 80 hacia el oriente hasta la Autopista Norte, y seguir la Autopista Norte hasta el Km 7.",
+            "distance_km": 36,
+            "estimated_time_rush_min": 65,
+            "road_quality": "buena_con_tramos_regulares",
+            "speed_bumps": 7,
+            "current_traffic": "moderado_a_congestionado",
+            "observaciones": "Opción viable pero más larga. La Calle 80 en hora pico es uno de los puntos más conflictivos de Bogotá norte (velocidad promedio 15 km/h en el tramo Carrera 68 a Autopista Norte). Los 7 topes incluyen 3 de tipo agresivo en zona residencial de Engativá. Riesgo medio para la consola.",
+            "riesgo_carga": "MEDIO — algunos topes agresivos en Engativá"
           }
         ],
         "current_conditions": {
-          "weather": "despejado",
-          "road_works": "ninguna",
-          "special_events": "Concierto en estadio cerca de Ruta A (posible congestión adicional)"
+          "weather": "Despejado. Temperatura 17°C.",
+          "road_works": "Obras menores en la Calle 80 con Carrera 68 (reducción de 1 carril).",
+          "special_events": [
+            "Accidente activo: NQS con Calle 30 — 2 carriles bloqueados. Grúa en camino.",
+            "Partido de fútbol en Estadio El Campín: finaliza aproximadamente 6:30 PM. Zona de caos vehicular post-partido entre Carreras 28 y 36, Calles 53 a 63."
+          ],
+          "pico_placa": {
+            "dia": "Jueves impar",
+            "restriccion": "Placas terminadas en 1,2,3,4,5",
+            "placa_conductor": "Termina en 7 — SIN RESTRICCIÓN"
+          }
         }
       },
+      "vehicle_info": {
+        "tipo": "Furgoneta Hyundai H100",
+        "capacidad_carga": "1 tonelada",
+        "carga_actual": "Equipos de sonido y luces — aproximadamente 350 kg",
+        "placa_termina_en": 7,
+        "restriccion_pico_placa": "NO — sin restricción hoy"
+      },
       "constraints": [
-        "Equipos de sonido son MUY frágiles y costosos",
-        "Debe llegar antes de las 7:30 PM para instalación",
-        "Evitar vibraciones excesivas",
-        "El cliente es exigente - no puede haber retrasos"
+        "ENTREGA OBLIGATORIA antes de las 7:30 PM — la decoración del salón depende de los equipos de sonido",
+        "La consola de mezclas vale $18 millones COP — el conductor responde por daños",
+        "Evitar al máximo topes bruscos, frenadas repentinas y vibraciones",
+        "Tiempo disponible desde ahora (5:30 PM): exactamente 120 minutos",
+        "El partido en El Campín genera caos adicional en la zona NQS post-6:30 PM",
+        "NO tiene restricción de Pico y Placa"
       ]
     },
-    "question": "Planifica la ruta considerando la fragilidad de la carga y el tiempo límite.",
+    "question": "Planifica la ruta para entregar los equipos a tiempo y sin dañar la consola. Descarta las rutas inviables, justifica tu elección con tiempos reales de Bogotá, y detalla las precauciones de manejo para proteger la carga.",
     "expected_elements": [
-      "considera_fragilidad_equipos",
-      "analiza_calidad_vias",
-      "considera_evento_especial",
-      "balancea_tiempo_vs_seguridad_carga",
-      "plan_con_margen"
+      "descarta_ruta_A_por_accidente_y_partido",
+      "selecciona_ruta_B_como_optima",
+      "calcula_tiempo_llegada_con_margen",
+      "considera_calidad_via_para_carga_fragil",
+      "menciona_partido_campín_como_factor",
+      "plan_paso_a_paso_con_horarios",
+      "precauciones_manejo_carga_fragil",
+      "verifica_sin_restriccion_pico_placa"
     ],
-    "optimal_answer": "Selecciono Ruta A - Autopista Urbana con salida inmediata. Análisis: La fragilidad de los equipos descarta Ruta B (baches) y Ruta C (15 speed bumps). Aunque hay concierto cerca de Ruta A, saliendo a las 6:30 PM con 40 minutos estimados, llegaría a las 7:10 PM, con 20 minutos de margen antes del límite de 7:30 PM. La autopista tiene calidad excelente y 0 speed bumps, ideal para equipos frágiles. Si el tráfico por el concierto parece muy malo al inicio, tengo tiempo para cambiar a Ruta B como plan B, aceptando más cuidado en la conducción.",
+    "optimal_answer": {
+      "ruta_elegida": "Ruta B — Av. Boyacá norte / conexión Autopista Norte",
+      "justificacion": "La Ruta A está descartada por razones acumuladas: accidente activo en NQS + partido del Campín que termina a las 6:30 PM generará un caos total en la zona entre Calle 53 y Calle 63 con Carrera 30, precisamente el tramo que debe atravesar. El tiempo real superaría los 90 minutos, haciendo imposible la entrega a tiempo. La Ruta C es opción secundaria pero la Calle 80 en hora pico es notoriamente lenta y tiene 3 topes agresivos en Engativá que representan riesgo para la consola de $18 millones. La Ruta B por la Av. Boyacá es la más equilibrada: evita completamente la zona del Estadio y el accidente, tiene solo 4 topes tipo resalto bajo, y con un tiempo estimado de 55 minutos saliendo a las 5:35 PM llegaríamos a las 6:30 PM, con 60 minutos de margen para descargue e instalación antes de las 7:30 PM.",
+      "calculo_tiempo": {
+        "salida": "5:35 PM (5 minutos para cargar y asegurar los equipos)",
+        "tiempo_ruta_b": "55 minutos",
+        "llegada_estimada": "6:30 PM",
+        "tiempo_para_descargue_instalacion": "60 minutos",
+        "deadline": "7:30 PM",
+        "evaluacion": "VIABLE con margen cómodo de 60 minutos para descargue"
+      },
+      "plan_paso_a_paso": [
+        "5:30 PM — Comenzar a cargar la furgoneta. La consola de mezclas va al fondo de la furgoneta, sobre espuma amortiguadora (si no hay, usar ropa/cobijas disponibles). Las torres de sonido amarradas con correas tensoras a los laterales. Los cables enrollados en recipientes blandos. NINGÚN equipo suelto.",
+        "5:35 PM — Salir del Almacén SoundPro por la Calle 17 Sur hacia el occidente.",
+        "5:40 PM — Tomar la Av. Boyacá (Carrera 72) hacia el norte. Mantener velocidad constante de 40-50 km/h. No acelerar ni frenar bruscamente.",
+        "5:55 PM — Tramo Boyacá-Fontibón-Engativá. Precaución con los 4 topes: reducir a 15 km/h antes de cada tope, pasar despacio, acelerar suavemente después.",
+        "6:05 PM — Zona de Engativá norte: el flujo mejora. Mantener carril derecho para preparar la salida hacia la Calle 170 o conexión con Autopista Norte.",
+        "6:15 PM — Conectar con la Autopista Norte. En este tramo el flujo es moderado los jueves. Velocidad 60-70 km/h (dentro del límite).",
+        "6:25 PM — Km 7 de la Autopista Norte. Buscar el acceso al Salón Real de Eventos.",
+        "6:30 PM — Llegada al salón. Presentarse con el coordinador de eventos para comenzar el descargue ordenado.",
+        "6:30 - 7:20 PM — Descargue e instalación básica de equipos. 60 minutos disponibles.",
+        "7:20 PM — Confirmación de entrega al cliente. Solicitar firma de recibido satisfactorio."
+      ],
+      "precauciones_carga_fragil": [
+        "ASEGURAMIENTO: Todas las cajas deben ir amarradas con correas tensoras. Ningún equipo puede moverse libremente dentro de la furgoneta.",
+        "CONSOLA DIGITAL: Es el elemento más sensible. Un golpe de 10G puede dañar la tarjeta de audio interna. Colocarla en posición horizontal, sobre material amortiguador, lejos de las paredes metálicas de la furgoneta.",
+        "TÉCNICA DE MANEJO: Frenar siempre con anticipación. Ver el tope o el semáforo rojo con tiempo suficiente para desacelerar gradualmente. Nunca frenar de golpe.",
+        "TOPES: Reducir a 10-15 km/h antes de cada tope. Pasar con un ángulo ligeramente oblicuo si el tope es muy pronunciado (una rueda a la vez).",
+        "HUECOS: Si hay un hueco visible en la vía, evitarlo cambiando ligeramente de carril con anticipación — siempre que sea seguro hacerlo."
+      ],
+      "nota_contexto_colombiano": "En Bogotá, los eventos de matrimonios y sociales representan un negocio de alto valor donde los proveedores de audio y logística responden con su patrimonio por los equipos. La combinación de hora pico, partido de fútbol y accidente en la misma zona es un escenario completamente real y frecuente en la ciudad, que requiere conocer alternativas viales de memoria, no depender únicamente del GPS."
+    },
     "cognitive_load": 4
   },
+
   {
     "task_id": "T1_008",
     "task_type": "route_planning",
     "difficulty": "hard",
     "scenario": {
-      "description": "Es viernes a las 4:00 PM. Eres conductor de un camión de carga pesada (15 toneladas) y debes transportar materiales de construcción desde la Cantera Municipal hasta una obra en construcción en el nuevo desarrollo urbano.",
+      "description": "Es viernes a las 3:30 PM. Eres conductor de un tractocamión (mula) marca Kenworth T680 con plataforma, transportando 28 toneladas de varilla corrugada de acero desde la planta siderúrgica de Acerías Paz del Río (ubicada en el parque industrial de Fontibón, Bogotá) hasta la obra de construcción del Proyecto Residencial Torres del Río, en el municipio de Chía, Cundinamarca (aproximadamente 35 km al norte de Bogotá). La obra cierra la recepción de materiales a las 6:30 PM. Si no llega a tiempo, el material queda en la vía o debe devolverse (costo de $2.1 millones COP en viáticos y horas extra). Tu tractocamión mide 22 metros de longitud y 4.1 metros de altura. Tienes PERMISO DE CIRCULACIÓN vigente para Bogotá (camiones de más de 2 ejes requieren permiso especial SDM y están restringidos en horarios específicos dentro de la ciudad: no pueden circular de lunes a viernes de 6:00 AM a 9:00 AM ni de 4:00 PM a 8:00 PM en vías del centro y vías principales). Es actualmente las 3:30 PM — TIENES 30 minutos antes de que inicie la restricción de camiones en las vías principales de Bogotá a las 4:00 PM.",
       "map_data": {
-        "origin": "Cantera Municipal - Km 8 Vía Sur",
-        "destination": "Proyecto Nuevo Horizonte - Sector Noroccidental",
+        "origin": {
+          "nombre": "Acerías Paz del Río — Planta Fontibón",
+          "direccion": "Carrera 106 con Calle 23, Zona Industrial Fontibón, Bogotá",
+          "localidad": "Fontibón"
+        },
+        "destination": {
+          "nombre": "Torres del Río — Obra en construcción",
+          "direccion": "Km 3 vía Chía–Cajicá, municipio de Chía, Cundinamarca"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Avenida Principal (cruza centro)",
-            "distance_km": 20.0,
-            "estimated_time": 55,
-            "weight_limit": "10 toneladas",
-            "height_clearance": "4.5m",
-            "current_traffic": "congestionado"
+            "id": "A",
+            "name": "Ruta A — Av. El Dorado (Calle 26) / Autopista Norte / Vía Chía",
+            "descripcion_detallada": "Desde la planta en Fontibón, tomar la Calle 23 hacia el oriente hasta la Av. El Dorado (Calle 26), seguir por la Av. El Dorado hacia el oriente cruzando el centro expandido, tomar la Autopista Norte hacia el norte hasta el peaje de Chía y luego la vía secundaria a la obra.",
+            "distance_km": 42,
+            "estimated_time_normal_min": 55,
+            "weight_limit_tons": 32,
+            "height_clearance_m": 5.2,
+            "current_traffic": "muy_congestionado_calle26",
+            "peaje": true,
+            "peajes": [{"nombre": "Peaje Norte Bogotá (salida a Chía)", "costo_tractocamion": 34500}],
+            "restriccion_horaria_camiones": "La Calle 26 y la Autopista Norte están INCLUIDAS en la restricción de camiones de 4:00 PM a 8:00 PM. A las 3:30 PM hay 30 minutos de margen, pero con el tráfico actual de la Calle 26 (obras Metro Bogotá + hora pico viernes) es IMPOSIBLE atravesar el trayecto antes de las 4:00 PM.",
+            "obras_activas": "Metro Bogotá en Calle 26 — reducción severa de carriles",
+            "observaciones": "DESCARTADA. Combinación letal: obras del Metro reducen la Calle 26 a 1 carril en algunos tramos, el tráfico de viernes tarde está al máximo, y un tractocamión de 22 metros bloqueará aún más el flujo. Si a las 4:00 PM el camión sigue en la Calle 26, recibe multa por restricción horaria ($1.856.000 COP) e inmovilización.",
+            "multa_restriccion": "$1.856.000 COP + inmovilización del vehículo"
           },
           {
-            "name": "Ruta B - Anillo Vial Externo",
-            "distance_km": 35.0,
-            "estimated_time": 50,
-            "weight_limit": "sin_limite",
-            "height_clearance": "sin_limite",
-            "current_traffic": "moderado"
+            "id": "B",
+            "name": "Ruta B — Av. Boyacá / Calle 80 / Autopista Norte / Chía",
+            "descripcion_detallada": "Desde Fontibón tomar la Calle 23 hacia el occidente hasta la Av. Boyacá (Carrera 72). Tomar la Av. Boyacá hacia el norte. En la Calle 80 girar al oriente hasta la Autopista Norte. Seguir la Autopista Norte hacia Chía.",
+            "distance_km": 48,
+            "estimated_time_normal_min": 65,
+            "estimated_time_real_min": 75,
+            "weight_limit_tons": "Sin límite específico — vía habilitada para carga pesada",
+            "height_clearance_m": "Sin restricción de altura en este tramo",
+            "current_traffic": "congestionado_pero_en_movimiento",
+            "peaje": true,
+            "peajes": [{"nombre": "Peaje Calle 80 salida ciudad", "costo_tractocamion": 28000}, {"nombre": "Peaje entrada Chía", "costo_tractocamion": 34500}],
+            "restriccion_horaria_camiones": "La Av. Boyacá está EXENTA de la restricción horaria de camiones (es una vía de carga habilitada). La Calle 80 tiene restricción a partir de las 4:00 PM pero el tramo de Boyacá a Autopista Norte (aprox. 3 km) puede cubrirse antes de las 4:00 PM si se sale inmediatamente.",
+            "observaciones": "VIABLE. La clave es salir de la planta AHORA (3:30 PM), llegar a la Calle 80 antes de las 4:00 PM (25-28 minutos), cruzar esos 3 km críticos antes de la restricción, y luego continuar por la Autopista Norte que no tiene restricción de camiones."
           },
           {
-            "name": "Ruta C - Vía Industrial",
-            "distance_km": 28.0,
-            "estimated_time": 45,
-            "weight_limit": "20 toneladas",
-            "height_clearance": "5.0m",
-            "current_traffic": "ligero",
-            "restriction": "Solo vehículos de carga 6AM-8PM"
+            "id": "C",
+            "name": "Ruta C — Av. Ciudad de Cali / Calle 80 por el occidente / Autopista Norte",
+            "descripcion_detallada": "Desde Fontibón tomar la vía hacia el occidente hasta la Av. Ciudad de Cali, subir por la Ciudad de Cali hacia el norte, tomar la Calle 80 en su tramo más occidental y conectar con la Autopista Norte.",
+            "distance_km": 55,
+            "estimated_time_real_min": 85,
+            "weight_limit_tons": "Sin límite específico",
+            "height_clearance_m": 4.8,
+            "current_traffic": "moderado",
+            "peaje": true,
+            "peajes": [{"nombre": "Peaje Calle 80 occidente", "costo_tractocamion": 28000}, {"nombre": "Peaje entrada Chía", "costo_tractocamion": 34500}],
+            "restriccion_horaria_camiones": "La Av. Ciudad de Cali también está habilitada para carga pesada y exenta de la restricción horaria.",
+            "observaciones": "Opción de contingencia si la Boyacá está bloqueada. Más larga pero completamente legal y sin restricciones para camiones. Con 85 minutos estimados, llegaría a las 4:55 PM — dentro del horario de la obra (cierra 6:30 PM)."
           }
         ],
-        "vehicle_specs": {
-          "weight_loaded": "15 toneladas",
-          "height": "3.8m"
+        "vehicle_info": {
+          "tipo": "Tractocamión Kenworth T680 con plataforma",
+          "longitud_metros": 22,
+          "altura_metros": 4.1,
+          "peso_cargado_toneladas": 28,
+          "permiso_circulacion_bogota": "Vigente",
+          "restriccion_horaria": "No puede circular en vías principales de Bogotá de 4:00 PM a 8:00 PM (lunes a viernes)"
         },
         "current_conditions": {
-          "weather": "despejado",
-          "road_works": "Ruta B tiene control de tráfico en km 20",
-          "special_events": "ninguno"
+          "weather": "Despejado en Bogotá. Nublado en Chía con posibilidad de llovizna.",
+          "road_works": "Metro Bogotá en Calle 26 — CRÍTICO para Ruta A. Obras menores en Calle 80 tramo central.",
+          "special_events": "Viernes tarde — tráfico máximo de la semana. Hora de mayor congestión: ya iniciada desde las 3:00 PM.",
+          "pico_placa_camiones": "Restricción de camiones en vías principales a partir de las 4:00 PM"
         }
       },
       "constraints": [
-        "Respetar límites de peso de las vías",
-        "La obra cierra recepción de materiales a las 6:00 PM",
-        "Multas por exceso de peso son de $2,000,000 COP"
+        "LEGAL: No puede circular en vías principales de Bogotá después de las 4:00 PM — multa $1.856.000 COP + inmovilización",
+        "TIEMPO: Tiene 30 minutos antes de la restricción — debe estar en vías habilitadas para carga pesada antes de las 4:00 PM",
+        "PESO: 28 toneladas — debe verificar límites de peso de cada vía",
+        "DIMENSIONES: 22 metros de longitud y 4.1 metros de altura — algunas vías tienen restricciones de altura (puentes bajos)",
+        "OBRA CIERRA: 6:30 PM — si no llega, pierde $2.1 millones COP",
+        "PEAJES: Son inevitables en cualquier ruta viable — están calculados en el costo del flete"
       ]
     },
-    "question": "Determina la única ruta viable y legal para este transporte. Explica por qué las otras no son opciones.",
+    "question": "Determina la ruta legal y viable para este tractocamión. Justifica el descarte de rutas inviables, verifica límites de peso y altura, calcula si llega antes de las 6:30 PM y explica la estrategia para salir antes de que aplique la restricción horaria.",
     "expected_elements": [
-      "verifica_limite_peso_cada_ruta",
-      "identifica_ruta_A_ilegal",
-      "analiza_ruta_B_vs_C",
-      "considera_horario_restriccion",
-      "selecciona_ruta_legal_optima",
-      "calcula_hora_llegada"
+      "descarta_ruta_A_por_restriccion_y_obras",
+      "identifica_ventana_de_30_minutos_para_salir",
+      "selecciona_ruta_B_como_optima",
+      "verifica_limites_peso_y_altura",
+      "calcula_hora_llegada_vs_cierre_obra",
+      "menciona_multa_por_restriccion_camiones",
+      "plan_paso_a_paso_urgente",
+      "contingencia_ruta_C"
     ],
-    "optimal_answer": "La única ruta viable es Ruta C - Vía Industrial. Análisis de descarte: Ruta A tiene límite de 10 toneladas pero el camión pesa 15 toneladas - ILEGAL, multa de $2,000,000 COP. Ruta B no tiene límite de peso (viable legalmente) pero toma 50 minutos, llegando a las 4:50 PM. Ruta C permite hasta 20 toneladas (15 < 20 ✓), altura libre 5.0m (camión 3.8m ✓), y la restricción de horario (6AM-8PM) está vigente ya que son las 4:00 PM. Tiempo: 45 minutos = llegada 4:45 PM, con margen de 1 hora 15 minutos antes del cierre a las 6:00 PM. Ruta C es legal, más rápida que B, y cumple todos los requisitos.",
+    "optimal_answer": {
+      "decision_critica": "SALIR INMEDIATAMENTE (3:30 PM). La ventana de 30 minutos antes de la restricción de camiones es el factor determinante. No hay tiempo para esperas.",
+      "ruta_elegida": "Ruta B — Av. Boyacá norte / Calle 80 / Autopista Norte",
+      "justificacion": "La Ruta A está completamente descartada: la Calle 26 con obras del Metro más tráfico de viernes tarde hace imposible que un tractocamión de 22 metros cruce ese tramo en 30 minutos, y a las 4:00 PM recibiría la restricción horaria con multa de $1.856.000 COP. La Ruta B es viable si se ejecuta con urgencia: la Av. Boyacá está exenta de la restricción horaria de camiones, y si sale a las 3:30 PM, llega al cruce de la Calle 80 (el único tramo con restricción) aproximadamente a las 3:55 PM, con 5 minutos de margen para cruzar esos 3 km antes de las 4:00 PM. Una vez en la Autopista Norte, no hay restricción horaria para camiones.",
+      "verificacion_tecnica": {
+        "peso_camion": "28 toneladas",
+        "limite_ruta_B": "Sin límite específico — vía de carga habilitada ✓",
+        "altura_camion": "4.1 metros",
+        "clearance_ruta_B": "Sin restricción de altura en Boyacá y Autopista Norte ✓",
+        "puentes_criticos": "Verificar puente en la Calle 80 con Carrera 50 — clearance mínimo 4.5m en ese tramo ✓"
+      },
+      "calculo_tiempo": {
+        "salida": "3:30 PM",
+        "tiempo_hasta_calle80": "25-28 minutos = llega 3:55-3:58 PM",
+        "cruce_calle80_autopista_norte": "7 minutos (3 km)",
+        "ingresa_autopista_norte": "4:05 PM (ya fuera de la restricción)",
+        "tiempo_autopista_norte_hasta_chia": "30 minutos",
+        "llegada_obra_chia": "4:35 PM",
+        "cierre_obra": "6:30 PM",
+        "margen": "1 hora 55 minutos",
+        "evaluacion": "VIABLE — llega con amplio margen si sale a las 3:30 PM"
+      },
+      "plan_paso_a_paso": [
+        "3:30 PM — SALIDA INMEDIATA de la planta. No hay tiempo que perder. Verificar que la carga (varilla corrugada) esté asegurada con cadenas tensoras reglamentarias. La varilla es carga pesada y un frenazo puede desplazarla.",
+        "3:32 PM — Tomar la Calle 23 hacia el occidente hasta la Av. Boyacá (Carrera 72). En este tramo, el tráfico es moderado — vía industrial.",
+        "3:40 PM — Ingresar a la Av. Boyacá hacia el norte. Esta vía está habilitada para carga pesada. Mantener el carril derecho, velocidad máxima para camiones: 60 km/h.",
+        "3:55 PM — Aproximarse a la intersección de la Av. Boyacá con la Calle 80. CRÍTICO: Son las 3:55 PM, hay 5 minutos antes de la restricción. Tomar la Calle 80 hacia el oriente con urgencia pero respetando semáforos.",
+        "4:02 PM — Llegar a la Autopista Norte. En este punto la restricción de las 4:00 PM ya aplicó para vías principales, pero el tractocamión ya está en la Autopista Norte, vía exenta. LEGAL.",
+        "4:02-4:35 PM — Recorrer la Autopista Norte hacia Chía. Velocidad de crucero para tractocamión: 60-70 km/h. Precaución con la llovizna reportada en Chía.",
+        "4:30 PM — Al ingresar a Chía, reducir velocidad a 30 km/h en zona urbana. Alta presencia de motos y bicicletas en las vías secundarias de Chía.",
+        "4:35 PM — Llegada al Km 3 vía Chía-Cajicá, obra Torres del Río. Presentar guía de carga al supervisor de obra.",
+        "4:40-5:30 PM — Descargue de 28 toneladas de varilla. Con grúa o trabajadores de la obra. El conductor debe supervisar para evitar daños a la plataforma."
+      ],
+      "contingencia": "Si al llegar a la Calle 80 el semáforo o el tráfico hace imposible cruzar antes de las 4:00 PM, ejecutar inmediatamente el Plan C: continuar por la Av. Boyacá hasta la Calle 170 (que también conecta con la Autopista Norte y está habilitada para carga) sin tocar la Calle 80 en su tramo central. Tiempo adicional: +15 minutos, llegada a las 4:50 PM — aún dentro del horario de la obra.",
+      "nota_contexto_colombiano": "En Colombia, la restricción horaria de camiones en las grandes ciudades es una norma de cumplimiento variable. Las cámaras de control automatizado están instaladas en los principales corredores pero hay puntos ciegos. Sin embargo, la multa de $1.856.000 COP más la inmovilización del vehículo representan una pérdida económica que ningún transportador puede asumir. El conocimiento detallado de las vías habilitadas para carga pesada (Boyacá, Ciudad de Cali, Autopista Norte) versus las restringidas (Calle 26, NQS central, Carrera 7) es conocimiento fundamental para cualquier conductor de carga en Bogotá."
+    },
     "cognitive_load": 5
   },
+
   {
     "task_id": "T1_009",
     "task_type": "route_planning",
     "difficulty": "easy",
     "scenario": {
-      "description": "Es domingo a las 11:00 AM. Debes llevar a tu abuela desde su casa hasta la iglesia para la misa del mediodía.",
+      "description": "Es domingo a las 10:30 AM. Eres conductor de un vehículo particular (Chevrolet Spark GT, placa terminada en 4). Debes llevar a tu abuela, doña Carmen de 74 años, desde su apartamento en el Barrio Quiroga (Carrera 18A con Calle 36 Sur, localidad Antonio Nariño) hasta la Iglesia del Voto Nacional, ubicada en la Carrera 15 con Calle 10, La Candelaria, Bogotá Centro. La misa dominical comienza a las 12:00 PM. Doña Carmen tiene artrosis en las rodillas y camina despacio con bastón. Los domingos en Bogotá es día de Ciclovía: entre las 7:00 AM y las 3:00 PM, varias vías están cerradas al tráfico vehicular para uso exclusivo de ciclistas y peatones. Hoy la Ciclovía está activa en: Carrera 7 (de Calle 1 a Calle 170), Av. Boyacá (parcialmente), Calle 26, y circuitos del sur. Adicionalmente, el Barrio La Candelaria (zona histórica) tiene restricciones de acceso vehicular los domingos para preservar el espacio peatonal.",
       "map_data": {
-        "origin": "Casa de la Abuela - Barrio Tradicional",
-        "destination": "Iglesia San Antonio - Centro",
+        "origin": {
+          "nombre": "Apartamento de doña Carmen",
+          "direccion": "Carrera 18A No. 36-12 Sur, Barrio Quiroga",
+          "localidad": "Antonio Nariño",
+          "estrato": 3
+        },
+        "destination": {
+          "nombre": "Iglesia del Voto Nacional",
+          "direccion": "Carrera 15 No. 10-48, La Candelaria",
+          "nota_acceso": "La Carrera 15 en ese tramo permite acceso vehicular los domingos, pero el estacionamiento es complejo — zona histórica con parqueo restringido"
+        },
         "available_routes": [
           {
-            "name": "Ruta A - Calle Principal",
-            "distance_km": 3.0,
-            "estimated_time": 10,
-            "current_traffic": "libre"
+            "id": "A",
+            "name": "Ruta A — Carrera 7 hacia el norte hasta el centro",
+            "descripcion_detallada": "Desde Quiroga, subir por vías locales hasta la Carrera 7 y tomar hacia el norte hasta la Calle 10. Girar al occidente hasta la Iglesia.",
+            "distance_km": 6.8,
+            "estimated_time_min": 20,
+            "current_traffic": "BLOQUEADA POR CICLOVÍA",
+            "ciclovía_activa": true,
+            "observaciones": "DESCARTADA. La Carrera 7 está completamente cerrada al tráfico vehicular por la Ciclovía hasta las 3:00 PM. No es posible circular por este corredor.",
+            "viable": false
           },
           {
-            "name": "Ruta B - Por el Parque",
-            "distance_km": 4.5,
-            "estimated_time": 15,
-            "current_traffic": "libre"
+            "id": "B",
+            "name": "Ruta B — Av. Caracas hacia el norte / Calle 6 hacia el oriente / Iglesia",
+            "descripcion_detallada": "Desde Quiroga, tomar la Av. Antonio Nariño hacia el norte hasta la Av. Caracas. Tomar la Av. Caracas hacia el norte hasta la Calle 6 o Calle 10. Girar al oriente y acceder a la Carrera 15 donde está la iglesia.",
+            "distance_km": 7.2,
+            "estimated_time_min": 22,
+            "current_traffic": "moderado_domingo",
+            "ciclovía_activa": false,
+            "observaciones": "VIABLE. La Av. Caracas no está en la Ciclovía este domingo (está en el circuito Transmilenio, no habilitada para Ciclovía). El tráfico dominical en la Caracas es moderado. La Calle 10 permite acceso al sector de la iglesia. Es la ruta más directa y legal disponible hoy.",
+            "nota_estacionamiento": "En La Candelaria los domingos hay parqueo informal en vías secundarias ($3.000-$5.000 por hora). También parqueadero cubierto en Calle 11 con Carrera 10 ($8.000)."
+          },
+          {
+            "id": "C",
+            "name": "Ruta C — Av. NQS (Carrera 30) / Calle 13 / centro histórico",
+            "descripcion_detallada": "Desde Quiroga tomar vías locales hasta la NQS (Carrera 30), bajar por la NQS hacia el norte hasta la Calle 13. Tomar la Calle 13 hacia el oriente hasta la Carrera 15.",
+            "distance_km": 9.5,
+            "estimated_time_min": 28,
+            "current_traffic": "ligero_domingo",
+            "ciclovía_activa": false,
+            "observaciones": "VIABLE pero más larga. La NQS los domingos en ese tramo tiene tráfico muy ligero. Sin embargo, la Calle 13 en el sector del centro tiene vendedores ambulantes en la calzada y alta presencia peatonal los domingos. Puede resultar más lenta de lo estimado. Buena opción si la Ruta B tiene algún inconveniente.",
+            "viable": true
           }
         ],
         "current_conditions": {
-          "weather": "soleado",
-          "road_works": "ninguna",
-          "special_events": "Mercado dominical en Ruta A (peatones cruzando)"
+          "weather": "Soleado. 19°C. Viento moderado.",
+          "road_works": "Ninguna en domingo.",
+          "special_events": "Ciclovía activa hasta las 3:00 PM. Mercado de las Pulgas en Usaquén (no afecta esta ruta). Alta presencia peatonal en el centro histórico.",
+          "pico_placa": "NO aplica los domingos para vehículos particulares."
         }
       },
+      "vehicle_info": {
+        "tipo": "Chevrolet Spark GT",
+        "placa_termina_en": 4,
+        "pico_placa_domingo": "No aplica",
+        "capacidad": "4 personas",
+        "observacion": "Vehículo pequeño — ventaja para navegar calles estrechas del centro histórico"
+      },
       "constraints": [
-        "La abuela camina despacio y necesita tiempo para entrar a la iglesia",
-        "La misa comienza a las 12:00 PM",
-        "La abuela prefiere no ir con prisa"
+        "La misa comienza a las 12:00 PM — doña Carmen quiere llegar a las 11:40 AM para encontrar buen puesto",
+        "Doña Carmen camina despacio con bastón — necesita que el carro pare cerca de la entrada de la iglesia, no a más de 50 metros",
+        "La Carrera 7 está cerrada por Ciclovía — no puede usarse",
+        "El centro histórico tiene calles estrechas y sentidos viales no intuitivos",
+        "Estacionamiento en La Candelaria es complejo — prever este tiempo"
       ]
     },
-    "question": "¿Qué ruta eliges para llevar a tu abuela cómodamente?",
+    "question": "¿Qué ruta eliges para llevar a doña Carmen a la iglesia a tiempo? Ten en cuenta la Ciclovía activa, su condición física, la necesidad de estacionamiento cerca y las particularidades del centro histórico bogotano.",
     "expected_elements": [
-      "selecciona_ruta",
-      "considera_comodidad_abuela",
-      "considera_tiempo_suficiente",
-      "considera_evento_mercado"
+      "descarta_ruta_A_por_ciclovía",
+      "selecciona_ruta_B_como_optima",
+      "considera_condicion_fisica_abuela",
+      "planifica_estacionamiento_cerca_iglesia",
+      "calcula_hora_salida_con_margen",
+      "menciona_ciclovía_como_factor_real",
+      "menciona_peatonalizacion_candelaria_domingos"
     ],
-    "optimal_answer": "Elijo Ruta A - Calle Principal. Aunque hay mercado dominical con peatones, saliendo a las 11:00 AM con 10 minutos de viaje, llegamos a las 11:10 AM. Esto da 50 minutos para que la abuela baje con calma, camine hasta la iglesia y se acomode antes de la misa. El mercado puede requerir conducir más despacio, pero no afecta significativamente. La Ruta B es viable pero añade 5 minutos innecesarios.",
-    "cognitive_load": 2
+    "optimal_answer": {
+      "ruta_elegida": "Ruta B — Av. Caracas / Calle 10 / Carrera 15",
+      "hora_salida_recomendada": "11:10 AM (salir 50 minutos antes de la misa para manejar estacionamiento y caminata de doña Carmen)",
+      "justificacion": "La Ruta A está descartada definitivamente: la Carrera 7 está cerrada por la Ciclovía hasta las 3:00 PM y ningún vehículo puede circular por ella. La Ruta B por la Av. Caracas es la opción más directa disponible: sin Ciclovía, con tráfico dominical moderado y acceso viable al sector de la iglesia. La Ruta C es más larga y la Calle 13 en el centro los domingos puede ser más lenta por la presencia masiva de peatones y vendedores informales. Con la Ruta B, el viaje toma aproximadamente 22 minutos, llegando al sector de la iglesia a las 11:32 AM, con tiempo suficiente para estacionar y que doña Carmen camine hasta la entrada.",
+      "plan_paso_a_paso": [
+        "11:10 AM — Salir del apartamento de doña Carmen en Quiroga. Ayudarla a subir al vehículo con calma — artrosis en rodillas, movimiento lento al doblar piernas para entrar al Spark. Asegurarse de que el bastón quede guardado en el asiento trasero y no en el baúl (lo necesita al bajar).",
+        "11:13 AM — Tomar la Av. Antonio Nariño hacia el norte hasta la Av. Caracas.",
+        "11:18 AM — Ingresar a la Av. Caracas hacia el norte. Tráfico dominical moderado. Conducir a velocidad normal (40-50 km/h).",
+        "11:25 AM — A la altura de la Calle 10, girar al oriente. Precaución: en esta zona hay alta presencia peatonal dominical y ciclistas que se desplazan incluso por vías no habilitadas para Ciclovía.",
+        "11:28 AM — Aproximarse a la Carrera 15 (zona de la iglesia). ESTRATEGIA DE ESTACIONAMIENTO: Primero, hacer una vuelta de reconocimiento para ver si hay espacio en la Calle 10 o Calle 11 cerca de la Carrera 15. Si no hay espacio libre, ir directamente a la entrada de la iglesia, BAJAR A DOÑA CARMEN frente a la puerta principal y luego buscar parqueo.",
+        "11:30 AM — Doña Carmen baja del vehículo frente a la puerta de la iglesia. Se le entrega el bastón. Se verifica que está estable antes de que el conductor se aleje a parquear.",
+        "11:32 AM — El conductor busca parqueadero en la zona. Opciones: Calle 11 con Carrera 10 (parqueadero cubierto, $8.000/hora) o vía pública en Calle 9 (parqueo informal dominical, $3.000-$5.000).",
+        "11:38 AM — Conductor llega a la iglesia y se une a doña Carmen, quien ya está ubicada en su puesto preferido.",
+        "11:40 AM — Ambos listos, 20 minutos antes del inicio de la misa."
+      ],
+      "alertas_candelaria": [
+        "Las calles del centro histórico tienen sentidos viales que cambian frecuentemente y no siempre están bien señalizados. El GPS puede dar indicaciones equivocadas — conocer la zona o consultar el mapa antes de salir.",
+        "Los domingos en La Candelaria hay alta presencia de turistas, vendedores ambulantes y peatones que cruzan sin respetar semáforos. Velocidad máxima: 20-30 km/h en ese sector.",
+        "No dejar a doña Carmen sola en la vía pública mientras se busca parqueo — acompañarla hasta la entrada de la iglesia primero."
+      ],
+      "nota_contexto": "La Ciclovía dominical de Bogotá es uno de los programas de movilidad más exitosos de América Latina, con más de 1.9 millones de usuarios cada domingo. Cierres de vías como la Carrera 7 son absolutamente reales y representan un factor determinante en la planificación de rutas los domingos en Bogotá."
+    },
+    "cognitive_load": 3
   },
+
   {
     "task_id": "T1_010",
     "task_type": "route_planning",
     "difficulty": "medium",
     "scenario": {
-      "description": "Es lunes a las 8:00 AM. Eres el conductor de un bus escolar y debes completar tu ruta matutina recogiendo niños de 3 paradas diferentes antes de llegar al colegio.",
+      "description": "Es lunes a las 7:00 AM. Eres conductor de una ruta escolar habilitada por la Secretaría de Educación de Bogotá. Manejas un bus escolar Chevrolet NHR capacidad 29 estudiantes (amarillo con franjas blancas y negras, rotulado 'ESCOLAR', con monitora a bordo: la señora Libia). Debes completar la ruta matutina de recogida de niños en 4 paradas dentro del barrio Bosa para llevarlos al Colegio Compartir Recuerdo, ubicado en la Calle 65 Sur con Carrera 80, Bosa. El colegio inicia formación a las 8:00 AM — si llegan tarde, los estudiantes pierden la formación y quedan registrados como tardanza colectiva, afectando la calificación de la ruta escolar. Está lloviendo moderadamente desde las 6:00 AM. Hay un reporte de inundación leve en la Calle 68 Sur (una de las vías habituales de la ruta) por el desbordamiento de un caño de aguas lluvias — problema frecuente en Bosa en temporada de invierno. La vía está parcialmente intransitable para vehículos bajos pero podría ser transitable para el bus escolar NHR con precaución extrema.",
       "map_data": {
-        "origin": "Terminal de Buses Escolares",
-        "destination": "Colegio Internacional",
+        "origin": {
+          "nombre": "Garaje del bus escolar",
+          "direccion": "Carrera 86 con Calle 57 Sur, Bosa Central",
+          "localidad": "Bosa"
+        },
+        "destination": {
+          "nombre": "Colegio Compartir Recuerdo",
+          "direccion": "Calle 65 Sur No. 80-20, Bosa",
+          "hora_formacion": "8:00 AM",
+          "hora_maxima_llegada": "7:55 AM"
+        },
         "stops": [
           {
-            "name": "Parada 1 - Conjunto Residencial Norte",
-            "students": 8,
-            "scheduled_time": "8:15 AM"
+            "id": 1,
+            "nombre": "Parada 1 — Portal Bosa (costado sur)",
+            "direccion": "Av. Bosa con Calle 59 Sur, frente al Portal de Transmilenio Bosa",
+            "estudiantes": 9,
+            "hora_acordada": "7:10 AM",
+            "observacion": "Zona de altísima congestión matutina. El Portal Bosa es uno de los puntos más congestionados del sur de Bogotá en hora pico. Buses alimentadores del SITP, Transmilenio, motos y taxis generan bloqueos frecuentes sobre la Av. Bosa. La monitora Libia debe bajar primero, verificar que los 9 niños estén presentes antes de abrir la puerta del bus, y recibirlos ordenadamente. Alta presencia de peatones cruzando sin respetar señales.",
+            "tiempo_desde_garaje_min": 8,
+            "riesgo_congestion": "ALTO — Portal Bosa en lunes lluvioso es punto crítico"
           },
           {
-            "name": "Parada 2 - Urbanización Los Cedros",
-            "students": 12,
-            "scheduled_time": "8:25 AM"
+            "id": 2,
+            "nombre": "Parada 2 — Conjunto El Jardín",
+            "direccion": "Calle 63 Sur con Carrera 91, Barrio El Jardín de Bosa",
+            "estudiantes": 7,
+            "hora_acordada": "7:20 AM",
+            "observacion": "La ruta habitual desde la Parada 1 pasa por la Calle 68 Sur, que hoy está inundada por desbordamiento del caño de aguas lluvias. Se debe usar ruta alterna por la Calle 65 Sur o rodeando por la Carrera 86 hacia el sur. El desvío agrega aproximadamente 4-5 minutos al trayecto. Los padres de los 7 niños de este conjunto fueron informados del horario y esperan puntualmente en la portería.",
+            "tiempo_desde_parada1_min_normal": 10,
+            "tiempo_desde_parada1_min_con_desvio": 14,
+            "ruta_habitual_afectada": true,
+            "ruta_alterna": "Carrera 86 hacia el sur hasta Calle 63 Sur, girar al occidente hasta Carrera 91"
           },
           {
-            "name": "Parada 3 - Barrio El Prado",
-            "students": 6,
-            "scheduled_time": "8:35 AM"
+            "id": 3,
+            "nombre": "Parada 3 — Parque El Porvenir",
+            "direccion": "Calle 70 Sur con Carrera 87, frente al Parque El Porvenir",
+            "estudiantes": 8,
+            "hora_acordada": "7:30 AM",
+            "observacion": "Zona residencial densa de Bosa. El Parque El Porvenir es referencia fácil para los padres. La calle es estrecha (un solo carril efectivo con el bus) — el NHR debe quedar sobre la calzada con las luces de emergencia encendidas durante la parada, nunca sobre el andén. En lluvia, los padres tienden a acercar a los niños hasta la puerta del bus — la monitora debe controlar el orden de embarque.",
+            "tiempo_desde_parada2_min": 10,
+            "via_estrecha": true,
+            "protocolo_parada": "Luces de emergencia encendidas, monitora en puerta controlando embarque"
+          },
+          {
+            "id": 4,
+            "nombre": "Parada 4 — Urbanización Nuevo Horizonte",
+            "direccion": "Calle 67 Sur con Carrera 78, Bosa Nuevo Horizonte",
+            "estudiantes": 5,
+            "hora_acordada": "7:42 AM",
+            "observacion": "Última parada antes del colegio. Para llegar desde la Parada 3, la ruta pasa por un tramo de 200 metros sin pavimentar en la Carrera 78 que en lluvia acumula barro y charcos. El bus NHR puede pasar pero debe reducir velocidad a 10 km/h en ese tramo y evitar frenadas bruscas. Después de recoger los 5 niños, el colegio queda a 8 minutos.",
+            "tiempo_desde_parada3_min": 12,
+            "tramo_sin_pavimentar": true,
+            "longitud_sin_pavimentar_metros": 200,
+            "velocidad_maxima_tramo_barro": "10 km/h",
+            "tiempo_estimado_tramo_barro_min": 3
           }
         ],
-        "school_bell": "9:00 AM",
         "current_conditions": {
-          "weather": "lluvia_moderada",
-          "road_works": "ninguna",
-          "special_events": "ninguno"
+          "weather": "Lluvia moderada activa desde las 6:00 AM. Temperatura 10°C. Visibilidad reducida — neblina baja en zonas abiertas de Bosa. Calzadas mojadas con charcos en vías sin mantenimiento.",
+          "road_works": "Ninguna formal activa, pero la inundación en la Calle 68 Sur actúa como cierre de facto para vehículos bajos.",
+          "inundacion_activa": {
+            "via_afectada": "Calle 68 Sur entre Carrera 86 y Carrera 91",
+            "causa": "Desbordamiento de caño de aguas lluvias — problema recurrente en Bosa en temporada de invierno",
+            "nivel_agua_estimado": "30-40 cm en el punto más profundo",
+            "transitable_vehiculos_bajos": false,
+            "transitable_bus_NHR": "Posible con precaución EXTREMA — el NHR tiene mayor altura de chasis pero el riesgo es real",
+            "recomendacion": "USAR RUTA ALTERNA — no arriesgar el bus con niños a bordo en una vía inundada",
+            "fuente_reporte": "Grupo de WhatsApp de conductores de la zona + reporte vecinal"
+          },
+          "pico_placa": {
+            "dia": "Lunes impar",
+            "restriccion_particulares": "Placas terminadas en 1,2,3,4,5",
+            "bus_escolar": "EXENTO de Pico y Placa — tarjetón Secretaría de Educación vigente y visible",
+            "hora_restriccion": "6:00 AM a 9:00 PM"
+          },
+          "cultura_vial_bosa": "Bosa es una localidad con alta informalidad vial. Motos circulando en sentido contrario en vías estrechas, mototaxistas sin casco, vendedores ambulantes sobre la calzada y alta presencia de peatones cruzando fuera de cebras. En lluvia estas conductas se intensifican porque la gente corre para no mojarse."
         }
       },
+      "vehicle_info": {
+        "tipo": "Bus escolar Chevrolet NHR",
+        "color": "Amarillo con franjas blancas y negras",
+        "rotulacion": "ESCOLAR — Secretaría de Educación Bogotá",
+        "capacidad_maxima": 29,
+        "estudiantes_a_recoger": 29,
+        "tripulacion": "Conductor + Monitora (señora Libia)",
+        "exento_pico_placa": true,
+        "tarjeton_vigente": true,
+        "altura_chasis": "Mayor que vehículo particular — puede transitar charcos de hasta 25 cm con precaución",
+        "estado_llantas": "En buen estado — revisión técnica al día"
+      },
       "constraints": [
-        "Cumplir horarios de paradas (padres esperando)",
-        "Llegar al colegio antes de las 9:00 AM",
-        "Conducir con precaución por la lluvia",
-        "Capacidad del bus: 40 estudiantes"
+        "Hora máxima de llegada al colegio: 7:55 AM (la formación inicia a las 8:00 AM, el rector exige que el bus esté parqueado 5 minutos antes)",
+        "Todos los 29 estudiantes deben ser recogidos SIN EXCEPCIÓN",
+        "La Calle 68 Sur está inundada — NO arriesgar el bus con niños a bordo en vía inundada",
+        "El bus escolar está EXENTO de Pico y Placa pero debe portar el tarjetón visible",
+        "Conducir con precaución máxima por lluvia moderada — niños a bordo",
+        "La monitora Libia es responsable del orden de embarque en cada parada",
+        "En el tramo sin pavimentar de Carrera 78: máximo 10 km/h",
+        "Verificar capacidad: 29 estudiantes recogidos = capacidad exacta del bus (no se puede recoger más)"
       ]
     },
-    "question": "Planifica tu ruta completa con horarios y consideraciones de seguridad.",
+    "question": "Planifica la ruta completa de recogida con horarios detallados para cada parada, define la ruta alterna que evita la inundación de la Calle 68 Sur, verifica que todos los tiempos son cumplibles para llegar al colegio antes de las 7:55 AM, y detalla las precauciones de seguridad para los niños en condiciones de lluvia y vías en mal estado.",
     "expected_elements": [
-      "plan_con_horarios_cada_parada",
-      "verifica_capacidad_bus",
-      "considera_condiciones_lluvia",
-      "calcula_hora_llegada_colegio",
-      "considera_seguridad_estudiantes"
+      "plan_horarios_cada_parada",
+      "identifica_inundacion_calle_68_sur_como_problema",
+      "define_ruta_alterna_concreta_sin_pasar_por_inundacion",
+      "recalcula_tiempos_con_desvio",
+      "verifica_llegada_antes_755am",
+      "verifica_capacidad_bus_29_estudiantes",
+      "menciona_exencion_pico_placa_escolar",
+      "protocolo_seguridad_lluvia_con_menores",
+      "menciona_tramo_sin_pavimentar_parada4",
+      "rol_monitora_en_cada_parada",
+      "considera_congestion_portal_bosa_lunes_lluvioso"
     ],
-    "optimal_answer": "Plan de ruta: Salida Terminal 8:00 AM → Parada 1 (8:15 AM, +8 estudiantes = 8 total) → Parada 2 (8:25 AM, +12 estudiantes = 20 total) → Parada 3 (8:35 AM, +6 estudiantes = 26 total) → Colegio (estimado 8:50 AM). Verificación de capacidad: 26 estudiantes < 40 capacidad ✓. Consideraciones de lluvia: Reducir velocidad 20%, aumentar distancia de frenado, encender luces. Los 10 minutos de margen antes de las 9:00 AM compensan posibles retrasos por clima. Recomendación: Comunicar a padres que lleguen 5 minutos antes a las paradas por posibles variaciones debido a la lluvia.",
-    "cognitive_load": 3
+    "optimal_answer": {
+      "decision_critica": "NO usar la Calle 68 Sur bajo ninguna circunstancia. Una vía inundada con 30-40 cm de agua con niños a bordo es un riesgo inaceptable. Si el motor ingiere agua o el bus pierde tracción, los niños quedan atrapados. La ruta alterna por Carrera 86 agrega solo 4-5 minutos y es completamente segura.",
+      "verificacion_capacidad": {
+        "parada_1": 9,
+        "parada_2": 7,
+        "parada_3": 8,
+        "parada_4": 5,
+        "total_estudiantes": 29,
+        "capacidad_bus": 29,
+        "evaluacion": "CAPACIDAD EXACTA — el bus queda lleno tras la Parada 4. No puede recoger ningún estudiante adicional no registrado en la ruta."
+      },
+      "ruta_alterna_inundacion": {
+        "via_bloqueada": "Calle 68 Sur entre Carrera 86 y Carrera 91",
+        "desvio": "Desde la Parada 1 (Portal Bosa), tomar la Av. Bosa hacia el sur hasta la Carrera 86. Bajar por la Carrera 86 hacia el sur hasta la Calle 63 Sur. Girar al occidente por la Calle 63 Sur hasta la Carrera 91 donde está el Conjunto El Jardín (Parada 2). Este desvío evita completamente la Calle 68 Sur inundada.",
+        "distancia_adicional_km": 1.2,
+        "tiempo_adicional_min": 4,
+        "justificacion": "La Carrera 86 es una vía principal de Bosa en buen estado relativo, sin la inundación reportada. El desvío es mínimo en distancia pero crítico en seguridad."
+      },
+      "plan_horarios_completo": [
+        {
+          "evento": "Salida del garaje",
+          "hora": "7:00 AM",
+          "acciones": [
+            "Verificar tarjetón escolar visible en parabrisas.",
+            "Confirmar que la monitora Libia está a bordo con el listado de estudiantes.",
+            "Encender luces delanteras obligatorio — lluvia moderada, visibilidad reducida.",
+            "Verificar limpiaparabrisas funcionando correctamente.",
+            "Llamar al coordinador de la ruta para reportar la inundación en Calle 68 Sur y confirmar el desvío por Carrera 86.",
+            "Revisar brevemente el estado de las llantas — calzada mojada exige mayor agarre."
+          ]
+        },
+        {
+          "evento": "PARADA 1 — Portal Bosa",
+          "hora_llegada": "7:08 AM",
+          "hora_salida": "7:13 AM",
+          "tiempo_en_parada_min": 5,
+          "estudiantes_suben": 9,
+          "total_a_bordo": 9,
+          "acciones": [
+            "7:08 AM — Llegar al costado sur del Portal Bosa, Av. Bosa con Calle 59 Sur. Encender luces de emergencia.",
+            "Estacionar sobre la calzada — NO sobre el andén ni en zona de Transmilenio.",
+            "La monitora Libia baja y verifica que los 9 niños estén presentes con el listado en mano.",
+            "Embarque ORDENADO de 9 niños: uno por uno, monitora en puerta. No todos al tiempo — riesgo de caída en calzada mojada.",
+            "Verificar que cada niño quede sentado con cinturón de seguridad antes de continuar.",
+            "PRECAUCIÓN: Alta presencia de buses SITP y taxis que no respetan la zona de parada. Mantener luces de emergencia encendidas y estar atento al tráfico lateral.",
+            "7:13 AM — Apagar luces de emergencia, reanudar marcha."
+          ],
+          "alerta": "El Portal Bosa en lunes lluvioso es caótico. Buses SITP y vehículos particulares pueden bloquear el acceso a la parada. Si no hay espacio, dar una vuelta adicional y volver — nunca parar en doble fila sobre la Av. Bosa."
+        },
+        {
+          "evento": "Trayecto Parada 1 → Parada 2 (con desvío por inundación)",
+          "hora_inicio": "7:13 AM",
+          "hora_llegada_parada2": "7:21 AM",
+          "tiempo_trayecto_min": 8,
+          "ruta_usada": "Av. Bosa → Carrera 86 sur → Calle 63 Sur → Carrera 91 (DESVÍO — evita Calle 68 Sur inundada)",
+          "acciones": [
+            "Tomar la Av. Bosa hacia el sur hasta la Carrera 86.",
+            "Girar al sur por la Carrera 86. Velocidad máxima 30 km/h — calzada mojada con niños a bordo.",
+            "Al llegar a la Calle 63 Sur, girar al occidente hasta la Carrera 91.",
+            "NO intentar pasar por la Calle 68 Sur bajo ninguna circunstancia — agua de 30-40 cm con niños a bordo es riesgo de accidente grave."
+          ]
+        },
+        {
+          "evento": "PARADA 2 — Conjunto El Jardín",
+          "hora_llegada": "7:21 AM",
+          "hora_acordada_original": "7:20 AM",
+          "diferencia": "+1 minuto (aceptable por el desvío)",
+          "hora_salida": "7:26 AM",
+          "tiempo_en_parada_min": 5,
+          "estudiantes_suben": 7,
+          "total_a_bordo": 16,
+          "acciones": [
+            "7:21 AM — Llegar a la portería del Conjunto El Jardín, Calle 63 Sur con Carrera 91. Encender luces de emergencia.",
+            "La monitora Libia baja con el listado y llama a los 7 niños por nombre.",
+            "Embarque ordenado — la calle es estrecha en este sector, los niños deben subir rápidamente.",
+            "Si algún niño no está presente, la monitora llama al padre inmediatamente. Espera máxima: 2 minutos adicionales.",
+            "Verificar cinturones de todos los 16 niños a bordo.",
+            "7:26 AM — Reanudar marcha hacia Parada 3."
+          ],
+          "comunicacion": "Informar a los padres que el bus llegó 1 minuto tarde por el desvío de la inundación — completamente justificado y dentro del margen aceptable."
+        },
+        {
+          "evento": "Trayecto Parada 2 → Parada 3",
+          "hora_inicio": "7:26 AM",
+          "hora_llegada_parada3": "7:36 AM",
+          "tiempo_trayecto_min": 10,
+          "ruta_usada": "Calle 63 Sur → Carrera 87 hacia el sur → Calle 70 Sur (Parque El Porvenir)",
+          "acciones": [
+            "Continuar por vías internas de Bosa hacia el sur.",
+            "Velocidad máxima 30 km/h en zona residencial con lluvia.",
+            "Atención a motos en sentido contrario — práctica común en calles estrechas de Bosa.",
+            "Reducir velocidad adicional en cruces sin semáforo — muy comunes en este sector."
+          ]
+        },
+        {
+          "evento": "PARADA 3 — Parque El Porvenir",
+          "hora_llegada": "7:36 AM",
+          "hora_acordada_original": "7:30 AM",
+          "diferencia": "+6 minutos acumulados (por desvío + lluvia)",
+          "hora_salida": "7:41 AM",
+          "tiempo_en_parada_min": 5,
+          "estudiantes_suben": 8,
+          "total_a_bordo": 24,
+          "acciones": [
+            "7:36 AM — Llegar frente al Parque El Porvenir, Calle 70 Sur con Carrera 87. Encender luces de emergencia.",
+            "IMPORTANTE: La calle es de un solo carril efectivo. El bus queda sobre la calzada — encender luces de emergencia y bajar triángulos si la parada supera 3 minutos.",
+            "La monitora Libia baja y recibe a los 8 niños ordenadamente. En lluvia los padres tienden a empujar — la monitora controla el embarque uno por uno.",
+            "Los niños vienen de la lluvia — pueden traer los pies mojados. Recordarles que se acomoden con cuidado en los asientos.",
+            "Verificar cinturones de los 24 niños a bordo.",
+            "7:41 AM — Reanudar marcha."
+          ],
+          "alerta_tiempo": "La demora acumulada de 6 minutos es manejable. El colegio queda a aproximadamente 14 minutos desde aquí (Parada 4 + trayecto al colegio). Llegada proyectada: 7:55 AM — justo a tiempo."
+        },
+        {
+          "evento": "Trayecto Parada 3 → Parada 4",
+          "hora_inicio": "7:41 AM",
+          "hora_llegada_parada4": "7:49 AM",
+          "tiempo_trayecto_min": 8,
+          "ruta_usada": "Calle 70 Sur → Carrera 78 hacia el oriente → Calle 67 Sur (incluye 200 m sin pavimentar)",
+          "acciones": [
+            "Al ingresar a la Carrera 78: ALERTA — 200 metros sin pavimentar con barro por lluvia.",
+            "Reducir velocidad a 10 km/h en el tramo sin pavimentar.",
+            "Sin frenadas bruscas — 24 niños a bordo sin cinturón tendrían riesgo de golpe.",
+            "Si el barro es muy profundo (más de 20 cm), evaluar si se puede bordear por la orilla de la calzada o si es necesario dar un rodeo por vía paralela pavimentada.",
+            "Mantener las luces encendidas — visibilidad reducida por lluvia y neblina matutina."
+          ]
+        },
+        {
+          "evento": "PARADA 4 — Urbanización Nuevo Horizonte",
+          "hora_llegada": "7:49 AM",
+          "hora_acordada_original": "7:42 AM",
+          "diferencia": "+7 minutos acumulados (desvío + lluvia + tramo barro)",
+          "hora_salida": "7:53 AM",
+          "tiempo_en_parada_min": 4,
+          "estudiantes_suben": 5,
+          "total_a_bordo": 29,
+          "acciones": [
+            "7:49 AM — Llegar a la Calle 67 Sur con Carrera 78, Urbanización Nuevo Horizonte. Encender luces de emergencia.",
+            "La monitora recibe a los 5 niños finales. Son los últimos — verificar que la lista está completa (29/29).",
+            "Embarque rápido pero ordenado — quedan solo 6 minutos para llegar al colegio.",
+            "Verificar cinturones de los 29 niños a bordo — capacidad exacta del bus.",
+            "7:53 AM — Salida INMEDIATA hacia el colegio. No hay margen para demoras adicionales."
+          ],
+          "capacidad_verificada": "29 estudiantes = capacidad máxima del bus. NO se pueden recoger estudiantes adicionales."
+        },
+        {
+          "evento": "Trayecto Parada 4 → Colegio Compartir Recuerdo",
+          "hora_inicio": "7:53 AM",
+          "hora_llegada_colegio": "7:58 AM",
+          "tiempo_trayecto_min": 5,
+          "ruta_usada": "Calle 67 Sur → Carrera 80 → Calle 65 Sur → Entrada Colegio Compartir Recuerdo",
+          "acciones": [
+            "Tomar la ruta más directa al colegio evitando vías con charcos o barro.",
+            "Velocidad máxima 30 km/h en zona escolar.",
+            "Al llegar a la Carrera 80 con Calle 65 Sur, reducir a 20 km/h — zona escolar con alta presencia de peatones y otros buses llegando.",
+            "Ingresar al parqueadero o zona de descenso del colegio."
+          ]
+        },
+        {
+          "evento": "Llegada al Colegio Compartir Recuerdo",
+          "hora_llegada": "7:58 AM",
+          "hora_maxima_requerida": "7:55 AM",
+          "diferencia": "+3 minutos sobre el ideal",
+          "evaluacion": "ACEPTABLE — Los estudiantes llegan 2 minutos antes de la formación de las 8:00 AM. Tiempo suficiente para que los 29 niños bajen ordenadamente y se ubiquen en el patio.",
+          "acciones": [
+            "7:58 AM — Estacionar en la zona designada del colegio. Encender luces de emergencia.",
+            "La monitora Libia baja primero y organiza el descenso ordenado de los 29 niños — de adelante hacia atrás.",
+            "En lluvia: los niños pueden resbalar en los escalones del bus — monitora asiste a cada niño al bajar, especialmente a los más pequeños.",
+            "El conductor permanece en el bus hasta que el último niño haya bajado y la monitora confirme la cuenta completa (29/29).",
+            "8:00 AM — Todos los estudiantes entran a la formación a tiempo.",
+            "El conductor reporta al coordinador de la ruta: llegada completada, 29 estudiantes entregados, incidencia de la inundación en Calle 68 Sur documentada para ajuste de ruta oficial."
+          ]
+        }
+      ],
+      "resumen_tiempos": {
+        "salida_garaje": "7:00 AM",
+        "parada_1_portal_bosa": "7:08 AM (llegada) / 7:13 AM (salida)",
+        "parada_2_conjunto_jardin": "7:21 AM (llegada) / 7:26 AM (salida)",
+        "parada_3_parque_porvenir": "7:36 AM (llegada) / 7:41 AM (salida)",
+        "parada_4_nuevo_horizonte": "7:49 AM (llegada) / 7:53 AM (salida)",
+        "llegada_colegio": "7:58 AM",
+        "formacion_colegio": "8:00 AM",
+        "margen_final": "2 minutos antes de la formación",
+        "evaluacion_general": "VIABLE — con desvío por inundación incluido y todas las precauciones de lluvia aplicadas"
+      },
+      "protocolos_seguridad_lluvia": [
+        "VISIBILIDAD: Luces delanteras encendidas durante todo el recorrido (obligatorio con lluvia según Código de Tránsito colombiano Art. 82).",
+        "VELOCIDAD: Máximo 30 km/h en vías urbanas con lluvia y niños a bordo. Máximo 10 km/h en tramo sin pavimentar de Carrera 78.",
+        "DISTANCIA DE FRENADO: Aumentar distancia de seguridad con el vehículo de adelante al doble — calzada mojada duplica la distancia de frenado.",
+        "PARADAS: Luces de emergencia encendidas en TODAS las paradas. Nunca abrir la puerta del bus si hay un vehículo pasando en el carril adyacente.",
+        "EMBARQUE EN LLUVIA: Los niños corren hacia el bus cuando llueve. La monitora debe controlar el embarque UNO POR UNO para evitar empujones y caídas en calzada mojada.",
+        "DESCENSO EN LLUVIA: Los escalones del bus se mojan y se vuelven resbaladizos. La monitora asiste a cada niño al bajar — especialmente niños de primaria.",
+        "INUNDACIONES: NUNCA ingresar a una vía inundada con niños a bordo. Si el nivel del agua no es visible claramente, asumir que es profundo y usar la ruta alterna.",
+        "MOTOS EN SENTIDO CONTRARIO: En Bosa es muy común. Reducir velocidad y dar espacio — no hacer maniobras bruscas.",
+        "COMUNICACIÓN: Mantener comunicación activa con el coordinador de la ruta durante todo el recorrido. Reportar cualquier incidencia en tiempo real."
+      ],
+      "alertas_adicionales": [
+        "INUNDACIÓN CALLE 68 SUR: Reportar al IDIGER (Instituto Distrital de Gestión de Riesgos) y a la Alcaldía Local de Bosa para que activen el protocolo de atención. Este tipo de inundaciones en Bosa son recurrentes en temporada de lluvias (abril-mayo y octubre-noviembre) y afectan múltiples rutas escolares cada año.",
+        "PICO Y PLACA: El bus escolar está exento. Si un agente de tránsito lo detiene en la Av. Bosa, mostrar el tarjetón de la Secretaría de Educación y la resolución de habilitación de la ruta. No discutir — los agentes a veces no conocen la excepción.",
+        "CAPACIDAD MÁXIMA: Con 29 estudiantes el bus está a capacidad total. Si en alguna parada hay un niño adicional que no está en la lista (por ejemplo, un hermano menor que el padre quiere enviar al colegio), NO puede subir. La capacidad es reglamentaria y excederla es infracción grave.",
+        "REPORTE POST-RUTA: Al finalizar, el conductor debe documentar por escrito la inundación de la Calle 68 Sur, el desvío usado y los tiempos reales de cada parada. Este reporte sirve para que la empresa ajuste la ruta oficial en los días de lluvia intensa, que en Bosa son frecuentes entre 3 y 4 meses al año."
+      ],
+      "nota_contexto_colombiano": "Bosa es una de las localidades más densamente pobladas de Bogotá y una de las más afectadas por inundaciones en temporada de lluvias, debido a su ubicación en la cuenca baja del río Bogotá y la presencia de múltiples caños de aguas lluvias sin mantenimiento adecuado. Las inundaciones en vías como la Calle 68 Sur no son eventos excepcionales — son una realidad recurrente que los conductores de rutas escolares en esta zona deben anticipar y para la cual deben tener rutas alternas memorizadas. La combinación de lluvia, hora pico de lunes, inundación y niños a bordo representa el escenario más exigente de la planificación de rutas escolares en el sur de Bogotá."
+    },
+    "cognitive_load": 4
   }
 ]

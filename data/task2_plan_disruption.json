@@ -5,420 +5,963 @@
     "difficulty": "easy",
     "scenario": {
       "initial_plan": {
-        "description": "Estás llevando a un pasajero al aeropuerto por la Autopista Principal. El vuelo sale en 2 horas y llevas 30 minutos de viaje de los 45 estimados.",
-        "route": "Autopista Principal",
-        "progress": "67% completado",
-        "remaining_time": "15 minutos",
-        "buffer_time": "1 hora 15 minutos hasta el vuelo"
+        "description": "Es viernes a las 4:45 PM. Eres conductor de plataforma (Uber categoría Comfort) y llevas a un pasajero desde las oficinas del Grupo Bancolombia (Calle 93 con Carrera 7, Bogotá) hasta el Aeropuerto El Dorado Terminal 2 (vuelos internacionales). El vuelo sale a las 7:00 PM con destino a Miami. El pasajero debe hacer check-in antes de las 5:45 PM (aerolínea exige 75 minutos de anticipación para vuelos internacionales). Saliste a las 4:45 PM con un estimado de 40 minutos por la Av. El Dorado (Calle 26). Llevas 15 minutos de viaje y ya pasaste la Carrera 30.",
+        "route": "Carrera 7 → Calle 26 (Av. El Dorado) → Aeropuerto El Dorado Terminal 2",
+        "progress": "37% completado — ya en la Calle 26 pasando Carrera 30",
+        "remaining_time_estimado": "25 minutos",
+        "buffer_time": "35 minutos antes del cierre de check-in",
+        "hora_actual": "5:00 PM"
       },
       "disruption": {
-        "type": "accidente",
-        "description": "ALERTA DE TRÁFICO: Accidente múltiple en km 18 de la Autopista Principal. Carril izquierdo y central bloqueados. Tiempo de espera estimado: 45 minutos.",
-        "your_position": "km 15 (3 km antes del accidente)"
+        "type": "accidente_con_obras",
+        "description": "ALERTA WAZE Y RADIO TRÁFICO (106.9 FM): Colisión entre un bus del SITP y una volqueta en la Calle 26 a la altura de la Carrera 50. Dos carriles bloqueados de tres. Tiempo de espera estimado: 50 minutos. Adicionalmente, las obras del Metro de Bogotá en ese tramo ya reducían la vía a dos carriles — ahora efectivamente queda un solo carril operativo.",
+        "your_position": "Calle 26 con Carrera 30 — a 2.5 km del accidente",
+        "contexto_real": "La Calle 26 es la vía directa al aeropuerto pero los viernes en hora pico es históricamente la más congestionada de Bogotá. El accidente activo + obras del Metro la convierte en trampa. La velocidad actual en ese tramo: 4-6 km/h según Waze."
       },
       "alternatives": [
         {
-          "name": "Opción A: Esperar",
-          "description": "Quedarse en la autopista y esperar que se despeje",
-          "estimated_additional_time": "45 minutos"
+          "id": "A",
+          "name": "Opción A — Esperar en la Calle 26",
+          "description": "Quedarse en la Calle 26 esperando que se despeje el accidente.",
+          "estimated_additional_time_min": 50,
+          "hora_llegada_estimada": "5:50 PM",
+          "evaluacion": "DESCARTADA — llega 5 minutos después del cierre de check-in. Riesgo altísimo de perder el vuelo.",
+          "viable": false
         },
         {
-          "name": "Opción B: Salida km 16",
-          "description": "Tomar la salida en km 16, usar vías secundarias",
-          "estimated_additional_time": "25 minutos"
+          "id": "B",
+          "name": "Opción B — Salida Carrera 30 norte / Av. Boyacá / acceso occidental al aeropuerto",
+          "description": "Salir de la Calle 26 por la Carrera 30 hacia el norte, tomar la Av. Boyacá hacia el sur hasta la Calle 26 occidental, entrar al aeropuerto por el acceso occidental (Terminal 2 Internacional tiene acceso por ese costado).",
+          "estimated_additional_time_min": 20,
+          "hora_llegada_estimada": "5:35 PM",
+          "evaluacion": "VIABLE — llega 10 minutos antes del cierre de check-in con margen justo pero suficiente.",
+          "viable": true,
+          "detalle": "La Boyacá en ese tramo sur está congestionada pero en movimiento. El acceso occidental al El Dorado evita completamente el punto del accidente."
         },
         {
-          "name": "Opción C: Retroceder",
-          "description": "Usar el retorno en km 14, volver y tomar ruta alterna",
-          "estimated_additional_time": "35 minutos"
+          "id": "C",
+          "name": "Opción C — Retroceder por Carrera 7 / NQS / Calle 13 / acceso sur aeropuerto",
+          "description": "Retroceder por la Calle 26 hasta la Carrera 7, tomar la NQS hacia el sur hasta la Calle 13, y tomar la Calle 13 hacia el occidente para acceder al aeropuerto por el costado sur.",
+          "estimated_additional_time_min": 40,
+          "hora_llegada_estimada": "5:55 PM",
+          "evaluacion": "DESCARTADA — retroceder en la Calle 26 en hora pico de viernes es prácticamente imposible. Tiempo real probablemente mayor a 40 minutos.",
+          "viable": false
         }
       ]
     },
-    "question": "El pasajero está nervioso por su vuelo. ¿Qué haces y cómo se lo comunicas?",
+    "question": "El pasajero lleva un maletín de mano y está visiblemente ansioso. Mira su reloj cada 30 segundos. ¿Qué haces y cómo se lo comunicas? Tiene un vuelo internacional y no puede perderlo.",
     "expected_elements": [
-      "reconoce_problema",
-      "evalua_opciones",
-      "selecciona_mejor_alternativa",
-      "calcula_nuevo_tiempo",
-      "comunica_al_pasajero",
-      "mantiene_calma"
+      "reconoce_problema_con_datos_reales_calle26",
+      "descarta_opcion_A_por_tiempo_insuficiente",
+      "descarta_opcion_C_por_imposibilidad_retroceder",
+      "selecciona_opcion_B_boyaca_acceso_occidental",
+      "calcula_nuevo_tiempo_con_margen_real",
+      "comunica_con_calma_y_profesionalismo",
+      "sugiere_check_in_online_al_pasajero",
+      "menciona_obras_metro_como_factor_agravante"
     ],
     "optimal_response": {
-      "action": "Opción B: Salida km 16",
-      "reasoning": "Con 1h 15min de margen y solo 25 min adicionales, aún llegaríamos con 50 min de anticipación. Esperar (45 min) consume demasiado margen. Retroceder (35 min) es más que la Opción B.",
-      "communication": "Señor, hay un accidente adelante pero no se preocupe. Voy a tomar una salida alterna que conozco bien. Llegaremos unos 25 minutos más tarde de lo planeado, pero aún tendrá casi una hora antes de su vuelo. ¿Le parece bien?"
+      "accion_inmediata": "Salir de la Calle 26 por la Carrera 30 hacia el norte — ejecutar AHORA antes de quedar atrapado más adentro del trancón.",
+      "ruta_elegida": "Opción B — Av. Boyacá / acceso occidental Terminal 2",
+      "justificacion": "La Opción A (esperar) llega a las 5:50 PM, 5 minutos después del cierre de check-in — inaceptable. La Opción C implica retroceder en la Calle 26 en viernes a las 5:00 PM, lo cual con el accidente activo y las obras del Metro es prácticamente imposible — los vehículos están literalmente pegados. La Opción B por la Boyacá es la única salida viable: aunque agrega 20 minutos al plan original, llega a las 5:35 PM con 10 minutos antes del cierre de check-in. Es ajustado pero real.",
+      "calculo_tiempo": {
+        "hora_actual": "5:00 PM",
+        "tiempo_ruta_B": "35 minutos (15 ya recorridos + 20 adicionales por desvío)",
+        "llegada_estimada": "5:35 PM",
+        "cierre_checkin": "5:45 PM",
+        "margen": "10 minutos",
+        "evaluacion": "AJUSTADO pero VIABLE si se ejecuta el desvío inmediatamente"
+      },
+      "plan_paso_a_paso": [
+        "5:00 PM — Salir inmediatamente de la Calle 26 girando al norte por la Carrera 30 antes de quedar bloqueado por el accidente.",
+        "5:05 PM — Tomar la Av. Boyacá hacia el sur. Informar al pasajero.",
+        "5:20 PM — Conectar con la Calle 26 occidental (antes del punto del accidente). Ingresar al aeropuerto por el acceso occidental.",
+        "5:35 PM — Llegada estimada a la zona de desembarco del Terminal 2 Internacional.",
+        "Acción paralela: Pedirle al pasajero que haga check-in online desde el carro si aún no lo ha hecho — muchas aerolíneas como American, Avianca o Latam permiten check-in móvil hasta 60 minutos antes del vuelo. Si ya tiene el boarding pass en el celular, solo necesita llegar a la puerta de embarque."
+      ],
+      "comunicacion_al_pasajero": "Señor, hay un accidente grave en la Calle 26 justo adelante, combinado con las obras del Metro. Si seguimos por aquí no llegamos a tiempo. Conozco una ruta alterna por la Boyacá que nos lleva al acceso occidental del aeropuerto — llegaremos aproximadamente a las 5:35, que le da 10 minutos antes del cierre de check-in. Voy a salir ahora por la Carrera 30. Mientras tanto, ¿ya tiene el check-in hecho? Si puede hacerlo desde el celular ahorita nos ahorramos esos minutos en el mostrador.",
+      "nota_cultura_vial": "En Bogotá, la Calle 26 los viernes en hora pico es una de las vías más impredecibles de la ciudad. La combinación de obras del Metro (activas desde 2022), tráfico intenso de fin de semana y cualquier incidente adicional puede convertir una vía de 25 minutos en una trampa de 90 minutos. Todo conductor que opere rutas al aeropuerto debe conocer de memoria los accesos alternativos al El Dorado: el acceso occidental por la Boyacá y el acceso sur por la Calle 13."
     },
     "cognitive_load": 3
   },
+
   {
     "task_id": "T2_002",
     "task_type": "plan_disruption",
     "difficulty": "medium",
     "scenario": {
       "initial_plan": {
-        "description": "Estás haciendo una ruta de entregas con 4 paradas programadas. Ya completaste las primeras 2 entregas.",
-        "completed": ["Entrega 1: Farmacia Central ✓", "Entrega 2: Restaurante El Buen Sabor ✓"],
-        "pending": ["Entrega 3: Oficinas TechCorp (documentos urgentes)", "Entrega 4: Hospital Regional (suministros médicos)"],
-        "schedule": {
-          "entrega_3": "Antes de las 2:00 PM",
-          "entrega_4": "Antes de las 3:00 PM"
-        },
-        "current_time": "1:15 PM"
+        "description": "Es miércoles a las 1:00 PM. Eres conductor de mensajería especializada de la empresa MedLogistics Colombia, que transporta insumos médicos y documentos hospitalarios en Bogotá. Completaste dos entregas de tu ruta de cuatro paradas y vas en camino a las dos pendientes.",
+        "completed": [
+          "Entrega 1: Droguería Colsubsidio Calle 80 ✓ — Medicamentos ambulatorios. Completada 12:10 PM.",
+          "Entrega 2: Clínica Palermo (Calle 45 con Carrera 16) ✓ — Reactivos de laboratorio. Completada 12:55 PM."
+        ],
+        "pending": [
+          {
+            "id": 3,
+            "destino": "Notaría 12 de Bogotá — Carrera 7 con Calle 57, Chapinero",
+            "contenido": "Documentos legales con firmas originales (escrituras de propiedad para cierre de negocio inmobiliario)",
+            "deadline": "Antes de las 2:00 PM",
+            "consecuencia_retraso": "El negocio inmobiliario no se puede cerrar hoy — pérdida económica para el cliente de aproximadamente $15 millones COP"
+          },
+          {
+            "id": 4,
+            "destino": "Clínica Reina Sofía (Calle 127 con Autopista Norte)",
+            "contenido": "Kit de cirugía estéril y sangre tipificada para transfusión",
+            "deadline": "Antes de las 3:00 PM",
+            "consecuencia_retraso": "Cirugía programada puede postergarse — riesgo para paciente"
+          }
+        ],
+        "current_time": "1:05 PM",
+        "current_position": "Clínica Palermo, Calle 45 con Carrera 16, Bogotá"
       },
       "disruption": {
-        "type": "llamada_urgente",
-        "description": "Recibes una llamada: 'Los suministros médicos del Hospital son URGENTES. Un paciente los necesita para una cirugía programada a las 2:30 PM. ¿Puedes priorizar esa entrega?'",
-        "additional_info": "La ruta original: TechCorp (20 min) → Hospital (25 min). Ruta invertida: Hospital (30 min desde tu ubicación) → TechCorp (15 min)"
+        "type": "llamada_urgente_medica",
+        "description": "Recibes llamada de la coordinadora de quirófanos de la Clínica Reina Sofía: 'Necesitamos los insumos quirúrgicos CON URGENCIA. La cirugía se adelantó a las 2:15 PM por una complicación del paciente. Si no llegamos con los insumos antes de las 2:00 PM, el cirujano no puede operar. Es una cirugía cardiovascular — el paciente tiene riesgo si se retrasa más.'",
+        "additional_info": {
+          "ruta_original": "Notaría 12 (20 min desde Clínica Palermo) → Clínica Reina Sofía (25 min desde Notaría)",
+          "ruta_invertida": "Clínica Reina Sofía (35 min desde Clínica Palermo en hora pico) → Notaría 12 (20 min desde Clínica Reina Sofía)",
+          "hora_actual": "1:05 PM",
+          "nuevo_deadline_hospital": "2:00 PM (55 minutos desde ahora)",
+          "deadline_notaria": "2:00 PM (55 minutos desde ahora)",
+          "problema_real": "Con la ruta invertida, la Notaría llegaría a las 2:35 PM — 35 minutos tarde. El negocio no se cierra hoy.",
+          "contexto_bogota": "La Autopista Norte en hora pico del mediodía tiene congestión moderada-alta. El trayecto de Palermo a la Clínica Reina Sofía por la Carrera 7 o la Autopista Norte es de 30-40 minutos reales."
+        }
       }
     },
-    "question": "¿Cómo reorganizas tus entregas? Considera las consecuencias de cada decisión.",
+    "question": "Tienes dos deadlines simultáneos, ambos a las 2:00 PM, y no puedes cumplir ambos si cambias el orden. Una es una urgencia médica (cirugía cardiovascular), la otra es una pérdida económica importante ($15 millones COP). ¿Cómo decides y cómo lo comunicas a cada parte?",
     "expected_elements": [
-      "reconoce_urgencia_medica",
-      "recalcula_tiempos",
-      "evalua_impacto_cambio",
-      "toma_decision_priorizada",
-      "considera_comunicacion_techcorp",
-      "justifica_decision"
+      "reconoce_conflicto_real_dos_deadlines_iguales",
+      "prioriza_urgencia_medica_sobre_urgencia_comercial",
+      "recalcula_tiempos_con_datos_reales_bogota",
+      "evalua_impacto_concreto_cada_decision",
+      "llama_a_notaria_para_informar_retraso",
+      "llama_a_empresa_para_reportar_situacion",
+      "justifica_decision_con_criterio_etico",
+      "plan_comunicacion_ambas_partes"
     ],
     "optimal_response": {
-      "action": "Invertir orden: Hospital primero, TechCorp segundo",
-      "new_schedule": {
-        "hospital": "Salida 1:15 PM + 30 min = Llegada 1:45 PM (45 min antes de cirugía ✓)",
-        "techcorp": "Salida Hospital 1:50 PM + 15 min = Llegada 2:05 PM (5 min tarde)"
+      "decision": "Priorizar la Clínica Reina Sofía (cirugía cardiovascular) — ir primero al hospital.",
+      "justificacion_etica": "Frente a un conflicto entre una urgencia médica (riesgo de vida de un paciente cardiovascular) y una urgencia comercial (pérdida económica de $15 millones COP), la vida humana tiene prioridad absoluta. Esta no es solo una decisión logística — es una decisión ética que cualquier protocolo de empresa de salud establece claramente. La pérdida económica es recuperable; la vida de un paciente, no.",
+      "calculo_tiempos": {
+        "opcion_orden_original_notaria_primero": {
+          "salida_palermo": "1:05 PM",
+          "llegada_notaria": "1:25 PM",
+          "salida_notaria": "1:30 PM",
+          "llegada_hospital": "1:55-2:00 PM",
+          "evaluacion": "Llegaría JUST a tiempo al hospital (2:00 PM) pero depende del tráfico exacto. Riesgo alto de llegar tarde por cualquier imprevisto en la Autopista Norte."
+        },
+        "opcion_orden_invertido_hospital_primero": {
+          "salida_palermo": "1:05 PM",
+          "llegada_hospital": "1:40-1:45 PM",
+          "salida_hospital": "1:50 PM",
+          "llegada_notaria": "2:10-2:15 PM",
+          "retraso_notaria": "10-15 minutos sobre el deadline de 2:00 PM",
+          "evaluacion": "El hospital recibe los insumos con margen de 10-15 minutos antes de la cirugía. La notaría recibe los documentos con 10-15 minutos de retraso."
+        },
+        "decision_final": "Orden invertido — Hospital primero. El margen de 10-15 minutos de retraso en la notaría es manejable si se avisa con anticipación. El margen CERO en el hospital no lo es."
       },
-      "reasoning": "La urgencia médica (vida del paciente) supera la puntualidad comercial. TechCorp recibirá sus documentos solo 5 minutos tarde.",
-      "communication_plan": "Llamar a TechCorp: 'Tengo una emergencia médica que atender primero. Sus documentos llegarán a las 2:05 PM en lugar de 2:00 PM. Disculpe el inconveniente.'"
+      "plan_comunicacion": {
+        "llamada_notaria_12": {
+          "cuando": "AHORA MISMO — 1:06 PM, mientras se inicia el desplazamiento al hospital",
+          "quien_llama": "El conductor llama directamente o reporta a su coordinador para que llame",
+          "mensaje": "'Buenos días, soy conductor de MedLogistics. Tenía programada una entrega de documentos en la Notaría 12 antes de las 2:00 PM. Tengo una emergencia médica urgente que debo atender primero — una cirugía cardiovascular que se adelantó. Llegaré aproximadamente a las 2:10-2:15 PM en lugar de las 2:00 PM. ¿Es posible que esperen esos minutos adicionales? Vengo en camino y los documentos están seguros.'",
+          "objetivo": "Las notarías en Colombia frecuentemente tienen algo de flexibilidad con 10-15 minutos de retraso si se avisa con anticipación. No es garantizado, pero es mucho mejor que llegar sin avisar.",
+          "plan_B_notaria": "Si la notaría informa que NO puede esperar bajo ninguna circunstancia, el conductor reporta a su coordinador para evaluar si hay otro mensajero disponible que pueda cubrir la notaría mientras este va al hospital."
+        },
+        "llamada_coordinador_empresa": {
+          "cuando": "1:07 PM — inmediatamente después de llamar a la notaría",
+          "mensaje": "'Coordinadora, tengo un conflicto de rutas. La Clínica Reina Sofía adelantó su cirugía a las 2:15 PM y necesita los insumos antes de las 2:00 PM. Tengo también los documentos de la Notaría 12 para las 2:00 PM. Voy a priorizar el hospital según protocolo médico. Avisé a la notaría que llego máximo 2:15 PM. ¿Hay otro mensajero que pueda cubrir la notaría? Necesito autorización para el cambio de ruta.'",
+          "objetivo": "Mantener a la empresa informada y documentar la decisión — esto protege al conductor de responsabilidades posteriores."
+        },
+        "llamada_hospital": {
+          "cuando": "1:08 PM",
+          "mensaje": "'Clínica Reina Sofía, soy el conductor de MedLogistics con los insumos quirúrgicos. Salí de Clínica Palermo hace 3 minutos. ETA: 1:40-1:45 PM. ¿Confirman que es suficiente margen para la cirugía de las 2:15 PM?'"
+        }
+      },
+      "plan_paso_a_paso": [
+        "1:05 PM — Recibir la llamada de la Clínica Reina Sofía.",
+        "1:06 PM — Llamar a la Notaría 12 para avisar del retraso anticipado (mientras arranca el vehículo).",
+        "1:07 PM — Llamar al coordinador de MedLogistics para reportar el cambio de ruta y solicitar autorización.",
+        "1:08 PM — Confirmar con la Clínica Reina Sofía el ETA.",
+        "1:08 PM — Salir de Clínica Palermo hacia la Clínica Reina Sofía por la ruta más rápida disponible (Carrera 7 norte o Autopista Norte según Waze en tiempo real).",
+        "1:40-1:45 PM — Llegada a Clínica Reina Sofía. Entrega de kit quirúrgico y sangre tipificada al personal de quirófano. Obtener firma de recibido con hora exacta.",
+        "1:50 PM — Salir hacia la Notaría 12.",
+        "2:10-2:15 PM — Llegada a Notaría 12 con documentos. Si la notaría aceptó esperar, entrega normal. Si no aceptó, el coordinador ya tiene un plan alterno.",
+        "2:20 PM — Reportar a coordinadora: todas las entregas completadas o situación de la notaría documentada."
+      ],
+      "nota_contexto_colombiano": "En Colombia, el sistema de salud enfrenta permanentemente el reto de la logística de insumos quirúrgicos. La falta de sangre tipificada o de kits estériles por retrasos en la cadena de transporte ha causado postergaciones de cirugías en hospitales públicos y privados. Las empresas de mensajería especializada en salud tienen protocolos claros de priorización médica, pero en la realidad del conductor en campo, estas decisiones deben tomarse en segundos con información parcial. La capacidad de comunicarse proactivamente con todas las partes involucradas es la diferencia entre un conflicto manejable y una crisis."
     },
-    "cognitive_load": 4
+    "cognitive_load": 5
   },
+
   {
     "task_id": "T2_003",
     "task_type": "plan_disruption",
     "difficulty": "hard",
     "scenario": {
       "initial_plan": {
-        "description": "Eres conductor de un bus intermunicipal. Sales de Bogotá a las 6:00 AM hacia Medellín (8 horas de viaje). Llevas 45 pasajeros.",
+        "description": "Eres conductor de bus intermunicipal de la empresa Expreso Brasilia. Sales de la Terminal de Transportes de Bogotá (Calle 33 con Av. 68) a las 5:30 AM hacia Medellín con 38 pasajeros a bordo. La ruta oficial es: Bogotá → Honda (cruce del Magdalena) → La Dorada → Puerto Berrío → Autopista Medellín–Bogotá → Medellín. Distancia total: aproximadamente 420 km. Tiempo estimado: 8-9 horas. Hora de llegada programada a la Terminal del Norte de Medellín: 2:00-2:30 PM.",
         "route": "Bogotá → Honda → La Dorada → Puerto Berrío → Medellín",
-        "current_position": "Acabas de pasar Honda (2 horas de viaje completadas)",
+        "current_position": "Acabas de cruzar el puente de Honda sobre el río Magdalena. Llevas 2.5 horas de viaje.",
         "current_time": "8:00 AM",
-        "scheduled_arrival": "2:00 PM"
+        "scheduled_arrival": "2:00-2:30 PM",
+        "pasajeros": 38,
+        "contexto_geografico": "Honda es un municipio en el cruce del río Magdalena entre Cundinamarca y Tolima. Es punto de paso obligado para ir de Bogotá hacia el norte del país por la ruta del Magdalena. Desde Honda, la vía sube hacia La Dorada y luego a Puerto Berrío por la Cordillera Central."
       },
       "disruption": {
-        "type": "multiple",
+        "type": "multiple_simultaneo",
         "events": [
           {
-            "event": "Cierre vial",
-            "description": "La vía hacia La Dorada está cerrada por derrumbe. Reapertura estimada: 4:00 PM"
+            "id": 1,
+            "type": "cierre_vial_derrumbe",
+            "description": "Alerta del INVÍAS por radio: 'Derrumbe en la vía Honda–La Dorada a la altura del kilómetro 23 (sector Las Margaritas). Cierre total. Maquinaria en camino. Reapertura estimada: NO ANTES de las 4:00 PM.' Este tipo de derrumbe en la vía al Magdalena Medio es frecuente en temporada de lluvias.",
+            "impacto": "La ruta principal hacia Medellín está bloqueada. Esperar significa 8 horas de espera en Honda con 38 pasajeros."
           },
           {
-            "event": "Pasajero enfermo",
-            "description": "Una pasajera de 70 años reporta mareo intenso y dolor en el pecho"
+            "id": 2,
+            "type": "emergencia_medica_pasajero",
+            "description": "La señora Amparo Rodríguez, 67 años, pasajera del asiento 14A, le informa al conductor que siente presión fuerte en el pecho, sudoración fría y hormigueo en el brazo izquierdo desde hace 10 minutos. Su esposo está con ella y está muy asustado. Los síntomas son compatibles con infarto agudo de miocardio (IAM).",
+            "signos_reportados": {
+              "presion_pecho": "Intensa, 8/10",
+              "sudoracion": "Fría, visible",
+              "hormigueo_brazo_izquierdo": true,
+              "mareo": true,
+              "tiempo_sintomas": "10 minutos antes de reportar"
+            },
+            "opciones_medicas": {
+              "hospital_honda": "Hospital San Juan de Dios de Honda — 5 minutos de regreso al cruce. Tiene urgencias pero capacidad limitada para cardiología.",
+              "clinica_dorada": "Clínica Palermo de La Dorada — 45 minutos adelante, pero la vía está cerrada por el derrumbe.",
+              "hospital_manizales": "Ruta alterna por Manizales — 2.5 horas. Inviable para paciente con posible IAM."
+            }
           }
         ],
-        "alternatives": {
-          "route_alternatives": [
-            "Esperar reapertura (8 horas de espera)",
-            "Ruta alterna por Manizales (+3 horas de viaje)",
-            "Regresar a Bogotá y reprogramar"
-          ],
-          "medical_options": [
-            "Hospital de Honda (20 min de regreso)",
-            "Centro de salud en pueblo cercano (10 min adelante)",
-            "Continuar y buscar atención en La Dorada"
-          ]
-        }
+        "route_alternatives": [
+          {
+            "id": "A",
+            "name": "Esperar reapertura en Honda",
+            "description": "Quedarse en Honda hasta las 4:00 PM y continuar la ruta original.",
+            "tiempo_espera": "8 horas",
+            "viable": false,
+            "observacion": "Inaceptable con la emergencia médica activa. Además, 38 pasajeros esperando 8 horas en Honda sin instalaciones adecuadas."
+          },
+          {
+            "id": "B",
+            "name": "Ruta alterna por Manizales (vía del Nevado)",
+            "description": "Desde Honda, retroceder hacia Mariquita y tomar la vía hacia Manizales por el cruce de la Cordillera Central (Km 41 — sector El Nevado). De Manizales bajar hacia Medellín por la Autopista.",
+            "distancia_adicional_km": 180,
+            "tiempo_adicional_horas": 3.5,
+            "nueva_llegada_estimada": "Entre 5:30 PM y 6:00 PM",
+            "viable_para_ruta": true,
+            "condicion_via": "La vía Mariquita–Manizales cruza la Cordillera Central a más de 3.000 msnm. En temporada de lluvias puede tener neblina y tramos mojados. Requiere precaución.",
+            "observacion": "Esta es la ruta alterna oficial reportada por el INVÍAS para la vía Honda–La Dorada cuando hay cierres."
+          },
+          {
+            "id": "C",
+            "name": "Regresar a Bogotá y reprogramar",
+            "description": "Retornar a la Terminal de Bogotá y reprogramar el viaje para el día siguiente.",
+            "viable": false,
+            "observacion": "Solo viable si hay pasajeros con emergencias propias que prefieran regresar. Para el resto es una opción que la empresa debe coordinar con reembolsos y alojamiento."
+          }
+        ]
       }
     },
-    "question": "Tienes dos crisis simultáneas. ¿Cómo priorizas y qué plan ejecutas? Detalla tus acciones paso a paso.",
+    "question": "Tienes dos crisis simultáneas: una emergencia médica con síntomas de infarto y un cierre vial total que bloquea tu ruta. ¿Cómo priorizas, qué plan ejecutas paso a paso y cómo comunicas la situación a los 38 pasajeros sin generar pánico?",
     "expected_elements": [
-      "prioriza_emergencia_medica",
-      "evalua_gravedad_sintomas",
-      "toma_accion_inmediata_salud",
-      "luego_resuelve_logistica",
-      "comunica_a_pasajeros",
-      "contacta_empresa",
-      "plan_detallado"
+      "prioriza_emergencia_medica_inmediatamente",
+      "identifica_sintomas_como_posible_IAM",
+      "dirige_al_hospital_honda_en_5_minutos",
+      "NO_espera_para_resolver_logistica_primero",
+      "comunica_a_pasajeros_con_calma_sin_detalle_medico",
+      "contacta_empresa_expreso_brasilia",
+      "resuelve_logistica_mientras_paciente_en_hospital",
+      "elige_ruta_manizales_como_alterna",
+      "calcula_nueva_hora_llegada_medellin",
+      "plan_detallado_paso_a_paso"
     ],
     "optimal_response": {
-      "priority_1": "EMERGENCIA MÉDICA - Acción inmediata",
-      "medical_action": "Regresar a Hospital de Honda (20 min). Dolor de pecho en persona de 70 años puede ser infarto - no se puede ignorar ni atender en centro de salud básico.",
-      "priority_2": "LOGÍSTICA - Después de estabilizar situación médica",
-      "logistics_plan": {
-        "step_1": "En Hospital de Honda, dejar a la pasajera con familiar o acompañante voluntario",
-        "step_2": "Evaluar estado de la vía - si sigue cerrada, tomar ruta por Manizales",
-        "step_3": "Informar a pasajeros: llegada estimada 5:00 PM (+3 horas)",
-        "step_4": "Contactar empresa para autorización y apoyo"
+      "prioridad_1": {
+        "tipo": "EMERGENCIA MÉDICA — ACCIÓN INMEDIATA",
+        "justificacion": "Los síntomas de doña Amparo (presión en el pecho 8/10, sudoración fría, hormigueo en brazo izquierdo, mareo, 10 minutos de evolución) son la presentación clásica de un Infarto Agudo de Miocardio. Cada minuto sin atención cardíaca especializada aumenta el daño al músculo cardíaco. Esta situación NO admite demora logística — la vida de la señora es absolutamente prioritaria sobre cualquier consideración de ruta o puntualidad.",
+        "accion": "Girar inmediatamente de regreso hacia Honda y dirigirse al Hospital San Juan de Dios (5 minutos). No esperar, no resolver primero el tema del derrumbe.",
+        "acciones_inmediatas_en_el_bus": [
+          "1. Detener el bus de forma segura al costado de la vía.",
+          "2. Anunciar por el micrófono: '¡Señores pasajeros, necesito que permanezcan en sus asientos con calma. Tenemos una situación médica a bordo y vamos a dirigirnos al hospital más cercano.' SIN dar detalles del estado de la pasajera.",
+          "3. Preguntar en voz alta: '¿Hay algún médico, enfermero o personal de salud entre los pasajeros?' — En Colombia es frecuente que haya personal de salud viajando.",
+          "4. Si hay personal de salud: que se acerque al asiento 14A inmediatamente.",
+          "5. Si no hay: indicarle al esposo que mantenga a doña Amparo sentada, no acostada, ropa aflojada en el cuello, sin darle nada de comer ni beber.",
+          "6. Girar el bus y dirigirse al Hospital San Juan de Dios de Honda."
+        ]
       },
-      "communication": "Señores pasajeros, tenemos una emergencia médica que requiere atención inmediata. Nos desviaremos al hospital más cercano. Adicionalmente, la vía principal está cerrada. Les mantendré informados. Su seguridad es nuestra prioridad."
+      "prioridad_2": {
+        "tipo": "LOGÍSTICA — Después de entregar a la paciente al hospital",
+        "plan_logistico": {
+          "paso_1_hospital": "Llegar al Hospital San Juan de Dios de Honda. El conductor y el esposo de la señora bajan con ella. El resto de los 37 pasajeros espera en el bus.",
+          "paso_2_empresa": "Llamar a la central de Expreso Brasilia: 'Brasilia central, soy el conductor del bus BG-117 ruta Bogotá-Medellín. Tengo dos novedades: emergencia médica atendida en Hospital Honda y cierre vial por derrumbe en Honda-La Dorada km 23. Solicito instrucciones y autorización para ruta alterna por Manizales. Necesito también asistencia para la pasajera hospitalizada.'",
+          "paso_3_decision_ruta": "Con la autorización de la empresa, informar a los pasajeros sobre el cambio de ruta.",
+          "paso_4_ruta_manizales": "Tomar la vía Honda → Mariquita → Manizales → Autopista Medellín. Distancia adicional: ~180 km. Tiempo adicional: ~3.5 horas.",
+          "paso_5_pasajera_hospitalizada": "Coordinar con la empresa que un familiar de la señora Amparo sea notificado. La empresa debe gestionar el apoyo para ella y su esposo que quedan en Honda. Si el esposo decide quedarse, puede hacerlo — no puede obligársele a continuar el viaje.",
+          "nueva_llegada_medellin": "Salida de Honda estimada 9:00-9:30 AM + 7.5 horas vía Manizales = Llegada Medellín 4:30-5:00 PM aproximadamente."
+        }
+      },
+      "comunicacion_pasajeros": {
+        "anuncio_inicial_bus": "Señores pasajeros, con toda la calma: tenemos una compañera de viaje que necesita atención médica. Vamos a dirigirnos al hospital de Honda que está a 5 minutos. Adicionalmente, les informo que la vía hacia La Dorada está cerrada por un derrumbe. Estamos coordinando con la empresa para buscar la mejor solución. Les pido paciencia — los mantendré informados. Por favor permanezcan en sus asientos.",
+        "anuncio_en_hospital_a_pasajeros_en_bus": "Señores, mientras esperamos que nuestra compañera reciba atención, voy a coordinar con la empresa Expreso Brasilia la ruta alterna. Hay una vía por Manizales que nos lleva a Medellín con aproximadamente 3 horas adicionales de viaje. Llegaríamos alrededor de las 4:30-5:00 PM en lugar de las 2:00 PM. Si algún pasajero tiene una emergencia propia que requiera solución diferente, por favor acérquese a hablar conmigo.",
+        "manejo_pasajeros_molestos": "En Colombia los viajeros intermunicipales frecuentemente se molestan con los retrasos. El conductor debe mantener el tono calmado y empático: 'Entiendo la incomodidad. Hicimos lo correcto al atender la emergencia médica primero. La empresa Brasilia está gestionando el apoyo. Si tiene conexiones adicionales en Medellín, llame a sus contactos para informarles del retraso.'"
+      },
+      "plan_paso_a_paso_cronologico": [
+        "8:00 AM — Doña Amparo reporta sus síntomas. Detener bus inmediatamente.",
+        "8:02 AM — Anuncio al bus. Preguntar por personal médico. Girar hacia Hospital Honda.",
+        "8:07 AM — Llegada al Hospital San Juan de Dios de Honda. Entregar a la paciente al personal de urgencias con descripción de síntomas y tiempo de evolución.",
+        "8:10 AM — Llamada a central Expreso Brasilia. Reportar doble novedad: emergencia médica y derrumbe. Solicitar autorización ruta Manizales.",
+        "8:25 AM — Recibir autorización de la empresa. Informar a pasajeros sobre la ruta alterna y la nueva hora de llegada a Medellín (4:30-5:00 PM).",
+        "8:30 AM — Salida de Honda hacia Mariquita–Manizales. Precaución en la subida de la Cordillera Central (neblina, vía mojada).",
+        "9:30 AM — Parada técnica en Mariquita o inicio de subida a Manizales. Los pasajeros llevan 4 horas de viaje — necesitan baño y refrigerio.",
+        "11:30 AM — Paso por Manizales. El conductor avisa a la empresa el progreso.",
+        "2:30 PM — Tramo Manizales–Autopista Medellín.",
+        "4:30-5:00 PM — Llegada estimada a Terminal del Norte, Medellín.",
+        "Acción post-viaje: El conductor hace el reporte completo de novedades a la empresa: emergencia médica, datos de doña Amparo y el hospital donde quedó, datos del derrumbe y ruta alterna usada."
+      ],
+      "alertas_ruta_manizales": [
+        "La vía Mariquita–Manizales (también llamada vía al Nevado del Ruiz) cruza la Cordillera Central a más de 3.500 msnm en su punto más alto. En temporada de lluvias puede tener neblina densa, tramos mojados y ocasionalmente cierres temporales por deslizamientos menores.",
+        "El bus debe revisar frenos antes de la subida — la carga de 37 pasajeros más el peso del bus en pendientes pronunciadas requiere frenos en óptimas condiciones.",
+        "En la bajada hacia Manizales, usar freno motor — no dejar calentar los frenos hidráulicos.",
+        "Velocidad máxima en curvas de montaña con bus: 30 km/h.",
+        "Si hay neblina densa, usar luces bajas y reducir velocidad a 20 km/h."
+      ],
+      "nota_contexto_colombiano": "Los derrumbes en la vía Honda–La Dorada son uno de los cierres viales más frecuentes de Colombia. La combinación de geografía de cordillera, temporada de lluvias (dos al año: abril-mayo y octubre-noviembre) y mantenimiento vial insuficiente genera cierres en promedio 15-20 veces por año en ese corredor. Todo conductor de bus intermunicipal que opera la ruta Bogotá–Medellín debe conocer de memoria la ruta alterna por Manizales. Adicionalmente, los infartos en pasajeros adultos mayores durante viajes largos son una emergencia real y estadísticamente frecuente en el transporte intermunicipal colombiano."
     },
     "cognitive_load": 6
   },
+
   {
     "task_id": "T2_004",
     "task_type": "plan_disruption",
     "difficulty": "easy",
     "scenario": {
       "initial_plan": {
-        "description": "Llevas a tu hijo a su partido de fútbol que comienza a las 10:00 AM. Saliste a las 9:30 AM para un viaje de 20 minutos.",
-        "route": "Casa → Avenida Los Robles → Complejo Deportivo",
-        "current_time": "9:35 AM",
-        "buffer_time": "10 minutos"
+        "description": "Es sábado a las 9:20 AM. Llevas a tu hijo Sebastián, de 11 años, a su partido de microfútbol del torneo interbarrial del Colegio La Salle de Engativá. El partido comienza a las 10:30 AM y Sebastián es el portero titular — si no llega, el equipo juega con un jugador de campo en el arco. Saliste a las 9:20 AM desde tu casa en el Barrio Modelia (Calle 22 con Carrera 82, Bogotá) para ir hasta la Unidad Deportiva El Salitre (Av. 68 con Calle 63). El viaje normalmente toma 25 minutos.",
+        "route": "Barrio Modelia → Av. 68 → Calle 63 → Unidad Deportiva El Salitre",
+        "current_time": "9:25 AM",
+        "buffer_time": "40 minutos antes del partido",
+        "hora_partido": "10:30 AM"
       },
       "disruption": {
-        "type": "bloqueo",
-        "description": "La Avenida Los Robles está bloqueada por una marcha. Policía indica desvío por Calle 45.",
-        "impact": "El desvío añade aproximadamente 15 minutos"
-      }
+        "type": "bloqueo_marcha",
+        "description": "Sobre la Av. 68 a la altura de la Calle 26, hay una marcha de protesta de vendedores informales que bloquea completamente los carriles sur-norte. La Policía Nacional desvía el tráfico por la Calle 26 hacia el oriente. El agente de tránsito indica que la marcha puede durar 30-45 minutos más.",
+        "impacto_estimado": "El desvío por Calle 26 y rodeo por la Carrera 50 o NQS agrega entre 20 y 30 minutos al trayecto.",
+        "contexto_real": "Las marchas y bloqueos en la Av. 68 son frecuentes en Bogotá, especialmente los fines de semana cuando vendedores informales y organizaciones comunitarias realizan manifestaciones. No existe un aviso previo oficial — el conductor los encuentra sin anuncio."
+      },
+      "alternatives": [
+        {
+          "id": "A",
+          "name": "Esperar que la marcha se despeje",
+          "tiempo_adicional_estimado_min": 35,
+          "hora_llegada_estimada": "10:25 AM",
+          "evaluacion": "Llega 5 minutos antes del partido pero sin tiempo de calentamiento. El portero entra frío al partido — riesgo deportivo y de lesión."
+        },
+        {
+          "id": "B",
+          "name": "Tomar el desvío por Calle 26 / NQS / Calle 63",
+          "tiempo_adicional_estimado_min": 25,
+          "hora_llegada_estimada": "10:15 AM",
+          "evaluacion": "Llega 15 minutos antes del partido. Tiempo mínimo para que Sebastián se equipe y entre al calentamiento.",
+          "ruta_detalle": "Calle 26 hacia el oriente hasta la NQS (Carrera 30), tomar la NQS hacia el norte hasta la Calle 63, girar al occidente por la Calle 63 hasta la Av. 68 y la Unidad Deportiva."
+        },
+        {
+          "id": "C",
+          "name": "Ruta alternativa por Av. Ciudad de Cali / Calle 80",
+          "tiempo_adicional_estimado_min": 30,
+          "hora_llegada_estimada": "10:20 AM",
+          "evaluacion": "Viable pero más larga. La Calle 80 los sábados tiene flujo moderado pero es un rodeo innecesario si la Opción B está disponible."
+        }
+      ]
     },
-    "question": "¿Qué decides hacer? Tu hijo está emocionado y no quiere perderse el partido.",
+    "question": "Sebastián está emocionado pero empieza a preocuparse. Dice: 'Papá, si llego tarde pierdo el puesto de portero'. ¿Qué decides hacer y cómo manejas la situación con tu hijo?",
     "expected_elements": [
-      "reconoce_problema",
-      "calcula_nuevo_tiempo",
-      "evalua_si_llega_a_tiempo",
-      "toma_decision",
-      "maneja_expectativas_hijo"
+      "reconoce_bloqueo_y_evalua_opciones",
+      "descarta_esperar_por_tiempo_insuficiente_calentamiento",
+      "selecciona_desvio_calle26_NQS",
+      "calcula_hora_llegada_realista",
+      "comunica_con_hijo_manejando_ansiedad",
+      "sugiere_llamar_al_entrenador",
+      "menciona_cultura_marchas_bogota"
     ],
     "optimal_response": {
-      "calculation": "9:35 AM + 20 min originales + 15 min extra = 10:10 AM (10 minutos tarde)",
-      "decision": "Tomar el desvío - llegará 10 minutos tarde pero aún puede jugar",
-      "communication_to_child": "Hijo, hay un pequeño desvío pero llegaremos. Quizás te pierdas los primeros minutos de calentamiento, pero estarás listo para el partido. ¿Puedes llamar al entrenador para avisarle?"
+      "decision": "Tomar el desvío Opción B — Calle 26 / NQS / Calle 63",
+      "justificacion": "Esperar la marcha (Opción A) llegaría a las 10:25 AM — solo 5 minutos antes del partido, sin posibilidad de calentamiento para el portero. Como portero titular, Sebastián necesita al menos 10-15 minutos de calentamiento específico. La Opción B llega a las 10:15 AM con 15 minutos de margen — suficiente para que se equipe rápido y entre al calentamiento final. La Opción C es más larga sin ventaja adicional.",
+      "calculo_tiempo": {
+        "hora_actual": "9:25 AM",
+        "tiempo_desvio_B": "50 minutos totales (25 originales + 25 adicionales por desvío)",
+        "llegada_estimada": "10:15 AM",
+        "margen_antes_partido": "15 minutos",
+        "evaluacion": "Ajustado pero suficiente si Sebastián va listo para equiparse rápido"
+      },
+      "comunicacion_hijo": [
+        "'Sebas, hay una marcha bloqueando la Av. 68. Voy a tomar un desvío que conozco y llegamos como a las 10:15 — 15 minutos antes del partido.'",
+        "'Llama al entrenador Hernando ahorita y dile que llegamos a las 10:15. Así él sabe que vas a llegar y no pone a otro de portero.'",
+        "'Cuando lleguemos, vas directo a ponerte el uniforme. Llevas los guantes en el bolso, ¿verdad? Así no perdemos tiempo.'",
+        "Si el niño está muy ansioso: 'Oye, tú eres el portero titular del equipo — el entrenador sabe que eres el mejor. 15 minutos es suficiente para calentar. Respira.'"
+      ],
+      "accion_llamada_entrenador": "Pedirle a Sebastián que llame al entrenador desde el carro para avisarle. En Colombia los equipos de microfútbol infantil casi siempre tienen grupo de WhatsApp — puede también enviar un mensaje al grupo para que el entrenador vea que viene en camino.",
+      "plan_paso_a_paso": [
+        "9:26 AM — Girar en la Calle 26 hacia el oriente siguiendo el desvío policial.",
+        "9:28 AM — Sebastián llama al entrenador Hernando para avisar llegada a las 10:15 AM.",
+        "9:35 AM — Tomar la NQS (Carrera 30) hacia el norte.",
+        "9:50 AM — Girar al occidente por la Calle 63 hacia la Av. 68.",
+        "10:00 AM — Llegar a la Unidad Deportiva El Salitre. Sebastián baja con el bolso.",
+        "10:00-10:15 AM — Sebastián se equipa y se incorpora al calentamiento.",
+        "10:30 AM — Inicio del partido con el portero titular en posición."
+      ],
+      "nota_contexto_colombiano": "Las marchas y bloqueos en vías de Bogotá son un fenómeno cotidiano — sindicatos, vendedores informales, comunidades de barrio y estudiantes realizan manifestaciones con bloqueos especialmente los sábados y fines de semana cuando hay menor tráfico vehicular pero mayor visibilidad. El conocimiento de rutas alternas en Bogotá no es opcional para un conductor habitual — es una necesidad práctica."
     },
     "cognitive_load": 2
   },
+
   {
     "task_id": "T2_005",
     "task_type": "plan_disruption",
     "difficulty": "medium",
     "scenario": {
       "initial_plan": {
-        "description": "Eres conductor de un taxi y llevas a una ejecutiva a una reunión importante. Ella tiene una presentación crucial a las 3:00 PM.",
-        "route": "Hotel → Centro de Convenciones",
-        "departure_time": "2:20 PM",
-        "estimated_arrival": "2:45 PM",
-        "buffer": "15 minutos para prepararse"
+        "description": "Es jueves a las 2:10 PM. Eres conductor de servicio ejecutivo (Cabify Black). Recoges a la doctora Valentina Ospina, directora de una firma de consultoría empresarial, en el Hotel Grand Hyatt Bogotá (Calle 24A con Carrera 7, Bogotá). Debe llegar al Centro de Convenciones Ágora (Calle 24 con Carrera 38, frente al CORFERIAS) a las 3:00 PM para dar una conferencia magistral ante 300 asistentes. El evento no puede empezar sin ella. Saliste puntualmente a las 2:15 PM. Tiempo estimado normal: 20 minutos.",
+        "route": "Hotel Grand Hyatt (Calle 24A / Carrera 7) → Calle 26 → Carrera 38 → Ágora Centro de Convenciones",
+        "departure_time": "2:15 PM",
+        "estimated_arrival": "2:35 PM",
+        "buffer": "25 minutos para que la doctora se prepare y coordine con los organizadores antes de subir al escenario"
       },
       "disruption": {
-        "type": "falla_mecanica",
-        "description": "A mitad del camino, el carro comienza a hacer un ruido extraño y el indicador de temperatura sube rápidamente.",
-        "your_position": "A 10 minutos del destino, a 8 minutos del hotel",
-        "current_time": "2:32 PM"
+        "type": "falla_mecanica_real",
+        "description": "A las 2:22 PM, a la altura de la Carrera 7 con Calle 19 (7 minutos recorridos, a 13 minutos del destino), el tablero del vehículo enciende simultáneamente el testigo de temperatura del motor (rojo) y el testigo de presión de aceite (rojo). El motor comienza a perder potencia y se escucha un golpeteo metálico leve. Estos síntomas indican riesgo inminente de falla catastrófica del motor si se continúa circulando.",
+        "your_position": "Carrera 7 con Calle 19, Bogotá Centro",
+        "current_time": "2:22 PM",
+        "distancia_al_destino": "Aproximadamente 3.5 km — 13-15 minutos en tráfico actual",
+        "distancia_al_origen": "Aproximadamente 2 km — 8 minutos de regreso al hotel"
       },
       "options": [
-        "Continuar los 10 minutos restantes arriesgando el motor",
-        "Detenerse inmediatamente y llamar otro taxi",
-        "Ir despacio para enfriar el motor (añade 15 min)"
+        {
+          "id": "A",
+          "name": "Continuar los 13 minutos restantes al destino",
+          "riesgo": "ALTO — con temperatura y presión de aceite en rojo y golpeteo, continuar puede fundir el motor en 3-5 minutos de circulación. El vehículo podría deterse completamente en la Calle 26 (vía de alto flujo) dejando a la doctora varada en medio del tráfico a las 2:27 PM, sin posibilidad de llegar a tiempo.",
+          "viable": false
+        },
+        {
+          "id": "B",
+          "name": "Detener inmediatamente y gestionar transporte alternativo",
+          "riesgo": "BAJO — perder 5-8 minutos gestionando la alternativa, pero la doctora llega en transporte seguro.",
+          "viable": true
+        },
+        {
+          "id": "C",
+          "name": "Ir despacio para reducir temperatura",
+          "riesgo": "MEDIO-ALTO — Con presión de aceite baja y golpeteo metálico, reducir la velocidad no es suficiente. El daño al motor ya está ocurriendo. No es una solución mecánica válida.",
+          "viable": false
+        }
       ]
     },
-    "question": "La pasajera está muy nerviosa. ¿Qué haces?",
+    "question": "La doctora Valentina tiene 300 personas esperándola. Está visiblemente tensa. El vehículo tiene una falla mecánica grave. ¿Qué haces, en qué orden y cómo se lo comunicas de manera profesional?",
     "expected_elements": [
-      "evalua_riesgo_mecanico",
-      "considera_seguridad_pasajera",
-      "evalua_opciones_tiempo",
-      "toma_decision_balanceada",
-      "comunica_profesionalmente",
-      "ofrece_solucion"
+      "reconoce_gravedad_falla_mecanica",
+      "descarta_continuar_por_riesgo_varada_en_via",
+      "detiene_vehiculo_en_lugar_seguro_inmediatamente",
+      "gestiona_transporte_alternativo_urgente",
+      "comunica_a_pasajera_con_profesionalismo_y_calma",
+      "calcula_tiempo_alternativa",
+      "ofrece_solucion_concreta_no_solo_problema",
+      "menciona_no_cobro_del_viaje",
+      "considera_opciones_bogota_taxi_sitp_uber"
     ],
     "optimal_response": {
-      "decision": "Detenerse de forma segura inmediatamente y gestionar taxi de reemplazo",
-      "reasoning": "Continuar con el motor sobrecalentándose puede causar una falla total que deje a la pasajera varada. Es mejor perder 5 minutos gestionando solución que arriesgar una avería completa.",
-      "action_plan": [
-        "1. Detener el vehículo en lugar seguro (1 min)",
-        "2. Llamar a central para taxi de reemplazo urgente (1 min)",
-        "3. Mientras espera, pasajera puede revisar su presentación",
-        "4. Taxi de reemplazo llega (estimado 5-7 min)",
-        "5. Llegada al destino: ~2:50-2:52 PM (aún con 8-10 min de margen)"
+      "decision": "Detener el vehículo inmediatamente en lugar seguro — Opción B",
+      "justificacion_mecanica": "La combinación de temperatura alta + presión de aceite baja + golpeteo metálico es la tríada de síntomas de un motor a punto de fundirse. Si se continúa circulando, en 3-8 minutos el motor puede agarrotarse completamente, dejando el vehículo detenido en la Calle 26 o en plena carrera sin posibilidad de maniobra. Eso sería catastrófico para la doctora: varada en tráfico a las 2:27 PM, sin opción de llegar al evento. Detener ahora y gestionar alternativa es la única decisión responsable.",
+      "calculo_tiempo": {
+        "hora_actual": "2:22 PM",
+        "tiempo_detener_y_gestionar_alternativa": "3-5 minutos",
+        "opciones_transporte_alternativo": {
+          "indriver_uber_cabify": "ETA en zona centro Bogotá a las 2:22 PM: 4-7 minutos (alta disponibilidad en esa zona)",
+          "taxi_en_via": "La Carrera 7 con Calle 19 tiene alta presencia de taxis — puede detenerse uno en 1-2 minutos",
+          "tiempo_total_alternativa": "Si taxi en vía: 2 min esperar + 13 min al destino = llegada 2:37 PM",
+          "margen_antes_conferencia": "23 minutos antes de las 3:00 PM",
+          "evaluacion": "VIABLE con margen suficiente para que la doctora llegue, coordine con organizadores y suba al escenario"
+        }
+      },
+      "plan_paso_a_paso": [
+        "2:22 PM — Al ver los testigos rojos y escuchar el golpeteo: reducir velocidad gradualmente, encender luces de emergencia, buscar el primer espacio disponible en el carril derecho para estacionar de forma segura. NO parar en medio del carril.",
+        "2:23 PM — Estacionar en la Carrera 7 costado derecho, zona permitida o bahía si hay. Apagar el motor INMEDIATAMENTE.",
+        "2:24 PM — Comunicar a la doctora Valentina con calma y profesionalismo (ver script abajo).",
+        "2:24 PM — Mientras la doctora procesa la información: salir del vehículo y detener un taxi en la Carrera 7 (alta circulación de taxis en esa zona). Alternamente, abrir Cabify/Uber para solicitar vehículo cercano.",
+        "2:25 PM — Taxi conseguido o app confirmada. Abrir la puerta de la doctora, ayudarla a bajar, asegurar que lleva todos sus pertenencias (computador de presentación, cartera).",
+        "2:26 PM — Doctora en el taxi o vehículo alternativo. Darle al conductor la dirección exacta: 'Centro de Convenciones Ágora, Calle 24 con Carrera 38, frente a Corferias. Urgente.'",
+        "2:26-2:39 PM — Doctora en camino. Llegada estimada: 2:37-2:40 PM. Margen: 20-23 minutos antes de las 3:00 PM.",
+        "2:26 PM en paralelo — Conductor llama a central de Cabify para reportar la falla mecánica y solicitar asistencia en carretera.",
+        "2:27 PM — Conductor llama a grúa o servicio de asistencia vial de la empresa."
       ],
-      "communication": "Señora, por su seguridad debo detenerme - hay un problema con el motor. Ya estoy llamando un taxi de reemplazo que llegará en 5 minutos. Aún llegará con tiempo para su reunión. No le cobraré este viaje."
+      "comunicacion_profesional_doctora": {
+        "script": "'Doctora Ospina, lamento interrumpirla. El vehículo tiene una falla mecánica seria — los indicadores del motor están en rojo y si continuamos podríamos quedar varados en la Calle 26 sin poder llegar al evento. Por su seguridad y para que llegue a tiempo, voy a conseguirle un taxi ahora mismo. Estamos en la Carrera 7 con Calle 19 — a menos de 15 minutos de Ágora. En 2 minutos tiene otro vehículo. No le voy a cobrar este viaje y le pido disculpas por el inconveniente.'",
+        "tono": "Calmado, directo, orientado a la solución. No dar detalles técnicos extensos — la doctora no necesita saber qué falló, necesita saber que hay una solución inmediata.",
+        "no_decir": "No decir 'no sé qué pasó', 'esto nunca me había pasado' o frases que generen más ansiedad. Tampoco prometer tiempos que no se pueden garantizar.",
+        "accion_adicional": "Si la doctora tiene el número del organizador del evento, sugerirle que le avise que llega en 20 minutos. Esto reduce la presión del evento."
+      },
+      "nota_para_conductor": "En Bogotá, la densidad de taxis y vehículos de plataforma en el sector de la Carrera 7 entre Calles 10 y 30 es muy alta durante las horas del día. Conseguir un taxi en menos de 2 minutos en ese punto es completamente factible. Esta realidad hace que la Opción B sea aún más viable en el contexto bogotano que en ciudades con menor oferta de transporte.",
+      "nota_contexto_colombiano": "Los conductores de servicio ejecutivo en Bogotá enfrentan el reto constante del mantenimiento de sus vehículos en un contexto de alto uso (muchos kilómetros diarios en una ciudad con vías en mal estado). Las fallas mecánicas en servicio son más frecuentes de lo deseable. La diferencia entre un conductor profesional y uno improvisado está en la capacidad de resolver la crisis del pasajero antes de resolver la crisis del vehículo."
     },
     "cognitive_load": 4
   },
+
   {
     "task_id": "T2_006",
     "task_type": "plan_disruption",
     "difficulty": "easy",
     "scenario": {
       "initial_plan": {
-        "description": "Vas camino al supermercado a 15 minutos de tu casa. Tu lista incluye ingredientes para la cena.",
-        "current_position": "5 minutos de viaje completados"
+        "description": "Es sábado a las 10:30 AM. Vas en tu vehículo particular desde tu apartamento en el Barrio La Castellana (Carrera 52 con Calle 90, Bogotá) hacia el Éxito de la Calle 80 (Av. Boyacá con Calle 80) a hacer el mercado semanal. El trayecto normal es de 15 minutos. Llevas 5 minutos de viaje y vas por la Av. Boyacá hacia el norte.",
+        "current_position": "Av. Boyacá con Calle 80, a 3 minutos del Éxito",
+        "current_time": "10:35 AM"
       },
       "disruption": {
-        "type": "llamada",
-        "description": "Tu pareja te llama: 'Olvidé decirte que también necesitamos medicina de la farmacia. ¿Puedes pasar?'",
-        "farmacia_location": "La farmacia está en dirección opuesta, a 10 minutos de tu posición actual",
-        "additional_info": "La medicina no es urgente pero se necesita para mañana"
+        "type": "encargo_adicional",
+        "description": "Tu pareja te llama: 'Amor, se me olvidó decirte — necesitamos el medicamento de la abuela en la Droguería La Rebaja de la Carrera 15 con Calle 93. Son unas pastillas para la tensión que se terminan mañana. ¿Puedes pasar?'",
+        "farmacia_info": {
+          "ubicacion": "Droguería La Rebaja — Carrera 15 con Calle 93, Bogotá",
+          "distancia_desde_tu_posicion": "Aproximadamente 8 km en dirección opuesta (suroccidente a nororiente)",
+          "distancia_desde_exito": "Aproximadamente 10 km",
+          "urgencia_medicamento": "No urgente — se necesita para mañana. La abuela tiene dosis para hoy.",
+          "alternativa": "Hay una Droguería La Rebaja también en la Calle 80 con Carrera 50 (a 2 km del Éxito Boyacá)"
+        }
       }
     },
-    "question": "¿Cómo reorganizas tu ruta?",
+    "question": "¿Cómo reorganizas la ruta para hacer las dos diligencias de la manera más eficiente? Considera que el medicamento no es para hoy.",
     "expected_elements": [
-      "evalua_urgencia",
-      "considera_opciones_ruta",
-      "optimiza_recorrido",
-      "toma_decision_practica"
+      "evalua_urgencia_real_medicamento",
+      "identifica_drogueria_alternativa_cercana",
+      "propone_ruta_eficiente_sin_rodeo_innecesario",
+      "comunica_solucion_a_pareja",
+      "optimiza_el_recorrido_total"
     ],
     "optimal_response": {
-      "analysis": "La medicina no es urgente (para mañana). Tengo dos opciones: 1) Ir a farmacia primero (desvío), 2) Supermercado primero, farmacia después",
-      "decision": "Completar la ida al supermercado primero, luego ir a la farmacia de regreso a casa",
-      "reasoning": "Probablemente hay una farmacia cerca del supermercado o camino a casa. Preguntar a pareja si hay preferencia de farmacia específica.",
-      "alternative": "Si la farmacia es específica (ej: solo esa tiene la medicina), entonces conviene ir primero a la farmacia y luego al supermercado."
-    },
-    "cognitive_load": 2
+      "analisis_urgencia": "El medicamento no es urgente para hoy — la abuela tiene dosis para el día. Ir a la Carrera 15 con Calle 93 desde la Av. Boyacá es un rodeo de 8 km en dirección opuesta, lo que agregaría fácilmente 40-50 minutos al plan del mercado en sábado. No es necesario.",
+      "solucion_optima": "Verificar si hay una Droguería La Rebaja (u otra droguería) cerca del Éxito de la Calle 80 o de regreso a casa.",
+      "plan_eficiente": {
+        "opcion_1": "Hacer el mercado en el Éxito de la Calle 80. Al salir, pasar por la Droguería La Rebaja de la Calle 80 con Carrera 50 (2 km del Éxito) a comprar el medicamento. Regreso a casa con todo.",
+        "opcion_2": "Si la farmacia de Calle 80 no tiene el medicamento específico, comprar el mercado y en el camino de regreso a casa buscar la farmacia más conveniente con Google Maps.",
+        "opcion_3": "Preguntar a la pareja si tiene preferencia por la sucursal específica o si puede ser cualquier La Rebaja — en Bogotá hay sucursales en cada barrio.",
+        "tiempo_total_opcion_1": "15 min al Éxito + 45 min mercado + 10 min droguería + 15 min regreso = aproximadamente 1h 25 min total. Sin rodeo innecesario."
+      },
+      "comunicacion_pareja": "'Amor, voy a buscar una Droguería La Rebaja cerca del Éxito de la Calle 80 para no tener que ir hasta la Carrera 15 — están muy lejos. ¿Es importante que sea esa sucursal específica o puede ser cualquier La Rebaja? Si no hay cerca, de regreso la busco con Maps. El medicamento es para mañana, así que tenemos tiempo de resolverlo bien.'",
+      "nota_bogota": "En Bogotá existen cadenas de droguerías como La Rebaja, Drogas La Economía y Farmatodo con alta densidad de locales en toda la ciudad. En el sector de la Calle 80 hay varias sucursales en un radio de 2 km. Consultar la app o Google Maps 'Droguería La Rebaja más cercana' toma 10 segundos y puede ahorrar 40 minutos de rodeo.",
+      "cognitive_load": 2
+    }
   },
-  {
+
+    {
     "task_id": "T2_007",
     "task_type": "plan_disruption",
     "difficulty": "hard",
     "scenario": {
       "initial_plan": {
-        "description": "Eres el conductor de una ambulancia transportando a un paciente estable desde una clínica rural hasta el Hospital Universitario para una cirugía programada para las 4:00 PM.",
-        "patient_condition": "Estable pero requiere cirugía. Ayuno desde hace 12 horas.",
-        "departure": "1:00 PM",
-        "estimated_arrival": "3:00 PM",
-        "current_time": "2:15 PM",
-        "current_position": "A mitad de camino"
+        "description": "Eres conductor de una ambulancia de traslado programado de la Clínica Medellín (Calle 54 con Carrera 46, El Poblado, Medellín). Transportas a don Hernán, 58 años, desde la clínica hacia el Hospital Pablo Tobón Uribe (Calle 78B con Carrera 50A, Laureles, Medellín) para una cirugía de vesícula programada a las 4:00 PM. Don Hernán lleva 14 horas en ayuno. El paramédico a bordo es Julián. Salieron a la 1:00 PM. Tiempo estimado normal: 25 minutos por la Av. El Poblado hacia el norte.",
+        "route": "Clínica Medellín (El Poblado) → Av. El Poblado → Av. Las Vegas → Hospital Pablo Tobón Uribe (Laureles)",
+        "departure_time": "1:00 PM",
+        "estimated_arrival": "1:25 PM",
+        "patient_condition": "Estable. Ayuno de 14 horas. Diagnóstico: colelitiasis complicada (cálculos en vesícula con riesgo de perforación).",
+        "current_time": "1:40 PM",
+        "current_position": "Av. El Poblado con Calle 10 (sector Los Balsos) — a mitad del trayecto"
       },
       "disruption": {
-        "type": "deterioro_paciente",
-        "description": "El paramédico reporta: 'El paciente comenzó con dolor abdominal agudo, presión arterial bajando, posible hemorragia interna.'",
-        "vitals": {
-          "blood_pressure": "90/60 (bajando)",
-          "heart_rate": "110 (subiendo)",
-          "pain_level": "8/10"
+        "type": "deterioro_paciente_en_via",
+        "description": "El paramédico Julián reporta desde la parte trasera: 'Conductor, don Hernán empezó con dolor abdominal agudo 9/10, fiebre súbita de 39.2°C, abdomen rígido en tabla y presión bajando: 88/55. Esto puede ser una perforación de vesícula con peritonitis. Necesita cirugía de EMERGENCIA, no programada. Cada minuto cuenta.'",
+        "vitals_actuales": {
+          "presion_arterial": "88/55 mmHg (hipotensión — bajando)",
+          "frecuencia_cardiaca": "118 lpm (taquicardia)",
+          "temperatura": "39.2°C (fiebre alta)",
+          "dolor_abdominal": "9/10 — abdomen en tabla (rigidez)",
+          "saturacion_oxigeno": "94% (levemente baja)",
+          "tiempo_evolucion_sintomas": "Iniciaron hace aproximadamente 8 minutos"
         },
-        "options": {
-          "hospital_universitario": "45 minutos restantes - mejor equipado para cirugía compleja",
-          "hospital_regional": "15 minutos de desvío - puede estabilizar pero cirugía limitada",
-          "clinica_intermedia": "5 minutos - solo puede estabilizar temporalmente"
+        "opciones_medicas": {
+          "hospital_pablo_tobon": {
+            "distancia": "15 minutos adelante",
+            "capacidad": "Hospital de alta complejidad — quirófanos de emergencia disponibles, UCI, banco de sangre. Es el destino original y el más equipado para esta cirugía.",
+            "observacion": "El Hospital Pablo Tobón Uribe es uno de los mejores hospitales de Colombia para cirugía abdominal de emergencia."
+          },
+          "clinica_las_americas": {
+            "distancia": "8 minutos — desvío por Av. Regional",
+            "capacidad": "Clínica de alta complejidad con urgencias y quirófano de emergencia. Puede manejar peritonitis.",
+            "observacion": "Opción más cercana con capacidad quirúrgica real."
+          },
+          "clinica_soma": {
+            "distancia": "5 minutos — en El Poblado",
+            "capacidad": "Clínica de mediana complejidad. Puede estabilizar pero quirófano limitado para peritonitis complicada.",
+            "observacion": "Más cercana pero capacidad insuficiente para cirugía de peritonitis compleja."
+          },
+          "regresar_clinica_medellin": {
+            "distancia": "10 minutos de regreso",
+            "capacidad": "Tiene quirófanos pero no estaba preparada para esta cirugía hoy.",
+            "observacion": "Opción válida — ya conocen al paciente y su historia clínica."
+          }
         }
       }
     },
-    "question": "Como conductor, ¿qué decisión apoyas y cómo procedes? Esta es una decisión de vida o muerte.",
+    "question": "El paramédico Julián debe tomar la decisión médica pero tú como conductor tienes información crítica sobre los tiempos y rutas. ¿Qué le informas, cómo apoyas la decisión y qué protocolo ejecutas? Esta es una situación de vida o muerte.",
     "expected_elements": [
-      "reconoce_gravedad",
-      "consulta_paramédico",
-      "evalua_opciones_medicas",
-      "considera_tiempo_vs_capacidad",
-      "toma_decision_informada",
-      "ejecuta_protocolo_emergencia"
+      "reconoce_gravedad_peritonitis",
+      "informa_tiempos_reales_a_paramédico",
+      "NO_toma_decision_medica_unilateral",
+      "apoya_decision_del_paramédico",
+      "activa_sirena_y_luces_inmediatamente",
+      "llama_a_central_y_hospital_receptor",
+      "considera_capacidad_vs_tiempo_cada_opcion",
+      "ejecuta_protocolo_codigo_rojo",
+      "plan_paso_a_paso_detallado"
     ],
     "optimal_response": {
-      "immediate_action": "Activar código rojo, luces y sirena al máximo",
-      "decision_process": "Consultar inmediatamente con paramédico: '¿Puede el paciente sobrevivir 45 minutos más?' La decisión médica no es mía, pero el paramédico necesita mi input sobre tiempos.",
-      "likely_decision": "Hospital Regional (15 min) - Un paciente con posible hemorragia interna y presión bajando puede no sobrevivir 45 minutos. El Hospital Regional puede estabilizar y, si es necesario, preparar transferencia con el paciente estabilizado.",
-      "protocol": [
-        "1. Paramédico notifica por radio al Hospital Regional",
-        "2. Activar protocolo de emergencia",
-        "3. Conducir a máxima velocidad segura",
-        "4. Hospital Regional prepara quirófano de emergencia"
+      "rol_del_conductor": "El conductor NO toma la decisión médica — esa es responsabilidad exclusiva del paramédico Julián. El conductor aporta información crítica de tiempos y rutas, ejecuta el protocolo de código rojo y conduce con máxima prioridad hacia el destino que el paramédico decida.",
+      "informacion_que_aporta_el_conductor": {
+        "mensaje_al_paramédico": "Julián, te doy los tiempos reales: Clínica SOMA 5 minutos (mediana complejidad), Clínica Las Américas 8 minutos por la Regional (alta complejidad, quirófano disponible), regresar a Clínica Medellín 10 minutos, Pablo Tobón Uribe 15 minutos (el mejor equipado). Tú decides — yo ejecuto.",
+        "informacion_adicional": "El tráfico actual en la Av. El Poblado es moderado. Por la Av. Regional hacia Las Américas el flujo es más libre. Con sirena y código rojo podemos ganar 3-4 minutos en cualquier ruta."
+      },
+      "analisis_opciones_medicas": {
+        "clinica_soma_5min": {
+          "ventaja": "Más rápida",
+          "desventaja": "Capacidad insuficiente para peritonitis complicada con hipotensión. Probable segunda transferencia que pierde más tiempo.",
+          "recomendacion_paramédico_probable": "Descartada por capacidad insuficiente"
+        },
+        "clinica_las_americas_8min": {
+          "ventaja": "Alta complejidad, quirófano de emergencia, 8 minutos solamente",
+          "desventaja": "El paciente no tiene historia clínica allí (pero en emergencias eso es secundario)",
+          "recomendacion_paramédico_probable": "OPCIÓN MÁS PROBABLE — mejor balance tiempo/capacidad"
+        },
+        "clinica_medellin_10min": {
+          "ventaja": "Conocen al paciente y su historia clínica completa",
+          "desventaja": "2 minutos más que Las Américas, y el quirófano no estaba preparado",
+          "recomendacion_paramédico_probable": "Segunda opción si Las Américas tiene problema"
+        },
+        "pablo_tobon_15min": {
+          "ventaja": "El mejor hospital para esta cirugía",
+          "desventaja": "15 minutos con un paciente en hipotensión y posible peritonitis es demasiado tiempo. La presión puede caer más.",
+          "recomendacion_paramédico_probable": "Descartada por tiempo excesivo en este estado hemodinámico"
+        }
+      },
+      "decision_esperada_paramédico": "Clínica Las Américas — mejor balance entre tiempo (8 minutos) y capacidad quirúrgica real para peritonitis.",
+      "protocolo_codigo_rojo": {
+        "paso_1": "INMEDIATO — Activar sirena y luces de emergencia al máximo. Código rojo.",
+        "paso_2": "El paramédico llama por radio a la Clínica Las Américas (o el destino que decida): 'Clínica Las Américas urgencias, ambulancia en código rojo. Paciente masculino 58 años, posible peritonitis por perforación de vesícula. TA 88/55, FC 118, fiebre 39.2°C, abdomen en tabla. ETA 8 minutos. Solicito quirófano de emergencia y equipo de cirugía abdominal listo. Paciente en ayuno 14 horas.'",
+        "paso_3": "El conductor llama a la central de la Clínica Medellín: 'Central, ambulancia 03 en código rojo. Paciente don Hernán deterioró en vía. Paramédico decidió desviar a Clínica Las Américas por peritonitis probable. Informar a familia y médico tratante.'",
+        "paso_4": "Conducir hacia la Clínica Las Américas por la Av. Regional a máxima velocidad segura. En Medellín el código rojo tiene prioridad legal — otros vehículos deben ceder el paso.",
+        "paso_5": "El paramédico estabiliza al paciente en ruta: vía venosa para líquidos, oxígeno al 100%, monitoreo continuo de signos vitales cada 2 minutos.",
+        "paso_6": "Al llegar a Las Américas: equipo de trauma esperando en la entrada de urgencias. Traslado inmediato del paciente a camilla hospitalaria."
+      },
+      "plan_cronológico": [
+        "1:40 PM — Julián reporta el deterioro. Conductor activa sirena y luces inmediatamente.",
+        "1:41 PM — Conductor informa tiempos al paramédico. Julián decide: Clínica Las Américas.",
+        "1:41 PM — Julián llama a Clínica Las Américas por radio. Conductor llama a central.",
+        "1:42 PM — Girar por la Av. El Poblado hacia la Av. Regional. Máxima prioridad.",
+        "1:49 PM — Llegada a Clínica Las Américas (8 minutos en código rojo).",
+        "1:50 PM — Entrega del paciente al equipo de cirugía. El paramédico entrega el reporte verbal: 'Masculino, 58 años, colelitiasis conocida, inicio dolor agudo 8/10 hace 15 minutos, fiebre 39.2°C, TA 88/55, FC 118, abdomen en tabla. Posible perforación con peritonitis. Ayuno 14 horas. Historia clínica en Clínica Medellín — contactar.'",
+        "1:52 PM — Conductor completa el reporte de la novedad a la central. Ambulancia queda en disposición de Las Américas."
       ],
-      "communication": "Central, ambulancia 15 en código rojo. Paciente deteriorando, posible hemorragia interna. Desviando a Hospital Regional. ETA 15 minutos. Solicito equipo de trauma listo."
+      "nota_conduccion_codigo_rojo": "En Medellín, conducir en código rojo implica usar sirena y luces, pasar semáforos en rojo con precaución (deteniéndose y verificando que el cruce está libre antes de avanzar), circular por cualquier carril necesario y solicitar paso a otros conductores. La Ley 769 (Código de Tránsito colombiano) otorga prioridad absoluta a las ambulancias en código rojo. Sin embargo, el conductor debe hacerlo con precaución — el objetivo es llegar rápido Y llegar seguros.",
+      "nota_contexto_colombiano": "Medellín tiene una red hospitalaria de alta calidad concentrada en el sector de Laureles-El Poblado. La Clínica Las Américas y el Hospital Pablo Tobón Uribe son referentes nacionales en cirugía de emergencia. La decisión de ir al hospital más cercano con capacidad suficiente, en lugar del mejor hospital que queda más lejos, es un principio básico de la medicina prehospitalaria colombiana: 'el mejor hospital para un paciente crítico es el más cercano que pueda manejarlo.'"
     },
     "cognitive_load": 6
   },
+
   {
     "task_id": "T2_008",
     "task_type": "plan_disruption",
     "difficulty": "medium",
     "scenario": {
       "initial_plan": {
-        "description": "Estás en un viaje por carretera con tu familia (2 adultos, 2 niños). Destino: playa a 4 horas. Llevan 2 horas de viaje.",
-        "fuel_status": "Tanque al 30% - suficiente para 1.5 horas más",
-        "plan": "Cargar gasolina en la estación de Pueblo Verde, a 30 minutos"
+        "description": "Es domingo a las 8:00 AM. Sales desde Bogotá en vehículo particular con tu familia: tu esposa Diana, tus hijos Tomás (9 años) y Lucía (6 años), y tu suegra doña Esperanza (71 años). Destino: Melgar, Tolima — zona de clima cálido a 4 horas de Bogotá por la vía Bogotá–Girardot. Es el primer fin de semana largo del año (Semana Santa) y toda la familia está emocionada. El plan es llegar a Melgar antes del mediodía para disfrutar la piscina.",
+        "route": "Bogotá → Autopista Sur → Soacha → Sibaté → Alto de Sumapaz → Fusagasugá → Melgar",
+        "fuel_status": "Tanque lleno — cargado en Bogotá antes de salir",
+        "plan_gasolina": "Cargar gasolina si es necesario en Fusagasugá (a 2.5 horas de Bogotá)",
+        "current_time": "8:00 AM",
+        "current_position": "Autopista Sur, saliendo de Bogotá por Soacha"
       },
       "disruption": {
-        "type": "informacion_nueva",
-        "description": "Un letrero indica: 'Estación de servicio Pueblo Verde CERRADA por remodelación. Próxima estación: 80 km'",
-        "current_fuel_range": "Aproximadamente 60 km con el combustible actual"
+        "type": "informacion_critica_multiple",
+        "events": [
+          {
+            "id": 1,
+            "type": "trancón_semana_santa",
+            "description": "El radio de tráfico informa: 'Trancón histórico en la vía Bogotá–Girardot por Semana Santa. Cola de 28 km desde Sibaté hasta el Alto del Sumapaz. Tiempo de espera estimado: 3 a 4 horas adicionales. INVÍAS reporta que la vía está operando en un solo carril por trabajos de mantenimiento en el sector de Fusagasugá.'",
+            "impacto": "El viaje de 4 horas puede convertirse en 7-8 horas. Llegada a Melgar: entre 3:00 PM y 4:00 PM."
+          },
+          {
+            "id": 2,
+            "type": "letrero_gasolinera",
+            "description": "Al pasar por Soacha, ves un letrero: 'Por Semana Santa — abastecimiento de combustible limitado en la vía al Tolima. Muchas estaciones sin gasolina corriente. Solo disponible extra y diesel en algunos puntos.'",
+            "impacto": "Tu vehículo usa gasolina corriente. El tanque lleno alcanza para 350 km. Melgar está a 168 km. Tienes suficiente combustible de ida, pero el regreso (lunes o martes) puede ser problema si no encuentras gasolina en Melgar."
+          }
+        ],
+        "alternative_routes": [
+          {
+            "id": "A",
+            "name": "Continuar por la vía principal (Fusagasugá)",
+            "description": "Seguir por la Autopista Sur hacia Sibaté, Alto del Sumapaz, Fusagasugá y Melgar.",
+            "tiempo_estimado_total": "7-8 horas",
+            "llegada": "3:00-4:00 PM",
+            "combustible": "Sin problema de ida. Riesgo en regreso.",
+            "viable": true,
+            "observacion": "La cola de 28 km es real y frecuente en Semana Santa. Esta vía en feriados largos es notoriamente impredecible."
+          },
+          {
+            "id": "B",
+            "name": "Ruta alterna por La Mesa–Anapoima–La Victoria–Melgar",
+            "description": "Desde Soacha, tomar la Autopista hacia Mosquera, luego la vía a La Mesa (Cundinamarca), bajar hacia Anapoima y continuar por La Victoria hacia Melgar por el otro lado del río Bogotá.",
+            "tiempo_estimado_total": "5-5.5 horas",
+            "llegada": "1:00-1:30 PM",
+            "distancia_adicional_km": 40,
+            "combustible": "Sin problema — hay estaciones en La Mesa y Anapoima.",
+            "viable": true,
+            "observacion": "Esta ruta es menos conocida por turistas y tiene significativamente menos tráfico en feriados. La Mesa y Anapoima son municipios con gasolineras activas. La vía es sinuosa pero pavimentada en buen estado."
+          },
+          {
+            "id": "C",
+            "name": "Suspender el viaje y quedarse en Bogotá",
+            "description": "Regresar a casa y buscar plan alternativo en Bogotá o reprogramar el viaje para el lunes.",
+            "viable": true,
+            "observacion": "Opción válida si la familia no quiere enfrentar 8 horas de viaje con niños pequeños y adulto mayor."
+          }
+        ]
       }
     },
-    "question": "No tienes suficiente combustible para llegar a la siguiente estación. ¿Qué haces?",
+    "question": "Tienes a tu familia a bordo — dos niños, tu esposa y tu suegra de 71 años. El trancón de Semana Santa puede convertir 4 horas en 8. ¿Qué decides y cómo lo manejas con la familia? Considera el combustible, el tiempo, la comodidad de todos y la seguridad.",
     "expected_elements": [
-      "reconoce_problema_critico",
-      "evalua_opciones_disponibles",
-      "busca_alternativas",
-      "toma_decision_segura",
-      "no_arriesga_familia"
+      "reconoce_impacto_real_trancon_semana_santa",
+      "evalua_ruta_alterna_la_mesa",
+      "considera_comodidad_niños_y_adulto_mayor",
+      "evalua_situacion_combustible_regreso",
+      "toma_decision_informada",
+      "comunica_a_la_familia",
+      "plan_combustible_en_la_mesa",
+      "menciona_contexto_semana_santa_colombia"
     ],
     "optimal_response": {
-      "analysis": "60 km de autonomía vs 80 km a siguiente estación = DÉFICIT DE 20 km. No puedo arriesgar quedarme varado con mi familia.",
-      "options_evaluated": [
-        "Regresar a última estación conocida (¿cuánto combustible ya gastamos?)",
-        "Buscar estación alternativa en pueblo cercano",
-        "Usar app/GPS para encontrar gasolineras cercanas",
-        "Preguntar a locales"
+      "decision": "Tomar la Ruta B — La Mesa / Anapoima / La Victoria / Melgar",
+      "justificacion": "Con niños de 6 y 9 años y una señora de 71 años en el vehículo, enfrentar 7-8 horas de viaje (3-4 de ellas en cola estacionaria en el Alto del Sumapaz) es una experiencia muy difícil: los niños se desesperan, doña Esperanza necesita moverse y hacer pausas frecuentes, y el riesgo de que alguien necesite ir al baño en medio de una cola de 28 km sin servicios es muy alto. La Ruta B por La Mesa llega 2-3 horas antes, tiene gasolineras en ruta, y aunque es 40 km más larga, la vía está libre.",
+      "analisis_combustible": {
+        "tanque_actual": "Lleno — 350 km de autonomía",
+        "distancia_ruta_B_ida": "208 km aproximadamente",
+        "distancia_regreso_melgar_bogota": "168-200 km dependiendo la ruta de regreso",
+        "plan": "Cargar gasolina corriente en La Mesa o Anapoima durante el viaje de ida. Confirmar disponibilidad de gasolina corriente en Melgar al llegar. En Semana Santa, muchas estaciones en zonas turísticas se quedan sin corriente — cargar siempre que haya disponibilidad.",
+        "alerta": "NO asumir que habrá gasolina corriente disponible en Melgar el lunes. Preguntar al llegar al alojamiento."
+      },
+      "plan_paradas_familiares": [
+        "Parada 1 — La Mesa (aproximadamente 1.5 horas desde Bogotá): Cargar gasolina, baño para todos, tinto o agua. Duración: 15-20 minutos.",
+        "Parada 2 — Anapoima o La Victoria (30 minutos más adelante): Opcional si los niños necesitan estirar piernas. La ruta empieza a calentar y se vuelve más tropical.",
+        "Llegada a Melgar: 1:00-1:30 PM — Con 2-3 horas de piscina antes de la tarde."
       ],
-      "decision": "Detenerme en Pueblo Verde y buscar alternativas locales. Un pueblo con nombre propio probablemente tiene alguna opción de combustible (gasolinera pequeña, ferretería con galones, etc.)",
-      "backup_plan": "Si no hay combustible en Pueblo Verde, regresar inmediatamente antes de gastar más. Mejor perder 30 minutos que quedar varados.",
-      "family_communication": "Familia, cambio de planes. La gasolinera está cerrada y necesitamos buscar alternativas. Vamos a parar en el pueblo a preguntar. Los niños pueden aprovechar para ir al baño."
+      "comunicacion_familia": {
+        "a_esposa": "'Diana, hay un trancón histórico en la vía de Fusagasugá — 28 km de cola. Si seguimos por ahí llegamos a las 3 o 4 de la tarde. Hay una ruta alterna por La Mesa que llega más o menos a la 1:00 PM y está libre. ¿Qué prefieres?'",
+        "a_hijos": "'Tomás, Lucía, hay un atasco grandísimo en la carretera. Si vamos por ahí tardamos mucho más. Voy a buscar otro camino que pasa por unos pueblos bonitos y llegamos antes. ¿Llevaron las tabletas?'",
+        "a_suegra": "'Doña Esperanza, vamos a cambiar la ruta para evitar el trancón. Paramos en La Mesa para que pueda estirar las piernas y tomarse un tinto. La ruta es un poco más larga en kilómetros pero mucho más rápida.'"
+      },
+      "plan_paso_a_paso": [
+        "8:05 AM — Tomar la decisión de desviar en Soacha antes de entrar al trancón. Una vez dentro del trancón de 28 km, salir es muy difícil.",
+        "8:10 AM — Desde Soacha, tomar la vía hacia Mosquera (Autopista Medellín) y luego la vía a La Mesa.",
+        "8:15 AM — Confirmar por Waze o Google Maps el estado de la vía La Mesa — verificar que efectivamente está libre.",
+        "9:30 AM — Parada en La Mesa. Cargar gasolina corriente. Baño. Refrigerio.",
+        "10:00 AM — Continuar hacia Anapoima por la vía que baja al clima cálido.",
+        "10:45 AM — Cruce de Anapoima. Continuar hacia La Victoria.",
+        "11:30 AM — Entrada a Melgar por el costado norte.",
+        "12:00-12:30 PM — Llegada al alojamiento en Melgar. Check-in y a la piscina antes del mediodía."
+      ],
+      "nota_contexto_colombiano": "La vía Bogotá–Melgar en Semana Santa es uno de los trancones más predecibles y también más subestimados de Colombia. Cada año, miles de familias bogotanas salen el Jueves Santo hacia Melgar, Girardot y el Tolima cálido, generando colas históricas en el Alto del Sumapaz. La ruta alterna por La Mesa es conocida por conductores frecuentes pero ignorada por el GPS de muchos usuarios que siguen la ruta principal sin cuestionar. El conocimiento de rutas alternas en feriados colombianos es información de alto valor para cualquier conductor familiar."
     },
     "cognitive_load": 4
   },
+
   {
     "task_id": "T2_009",
     "task_type": "plan_disruption",
     "difficulty": "easy",
     "scenario": {
       "initial_plan": {
-        "description": "Llevas a un amigo a recoger su carro del taller mecánico. El taller cierra a las 6:00 PM.",
-        "current_time": "5:20 PM",
-        "estimated_travel_time": "25 minutos",
-        "expected_arrival": "5:45 PM"
+        "description": "Es viernes a las 5:00 PM. Tu amigo Camilo necesita recoger su carro de un taller mecánico en el Barrio Ricaurte (Carrera 22 con Calle 16, Bogotá). El taller cierra a las 6:30 PM. Sales desde tu apartamento en el Barrio Chapinero (Calle 63 con Carrera 7) a llevarlo. El viaje en condiciones normales toma 25 minutos. Sin embargo, es viernes 5:00 PM — hora pico máxima de Bogotá.",
+        "current_time": "5:00 PM",
+        "estimated_travel_time_normal": "25 minutos",
+        "estimated_travel_time_rush": "50-60 minutos en hora pico de viernes",
+        "taller_cierre": "6:30 PM",
+        "placa_conductor": "Termina en 3 — día viernes (impar). TIENE restricción de Pico y Placa hasta las 9:00 PM."
       },
       "disruption": {
-        "type": "trafico",
-        "description": "Google Maps actualiza: 'Tráfico pesado detectado. Nuevo tiempo estimado: 40 minutos'",
-        "new_estimated_arrival": "6:00 PM exacto"
+        "type": "pico_y_placa_mas_trafico",
+        "description": "Al revisar el Pico y Placa antes de salir, descubres que tu placa (terminada en 3) tiene restricción hoy (viernes — día impar). No puedes circular por vías principales de Bogotá entre 6:00 AM y 9:00 PM. Adicionalmente, Google Maps reporta: 'Tráfico muy pesado. Tiempo estimado: 55 minutos por la ruta más rápida.'",
+        "problema_real": "Si sales a las 5:00 PM y el viaje toma 55 minutos en tráfico, llegarías al taller a las 5:55 PM — 35 minutos antes del cierre. Sin embargo, tu placa tiene restricción y estás en zona con cámaras de control en la Carrera 7 y en la Calle 26.",
+        "alternativas": [
+          {
+            "id": "A",
+            "name": "Circular igual con la placa restringida",
+            "descripcion": "Salir en tu carro ignorando la restricción.",
+            "riesgo": "Multa de $488.700 COP (4 SMLDV) + posible inmovilización del vehículo. Cámaras activas en Carrera 7, Calle 26 y Calle 72.",
+            "viable": false,
+            "observacion": "Inaceptable — violar el Pico y Placa en Bogotá tiene consecuencias económicas y legales reales."
+          },
+          {
+            "id": "B",
+            "name": "Llevar a Camilo en Transmilenio o SITP",
+            "descripcion": "Camilo va en transporte público desde Chapinero hasta Ricaurte.",
+            "tiempo_estimado": "40-45 minutos (Transmilenio estación Calle 63 → estación Ricaurte)",
+            "costo": "$2.950 COP (tarjeta Tu Llave)",
+            "viable": true,
+            "observacion": "La ruta Transmilenio Calle 63 → Ricaurte está disponible. Camilo llegaría al taller aproximadamente a las 5:45-5:50 PM, con tiempo suficiente antes del cierre."
+          },
+          {
+            "id": "C",
+            "name": "Pedir un Uber / InDriver para Camilo",
+            "descripcion": "Solicitar un vehículo de plataforma para llevar a Camilo al taller.",
+            "tiempo_estimado": "50-60 minutos en tráfico de viernes",
+            "costo_estimado": "$18.000 - $25.000 COP",
+            "viable": true,
+            "observacion": "El vehículo de plataforma no tiene restricción de Pico y Placa (están exentos según Decreto 575 de 2018 en Bogotá cuando operan activamente en la plataforma). Llegaría entre 5:50 y 6:00 PM."
+          },
+          {
+            "id": "D",
+            "name": "Llamar al taller para pedir extensión del horario",
+            "descripcion": "Camilo llama al taller para explicar la situación y pedir que esperen hasta las 6:30 o 7:00 PM.",
+            "viable": "parcialmente",
+            "observacion": "Muchos talleres en Ricaurte son flexibles con clientes que avisan. Si el dueño del taller acepta esperar, hay más margen de tiempo para las otras opciones."
+          }
+        ]
       }
     },
-    "question": "Llegarían justo cuando cierra el taller. ¿Qué haces?",
+    "question": "Tu placa tiene Pico y Placa y el tráfico de viernes haría el viaje muy largo. Camilo necesita su carro antes de las 6:30 PM. ¿Qué solución propones?",
     "expected_elements": [
-      "reconoce_riesgo",
-      "propone_solucion_proactiva",
-      "comunica_con_taller",
-      "tiene_plan_B"
+      "identifica_restriccion_pico_placa_propia",
+      "descarta_circular_con_placa_restringida",
+      "evalua_transporte_publico_como_opcion_real",
+      "evalua_plataforma_como_opcion",
+      "sugiere_llamar_al_taller_proactivamente",
+      "calcula_tiempos_cada_opcion",
+      "propone_solucion_legal_y_practica",
+      "menciona_exencion_pico_placa_plataformas"
     ],
     "optimal_response": {
-      "immediate_action": "Tu amigo debe llamar al taller AHORA",
-      "communication": "Amigo, llama al taller y explícales que llegaremos justo a las 6:00 PM por el tráfico. Pregunta si pueden esperar 5 minutos o si hay alguien que pueda quedarse.",
-      "reasoning": "Muchos talleres son flexibles si saben que el cliente viene en camino. Llegar sin avisar a las 6:00 PM = puerta cerrada. Avisar con anticipación = probable que esperen.",
-      "plan_B": "Si el taller no puede esperar, preguntar si pueden dejar las llaves con algún vecino o comercio cercano."
+      "decision": "Combinación Opción B + D: Camilo va en Transmilenio Y simultáneamente llama al taller para avisar.",
+      "justificacion": "Mi placa tiene Pico y Placa y circular en zonas con cámaras activas me arriesga a una multa de $488.700 COP — más de lo que cuesta el Uber. No vale la pena. La mejor solución es que Camilo vaya en Transmilenio (más rápido que el Uber en hora pico porque el Transmilenio tiene carril exclusivo) y que llame al taller para avisar que llega antes de las 6:30 PM.",
+      "analisis_opciones": {
+        "transmilenio": {
+          "ruta": "Estación Calle 63 (línea troncal Caracas) → Estación Ricaurte. Tiempo: 35-40 minutos sin trancón porque usa carril exclusivo.",
+          "llegada_estimada": "5:40-5:45 PM",
+          "margen_antes_cierre": "45-50 minutos",
+          "costo": "$2.950 COP",
+          "evaluacion": "MEJOR OPCIÓN en hora pico — el Transmilenio evita el trancón vehicular"
+        },
+        "uber_plataforma": {
+          "tiempo": "55-60 minutos en tráfico de viernes",
+          "llegada_estimada": "5:55-6:00 PM",
+          "margen_antes_cierre": "30 minutos",
+          "evaluacion": "Viable pero más lento que el Transmilenio en este trayecto específico"
+        }
+      },
+      "plan_accion": [
+        "5:00 PM — Camilo llama al taller: 'Don Carlos, soy Camilo. Voy a recoger el Mazda 3. Hay harto trancón pero voy en Transmilenio. Llego antes de las 6:00 PM. ¿Pueden esperarme?'",
+        "5:05 PM — Camilo toma el Transmilenio desde la estación Calle 63 en la Caracas.",
+        "5:10 PM — En Transmilenio, sin trancón vehicular.",
+        "5:40 PM — Llegada a estación Ricaurte. Caminar 3 minutos hasta el taller.",
+        "5:43 PM — Llegada al taller. 47 minutos antes del cierre.",
+        "6:00 PM — Pago, recepción del vehículo y salida del taller con tiempo de sobra."
+      ],
+      "comunicacion_a_camilo": "'Camilo, mi placa está en Pico y Placa hoy y con el trancón del viernes me demoraría casi una hora — te podría quedar mal. Te propongo que vayas en Transmilenio desde la estación de la Calle 63 — llegas a Ricaurte en 40 minutos y sin trancón. Mientras tanto llama al taller para avisarles. Si preferís, también puedo pedirte un Uber ahora mismo — están exentos del Pico y Placa. ¿Cuál preferís?'",
+      "nota_normativa": "En Bogotá, los vehículos de las plataformas de transporte (Uber, InDriver, Cabify, Beat) están exentos del Pico y Placa mientras operan activamente en la plataforma según el Decreto 575 de 2018 y sus modificaciones. Sin embargo, el conductor particular que presta un favor a un amigo NO está exento — es un vehículo particular con placa restringida.",
+      "nota_contexto_bogotano": "El Transmilenio, a pesar de su mala reputación en confort, es frecuentemente la opción más RÁPIDA en hora pico en Bogotá para trayectos norte-sur, precisamente porque usa carriles exclusivos que no están afectados por el trancón vehicular. Para el trayecto Chapinero–Ricaurte en hora pico de viernes, el Transmilenio puede ser 20-25 minutos más rápido que un vehículo particular."
     },
     "cognitive_load": 2
   },
+
   {
     "task_id": "T2_010",
     "task_type": "plan_disruption",
     "difficulty": "medium",
     "scenario": {
       "initial_plan": {
-        "description": "Eres instructor de conducción. Estás en clase práctica con un estudiante en una ruta predefinida por zonas residenciales tranquilas.",
-        "student_level": "Principiante - 3ra clase",
-        "route": "Circuito de práctica estándar - calles de bajo tráfico"
+        "description": "Es martes a las 9:00 AM. Eres instructor de conducción de la academia AutoEscuela Bogotá. Estás en clase práctica número 3 con tu estudiante Marcela Rodríguez, 24 años, quien está aprendiendo a manejar para obtener la licencia de conducción categoría B1. Marcela tiene un nivel de ansiedad moderado al volante — en las dos clases anteriores manejó bien en vías residenciales pero se pone nerviosa cuando ve motos pasando cerca. La ruta de práctica habitual es: Salida del parqueadero de la academia (Calle 127 con Carrera 17, Bogotá) → circuito por las calles residenciales del Barrio Santa Bárbara (calles de un carril, bajo tráfico) → regreso a la academia. Duración: 1 hora.",
+        "route": "Circuito residencial Santa Bárbara — calles tranquilas de bajo tráfico",
+        "student_level": "Principiante — clase 3 de 10. Manejo básico en calles residenciales.",
+        "student_profile": "Marcela, 24 años. Ansiosa con el tráfico denso. Buena coordinación. Mejora rápido cuando está tranquila.",
+        "current_time": "9:05 AM"
       },
       "disruption": {
-        "type": "construccion",
-        "description": "La calle principal del circuito está cerrada por construcción. El desvío obliga a usar una avenida con más tráfico.",
-        "student_reaction": "El estudiante se ve nervioso al ver el tráfico de la avenida"
+        "type": "cierre_vial_obra_publica",
+        "description": "Al llegar al inicio del circuito de Santa Bárbara, encuentran que toda la Calle 128 (eje principal del circuito) está cerrada por obras del acueducto de Bogotá — rotura de tubería de aguas residuales. La obra lleva 3 días y no estaba reportada en los sistemas de la academia. El policía de tránsito indica que el cierre es total y puede durar todo el día. Los desvíos disponibles llevan a vías con más tráfico.",
+        "opciones_desvio": [
+          {
+            "id": "A",
+            "name": "Av. 19 (Carrera 19A) — vía de mediana densidad",
+            "trafico": "Moderado — 2 carriles, algunos semáforos, motos frecuentes",
+            "adecuado_principiante": "PARCIALMENTE — más exigente que el circuito original pero manejable con acompañamiento"
+          },
+          {
+            "id": "B",
+            "name": "Autopista Norte (Carrera 7 norte)",
+            "trafico": "Alto — 4 carriles, velocidad 60-80 km/h, fusión de tráfico",
+            "adecuado_principiante": "NO — completamente inadecuada para clase 3"
+          },
+          {
+            "id": "C",
+            "name": "Regresar a la academia y practicar en el parqueadero",
+            "trafico": "Ninguno",
+            "adecuado_principiante": "SÍ para maniobras, pero no para práctica de conducción en vía"
+          },
+          {
+            "id": "D",
+            "name": "Ir al Barrio Usaquén (calles residenciales alternativas)",
+            "trafico": "Bajo — similar al circuito original",
+            "adecuado_principiante": "SÍ — pero requiere que el instructor conduzca los primeros 8 minutos hasta llegar a esa zona",
+            "distancia_desde_cierre": "3 km hacia el nororiente"
+          }
+        ],
+        "student_reaction": "Marcela ve la obra y pregunta: '¿Qué hacemos profe? ¿Tengo que manejar por una vía más grande?' — Se nota nerviosa."
       }
     },
-    "question": "¿Cómo adaptas la clase ante este imprevisto? Considera tanto la seguridad como el aprendizaje.",
+    "question": "¿Cómo adaptas la clase ante el cierre vial? Considera el nivel de Marcela, su ansiedad, la seguridad, y cómo convertir este imprevisto en una oportunidad de aprendizaje real.",
     "expected_elements": [
-      "evalua_nivel_estudiante",
-      "considera_seguridad",
-      "adapta_metodologia",
-      "mantiene_calma_estudiante",
-      "convierte_problema_en_oportunidad"
+      "evalua_nivel_y_ansiedad_de_marcela",
+      "descarta_autopista_norte_inmediatamente",
+      "evalua_opciones_adecuadas_al_nivel",
+      "selecciona_barrio_usaquen_como_optima",
+      "el_instructor_conduce_hasta_la_zona",
+      "convierte_imprevisto_en_leccion_real",
+      "mantiene_calma_y_confianza_de_estudiante",
+      "plan_pedagogico_adaptado",
+      "menciona_parqueadero_como_opcion_complementaria"
     ],
     "optimal_response": {
-      "assessment": "Estudiante principiante (3ra clase) no está listo para tráfico intenso de avenida principal.",
-      "decision": "No tomar el desvío de la avenida. Buscar ruta alternativa por calles secundarias o regresar al punto de inicio por otra ruta.",
-      "pedagogical_approach": [
-        "1. Detener el vehículo en lugar seguro",
-        "2. Explicar la situación al estudiante",
-        "3. Usar esto como lección: 'En la vida real, encontrarás imprevistos. Parte de conducir es saber cuándo adaptar tu ruta.'",
-        "4. Planificar nueva ruta juntos usando el mapa"
-      ],
-      "safety_first": "Forzar a un principiante nervioso a una situación de tráfico intenso es receta para accidente. La confianza se construye gradualmente.",
-      "communication": "No te preocupes. Vamos a buscar otra ruta más tranquila. Esto pasa todo el tiempo cuando conduces - siempre hay un plan B. Mira el mapa conmigo y pensemos juntos."
+      "evaluacion_pedagogica": "Marcela está en clase 3 de 10 — nivel principiante básico. Ha manejado solo en calles residenciales de bajo tráfico. La Autopista Norte (Opción B) está completamente descartada — forzar a un principiante ansioso en una vía de 4 carriles a 80 km/h es receta para un accidente y, peor aún, para que el estudiante abandone el aprendizaje por trauma psicológico. La Av. 19 (Opción A) puede ser una opción progresiva para el futuro, pero en clase 3 aún no. La mejor opción es el Barrio Usaquén (Opción D) — calles residenciales similares al circuito original.",
+      "decision": "Opción D — Barrio Usaquén, con el instructor conduciendo hasta allá",
+      "justificacion": "El Barrio Usaquén tiene calles residenciales de bajo tráfico similares al circuito de Santa Bárbara. El instructor conduce los 8 minutos desde el cierre hasta Usaquén, dejando que Marcela observe la conducción en vías un poco más transitadas (aprendizaje pasivo). Al llegar a Usaquén, Marcela retoma el volante en un ambiente controlado. Esto respeta su nivel actual, no genera trauma por exposición prematura a tráfico intenso, y aprovecha el tiempo de clase completo.",
+      "descarte_opciones": {
+        "autopista_norte": "DESCARTADA INMEDIATAMENTE — 4 carriles, velocidades altas, fusión de tráfico. Completamente inadecuada para clase 3. Sería irresponsable.",
+        "av_19": "DESCARTADA POR AHORA — puede ser el objetivo de la clase 5 o 6, cuando Marcela tenga más confianza. Hoy no.",
+        "parqueadero": "Opción complementaria válida — si al llegar a Usaquén Marcela está muy ansiosa, regresar al parqueadero para practicar maniobras de reversa, parqueo y control del vehículo estático. No es la primera opción pero es el plan B."
+      },
+      "plan_pedagogico_adaptado": {
+        "paso_1_comunicacion_inmediata": {
+          "que_decir": "'Marcela, tranquila. Esto pasa en la vida real cuando conduces — siempre habrá imprevistos. No vamos a ir por ninguna vía que no sea adecuada para tu nivel. Voy a manejar yo unos minutos hasta llegar a otro barrio con calles tranquilas, muy similar a donde íbamos. Observa cómo navego el desvío — eso también es parte de aprender.'",
+          "objetivo": "Reducir la ansiedad inmediata y convertir el imprevisto en aprendizaje desde el primer momento."
+        },
+        "paso_2_instructor_conduce": {
+          "accion": "El instructor toma el volante y conduce desde el cierre de Santa Bárbara hasta el Barrio Usaquén (8 minutos).",
+          "leccion_pasiva": "Durante esos 8 minutos, el instructor explica en voz alta lo que hace: 'Estoy buscando una ruta alterna. Veo que la Carrera 17 tiene menos tráfico que la Autopista — prefiero ir por aquí aunque tarde 2 minutos más. ¿Ves cómo siempre hay una opción más tranquila si uno la busca?'"
+        },
+        "paso_3_marcela_retoma_volante": {
+          "accion": "Al llegar a las calles residenciales de Usaquén, detener el vehículo en un punto tranquilo. Intercambiar puestos.",
+          "momento_pedagogico": "'Listo Marcela, ahora sí. Estas calles son igual de tranquilas que las de Santa Bárbara. ¿Cómo te sientes? Arranquemos despacio.'"
+        },
+        "paso_4_practica_normal": {
+          "accion": "Marcela maneja el circuito de Usaquén durante 40-45 minutos con los ejercicios planificados para la clase 3: manejo en línea recta, frenado suave, curvas a velocidad baja, semáforos.",
+          "ajuste": "Si Marcela está más nerviosa de lo usual por la situación, reducir la exigencia y hacer más circuitos simples en lugar de introducir maniobras nuevas. La confianza se recupera primero."
+        },
+        "paso_5_cierre_clase": {
+          "accion": "Al final de la clase, el instructor reflexiona con Marcela: 'Hoy aprendiste algo que no estaba en el plan: que cuando hay un imprevisto en la carretera, el conductor mantiene la calma, busca opciones y nunca se mete en una situación que supere su nivel. Eso es conducción responsable.'",
+          "objetivo": "Convertir el imprevisto en una lección de conducción defensiva y toma de decisiones — habilidades que Marcela necesitará toda su vida como conductora."
+        }
+      },
+      "nota_adicional_parqueadero": "Si al llegar a Usaquén, Marcela reporta que está muy alterada y no se siente capaz de manejar con seguridad, la decisión correcta es regresar al parqueadero de la academia y hacer una clase de maniobras estáticas. La seguridad siempre es primero. Una clase de parqueadero no es una clase 'perdida' — el control del vehículo a baja velocidad es una habilidad fundamental.",
+      "comunicacion_con_academia": "Al terminar la clase, el instructor reporta a la coordinación de la academia: 'El circuito de Santa Bárbara está cerrado por obras del acueducto en Calle 128. Actualizar la ruta de práctica para esta semana — usar circuito de Usaquén como alternativa. Notificar a los otros instructores.'",
+      "nota_contexto_colombiano": "Las roturas de tuberías del acueducto de Bogotá y las obras de mantenimiento de infraestructura generan cierres viales intempestivos en cualquier barrio de la ciudad, frecuentemente sin aviso previo en los sistemas oficiales. Es un imprevisto completamente real que cualquier instructor de conducción en Bogotá debe saber manejar. La capacidad de adaptar la clase de práctica sin comprometer la seguridad ni la confianza del estudiante es una competencia clave del instructor profesional."
     },
     "cognitive_load": 4
   }

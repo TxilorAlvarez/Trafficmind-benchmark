@@ -4,299 +4,464 @@
     "task_type": "rule_reversal",
     "difficulty": "easy",
     "scenario": {
-      "context": "Estás conduciendo en un país extranjero donde las reglas de tránsito son OPUESTAS a las de Colombia.",
-      "normal_rule": "En Colombia, en una glorieta/rotonda se da prioridad a quien ya está dentro de la glorieta.",
-      "reversed_rule": "En este país, la prioridad es para quien ENTRA a la glorieta, no para quien ya está dentro.",
-      "situation": "Estás dentro de la glorieta circulando. Un carro se aproxima para entrar a la glorieta por tu derecha."
+      "context": "Eres conductor colombiano y acabas de llegar a Francia como turista. Alquilaste un carro y estás circulando por París. En Francia, la regla histórica de prioridad en glorietas es diferente a la colombiana — aunque fue modificada en 1984, muchas glorietas antiguas en Francia aún conservan la regla original: prioridad a quien ENTRA, no a quien ya está dentro (Priorité à droite). Estás circulando dentro de una glorieta antigua en el centro de París cuando un vehículo se aproxima para entrar por tu derecha.",
+      "normal_rule_colombia": "En Colombia (Código Nacional de Tránsito, Art. 79): en una glorieta o intersección giratoria, tiene prioridad el vehículo que YA está circulando dentro de la glorieta. El que entra debe ceder.",
+      "reversed_rule_paris": "En esta glorieta antigua de París (señalizada con 'Priorité à droite'): la prioridad es para quien ENTRA a la glorieta desde la derecha, no para quien ya circula dentro.",
+      "situation": "Estás dentro de la glorieta circulando en sentido antihorario (estándar europeo). Un vehículo francés se aproxima para entrar por tu derecha y muestra intención de ingresar sin detenerse. Hay una señal visible en la entrada que dice 'Vous n'avez pas la priorité' — lo que significa que en ESTA entrada el que entra cede. Pero en la próxima entrada, la señal dice 'Priorité à droite' — el que entra tiene prioridad.",
+      "your_position": "Te aproximas a la entrada con señal 'Priorité à droite'. Un carro viene a entrar.",
+      "signage": "Señal triangular invertida con flecha circular — indica que quien está dentro cede el paso al que entra en este punto específico."
     },
-    "question": "Según las reglas de ESTE PAÍS (no Colombia), ¿qué debes hacer?",
+    "question": "Según las reglas de ESTA glorieta específica en Francia (no Colombia), ¿qué debes hacer cuando el carro se aproxima a entrar por tu derecha con prioridad?",
     "options": [
-      "A) Continuar porque ya estás dentro de la glorieta",
-      "B) Detenerte y ceder el paso al carro que entra",
-      "C) Acelerar para pasar antes que él",
-      "D) Tocar la bocina para que él se detenga"
+      "A) Continuar circulando porque ya estás dentro de la glorieta — como en Colombia",
+      "B) Reducir la velocidad y ceder el paso al carro que entra, porque en este punto él tiene prioridad",
+      "C) Acelerar para cruzar antes de que él entre",
+      "D) Tocar la bocina para advertirle que eres tú quien tiene la vía"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "reconoce_regla_invertida",
-      "aplica_regla_nueva_no_habitual",
-      "justifica_segun_contexto"
+      "reconoce_diferencia_entre_regla_colombiana_y_francesa",
+      "lee_la_señalizacion_especifica_del_punto",
+      "inhibe_automatismo_colombiano_de_prioridad_dentro",
+      "aplica_regla_local_correctamente",
+      "justifica_con_base_en_señal_visible"
     ],
-    "explanation": "La respuesta habitual sería A (regla colombiana), pero en este país la regla está invertida. Debes INHIBIR tu respuesta automática y aplicar la nueva regla: ceder paso a quien entra.",
-    "cognitive_trap": "El modelo debe resistir la tendencia a aplicar la regla más común/conocida."
+    "explanation": {
+      "respuesta_correcta": "B — Ceder el paso al vehículo que entra.",
+      "por_que_A_es_trampa": "En Colombia la respuesta A sería 100% correcta — quien ya está dentro tiene prioridad. El automatismo colombiano dice 'sigo porque ya estoy adentro'. Pero en esta glorieta específica de París, la señal indica lo contrario: el que entra tiene prioridad. Continuar sería provocar un accidente.",
+      "fundamento_normativo": "La 'Priorité à droite' es una regla histórica francesa que otorga prioridad al vehículo que viene por la derecha. Aunque fue modificada en la mayoría de glorietas modernas, persiste en glorietas antiguas señalizadas. El conductor colombiano en el exterior debe SIEMPRE leer la señalización local y no asumir que las reglas son iguales a las de Colombia.",
+      "leccion_clave": "Conducir en el exterior requiere desactivar conscientemente los automatismos del país de origen. La señal visible es siempre la fuente de verdad — no el hábito.",
+      "contexto_colombia_adicional": "En Bogotá, muchos conductores también confunden las glorietas con intersecciones normales y no respetan la prioridad interna. La glorieta de la Calle 100 con Autopista Norte, la de la Calle 80 con Boyacá y la de la Carrera 30 con Calle 63 son puntos frecuentes de choques por mal manejo de la prioridad en glorieta. Conocer la regla correcta en Colombia (quien está adentro tiene prioridad) es fundamental antes de viajar al exterior y encontrar sistemas diferentes."
+    },
+    "cognitive_trap": "El automatismo colombiano 'ya estoy dentro = tengo la vía' está profundamente arraigado. Inhibirlo en un país extranjero requiere leer activamente la señalización y no operar en piloto automático.",
+    "cognitive_load": 2
   },
+
   {
     "task_id": "T3_002",
     "task_type": "rule_reversal",
     "difficulty": "easy",
     "scenario": {
-      "context": "En una zona especial de la ciudad, las señales de tránsito tienen significados INVERTIDOS durante las horas pico (6-9 AM y 5-8 PM).",
-      "normal_rule": "La luz roja significa PARE, la luz verde significa SIGA.",
-      "reversed_rule": "Durante horas pico en esta zona: luz roja significa SIGA CON PRECAUCIÓN, luz verde significa PARE.",
-      "situation": "Son las 7:30 AM. Llegas a una intersección y el semáforo está en VERDE.",
-      "signage": "Hay un letrero que dice: 'ZONA ESPECIAL: Señales invertidas 6-9 AM / 5-8 PM'"
+      "context": "Bogotá implementó un programa piloto de 'Semáforos de Gestión Dinámica de Tráfico' en el corredor de la Av. Eldorado (Calle 26) entre la Carrera 30 y el Aeropuerto El Dorado, como parte del proyecto de integración con el Metro de Bogotá. Durante las horas de mayor congestión, los semáforos en algunas intersecciones específicas operan en modo INVERTIDO para gestionar el flujo de manera no convencional: el verde indica detención para dar paso al corredor del Metro, y el rojo indica que el carril lateral puede avanzar con precaución.",
+      "normal_rule": "En toda Colombia (Art. 113, Código Nacional de Tránsito): luz roja = PARE obligatorio. Luz verde = puede AVANZAR con precaución.",
+      "reversed_rule": "En este corredor piloto específico de la Calle 26, durante 6:00 AM a 9:00 AM y 5:00 PM a 8:00 PM: luz verde del semáforo lateral = PARE (el corredor del Metro tiene prioridad). Luz roja del semáforo lateral = AVANCE con precaución (el corredor está libre).",
+      "situation": "Son las 7:15 AM. Vas por la Calle 26 hacia el aeropuerto. Llegas a la intersección de la Calle 26 con Carrera 44 (sector Bavaria). El semáforo lateral muestra LUZ VERDE.",
+      "signage": "Hay un panel electrónico grande que dice: 'ZONA PILOTO METRO — SEÑALES INVERTIDAS 6-9 AM / 5-8 PM. Verde = Espere paso Metro. Rojo = Avance con precaución.' El panel está iluminado y activo.",
+      "hora_actual": "7:15 AM — dentro del horario de señales invertidas"
     },
-    "question": "¿Qué acción debes tomar?",
+    "question": "El semáforo que tienes frente a ti muestra luz VERDE a las 7:15 AM en este corredor piloto. ¿Qué debes hacer?",
     "options": [
-      "A) Continuar porque la luz está en verde",
-      "B) Detenerte porque en esta zona verde significa pare",
-      "C) Ignorar el semáforo",
-      "D) Esperar a que cambie a rojo para continuar"
+      "A) Avanzar, porque la luz verde siempre significa siga",
+      "B) Detenerte, porque en este corredor a esta hora el verde significa esperar el paso del Metro",
+      "C) Avanzar rápido antes de que cambie",
+      "D) Ignorar el semáforo y seguir la intuición del tráfico"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "identifica_horario_especial",
-      "aplica_regla_invertida",
-      "no_sigue_automatismo"
+      "lee_el_panel_informativo_del_corredor",
+      "verifica_horario_actual_vs_horario_invertido",
+      "confirma_que_7_15am_esta_dentro_del_rango_6_9am",
+      "inhibe_automatismo_verde_igual_avanzar",
+      "aplica_regla_invertida_correctamente",
+      "menciona_riesgo_de_colision_con_metro_si_avanza"
     ],
-    "explanation": "Son las 7:30 AM (dentro del horario 6-9 AM), por lo tanto las señales están invertidas. Verde = Pare. La respuesta habitual (A) sería un error.",
-    "cognitive_trap": "Verde = Siga está tan arraigado que requiere esfuerzo consciente para inhibirlo."
+    "explanation": {
+      "respuesta_correcta": "B — Detenerse. El verde en este corredor a las 7:15 AM significa que el corredor del Metro tiene prioridad de paso.",
+      "verificacion_horaria": "Son las 7:15 AM. El rango de señales invertidas es 6:00 AM a 9:00 AM. 7:15 AM SÍ está dentro del rango. La regla invertida aplica.",
+      "por_que_A_es_peligroso": "Avanzar con luz verde en este corredor específico significa cruzar el paso del Metro. Un tren del Metro de Bogotá viaja a velocidades de 80-100 km/h en ese tramo. Una colisión sería catastrófica. El automatismo 'verde = siga' podría costar vidas.",
+      "leccion_clave": "La señalización explícita siempre supera el automatismo. Un conductor responsable lee los paneles informativos, especialmente en corredores de obras o sistemas nuevos. El Metro de Bogotá (en construcción/implementación) generará este tipo de intersecciones especiales que los conductores bogotanos deberán aprender.",
+      "contexto_bogota_real": "La Calle 26 ya tiene múltiples modificaciones de señalización por las obras del Metro de Bogotá (Tramo 1, activo en construcción desde 2020). Los conductores que usan esta vía diariamente deben estar atentos a cambios en señalización que son temporales pero críticos. Las cámaras salvavidas en ese corredor están activas y multan automáticamente infracciones."
+    },
+    "cognitive_trap": "El automatismo 'verde = avanzar' es posiblemente el más profundo en la conducción. Es uno de los primeros aprendizajes y está reforzado por miles de repeticiones. Inhibirlo requiere haber leído activamente el panel — los conductores que van 'en piloto automático' lo ignorarán con consecuencias graves.",
+    "cognitive_load": 2
   },
+
   {
     "task_id": "T3_003",
     "task_type": "rule_reversal",
     "difficulty": "medium",
     "scenario": {
-      "context": "Estás en un curso de conducción avanzada donde practican maniobras de emergencia.",
-      "normal_rule": "Normalmente, ante un obstáculo imprevisto, el instinto es FRENAR fuertemente.",
-      "reversed_rule": "El instructor dice: 'En superficies mojadas a alta velocidad, NO frenen bruscamente. En lugar de frenar, ACELEREN LIGERAMENTE mientras esquivan.'",
-      "situation": "Estás practicando en pista mojada a 80 km/h. Aparece un obstáculo repentino. Tienes espacio para esquivar a la izquierda.",
-      "instructor_reminder": "Recuerda: en mojado, frenar = perder control. Acelerar suave + esquivar = mantener tracción."
+      "context": "Estás en el curso de conducción avanzada 'Manejo Seguro en Vías Colombianas' dictado por el Fondo de Prevención Vial en la pista de pruebas de la Autopista Norte km 20 (sector Briceño, Cundinamarca). El instructor es un experto en física vehicular con 20 años de experiencia en manejo en condiciones extremas. La pista está mojada por lluvia reciente. El instructor acaba de explicar la técnica de esquiva en superficie mojada, que es contraintuitiva para la mayoría de conductores colombianos.",
+      "normal_rule_instintiva": "Ante cualquier obstáculo imprevisto, el instinto natural (y la enseñanza básica) es: FRENAR inmediatamente con toda la fuerza disponible para reducir velocidad antes de esquivar.",
+      "reversed_rule_tecnica": "El instructor del curso establece: 'En superficie mojada a velocidades superiores a 60 km/h, frenar bruscamente antes de esquivar ELIMINA la tracción de las ruedas delanteras. Sin tracción delantera, el carro no responde a la dirección — vas derecho aunque gires el volante. La técnica correcta: mantener o aumentar LEVEMENTE el acelerador mientras ejecutas la esquiva. Esto mantiene el peso del motor sobre las ruedas y preserva la tracción que necesitas para el giro.'",
+      "situation": "Estás en la pista mojada a 75 km/h. El instructor, desde el asiento del copiloto, coloca repentinamente un cono inflable grande a 40 metros de distancia (simulando un obstáculo). Tienes espacio de esquiva hacia la izquierda. Recuerdas exactamente la instrucción del curso.",
+      "instructor_reminder": "Antes de la práctica, el instructor repitió: 'Si frenas en mojado antes de esquivar, pierdes la dirección. Acelera suave mientras esquivas — eso salva vidas.'",
+      "physics_context": "A 75 km/h en pista mojada, el coeficiente de fricción es aproximadamente 0.4 (vs 0.8 en seco). Una frenada brusca en mojado puede causar bloqueo de ruedas (en vehículos sin ABS) o reducción extrema de la capacidad de dirección (incluso con ABS)."
     },
-    "question": "¿Cuál es la maniobra correcta según las instrucciones del curso?",
+    "question": "Aparece el obstáculo a 40 metros. Tienes espacio a la izquierda. Según la técnica del curso, ¿cuál es la maniobra correcta?",
     "options": [
-      "A) Frenar fuerte y luego esquivar",
-      "B) Acelerar ligeramente mientras esquivas a la izquierda",
-      "C) Frenar suavemente y esquivar",
-      "D) Solo esquivar sin cambiar velocidad"
+      "A) Frenar fuerte primero para reducir velocidad y luego esquivar — como dice el instinto",
+      "B) Mantener o aumentar levemente el acelerador mientras esquivas hacia la izquierda — técnica del curso",
+      "C) Frenar suavemente con ABS y luego esquivar",
+      "D) Solo esquivar sin tocar acelerador ni freno, manteniendo la velocidad exacta"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "recuerda_instruccion_especifica",
-      "inhibe_respuesta_instintiva_frenar",
-      "aplica_tecnica_contraintuitiva"
+      "recuerda_la_instruccion_especifica_del_curso",
+      "inhibe_reflejo_de_frenado_brusco",
+      "comprende_fisica_de_traccion_en_mojado",
+      "ejecuta_tecnica_contraintuitiva_correctamente",
+      "justifica_con_principio_de_traccion_delantera"
     ],
-    "explanation": "El instinto natural es frenar (A), pero en mojado esto causa pérdida de control. La técnica correcta enseñada es B: acelerar ligeramente mantiene la tracción de las ruedas mientras esquivas.",
-    "cognitive_trap": "Frenar ante obstáculo es casi un reflejo. Inhibirlo requiere control ejecutivo."
+    "explanation": {
+      "respuesta_correcta": "B — Mantener o aumentar levemente el acelerador mientras se esquiva hacia la izquierda.",
+      "fisica_detras": "En mojado, frenar bruscamente transfiere el peso del vehículo hacia adelante y puede bloquear las ruedas. Sin ruedas girando con tracción, el carro no responde a la dirección — el volante pierde efectividad y el vehículo sigue recto sin importar cuánto se gire. Al mantener o aumentar levemente el acelerador, las ruedas motrices mantienen tracción y el vehículo responde al giro del volante.",
+      "por_que_A_es_tan_fuerte": "Frenar ante un obstáculo es literalmente un reflejo condicionado. Desde que aprendemos a manejar — e incluso antes, al caminar — detenerse ante el peligro es la respuesta más básica del sistema nervioso. Inhibir ese reflejo requiere un entrenamiento consciente y repetido.",
+      "por_que_C_no_es_suficiente": "Frenar suavemente aún reduce la tracción disponible para el giro. En una emergencia real a 75 km/h con 40 metros de distancia, el tiempo para frenar suavemente y luego esquivar puede no ser suficiente.",
+      "contexto_colombia": "En Colombia, las vías en temporada de lluvia — especialmente en las cordilleras y en Bogotá — presentan exactamente estas condiciones. La vía Bogotá-Villavicencio, la vía al Llano, y muchas vías secundarias de Cundinamarca y Antioquia tienen tramos mojados que combinan velocidad y visibilidad reducida. El conocimiento de técnicas de manejo en mojado es literalmente de vida o muerte para conductores colombianos."
+    },
+    "cognitive_trap": "El reflejo de frenar ante un obstáculo es tan profundo que incluso pilotos de competencia experimentados lo tienen que trabajar extensamente. En un conductor promedio colombiano, inhibirlo en una fracción de segundo requiere entrenamiento específico — no basta con saber la teoría.",
+    "cognitive_load": 4
   },
+
   {
     "task_id": "T3_004",
     "task_type": "rule_reversal",
     "difficulty": "medium",
     "scenario": {
-      "context": "Trabajas como conductor en un país donde se conduce por el lado IZQUIERDO de la vía (como Reino Unido o Japón).",
-      "normal_rule": "En Colombia se conduce por la derecha. Al girar a la derecha, giras al carril más cercano.",
-      "reversed_rule": "Aquí se conduce por la izquierda. Al girar a la derecha, debes cruzar el tráfico que viene de frente.",
-      "situation": "Estás en una intersección y necesitas girar a la derecha. Hay tráfico viniendo de frente por el carril izquierdo."
+      "context": "Eres conductor profesional colombiano contratado por una empresa de turismo para llevar ejecutivos en Japón durante 3 semanas. Japón tiene circulación por el lado IZQUIERDO de la vía — exactamente opuesto a Colombia. El vehículo asignado tiene el volante a la DERECHA (posición japonesa estándar). Llevas 2 días manejando y estás empezando a adaptarte, pero los automatismos colombianos aún aparecen en situaciones de presión.",
+      "normal_rule_colombia": "En Colombia: se circula por el carril DERECHO. Al girar a la DERECHA, es un giro CORTO (hacia tu lado) — incorporas al carril más cercano sin cruzar tráfico. Al girar a la IZQUIERDA, es un giro AMPLIO — debes cruzar el carril contrario y esperar que pase el tráfico.",
+      "reversed_rule_japon": "En Japón: se circula por el carril IZQUIERDO. Al girar a la IZQUIERDA, es el giro CORTO (hacia tu lado). Al girar a la DERECHA, es el giro AMPLIO — debes cruzar el carril contrario y esperar que pase el tráfico que viene de frente.",
+      "situation": "Estás en una intersección en Tokio. El GPS te indica 'gira a la derecha en 50 metros'. Hay un semáforo de giro a la derecha con flecha verde. Pero ves tráfico viniendo de frente por el carril izquierdo (que es el carril de circulación principal en Japón). Tu automatismo colombiano dice: 'flecha verde en la derecha = giro inmediato al carril más cercano'.",
+      "trafico_frente": "Hay 3 vehículos en el carril contrario que se aproximan a la intersección.",
+      "señalizacion": "El semáforo de giro a la derecha con flecha verde en Japón significa: puede iniciar el giro pero debe CEDER PASO al tráfico de frente y a los peatones."
     },
-    "question": "¿Cómo ejecutas el giro a la derecha correctamente en este país?",
+    "question": "El semáforo muestra flecha verde de giro a la derecha. Hay tráfico viniendo de frente. En Japón, ¿cómo ejecutas correctamente este giro?",
     "options": [
-      "A) Girar inmediatamente a la derecha al carril más cercano",
-      "B) Esperar a que pase el tráfico de frente, luego cruzar hacia el carril izquierdo",
-      "C) Girar a la derecha y entrar al carril derecho",
-      "D) Hacer el giro rápidamente antes de que llegue el tráfico"
+      "A) Girar inmediatamente a la derecha al carril más cercano — como en Colombia cuando hay flecha verde",
+      "B) Esperar a que pasen los 3 vehículos de frente, luego cruzar hacia el carril izquierdo (el correcto en Japón)",
+      "C) Girar a la derecha y meterse al carril derecho de la vía destino",
+      "D) No girar porque el semáforo de flecha verde no aplica en intersecciones con tráfico de frente"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "comprende_sistema_izquierdo",
-      "identifica_que_derecha_es_giro_amplio",
-      "espera_trafico_contrario"
+      "comprende_que_en_japon_girar_derecha_es_giro_amplio",
+      "identifica_que_hay_trafico_de_frente_que_ceder",
+      "sabe_que_flecha_verde_en_japon_no_elimina_prioridad_del_trafico_de_frente",
+      "espera_a_que_pase_el_trafico_contrario",
+      "incorpora_al_carril_izquierdo_de_la_via_destino",
+      "inhibe_automatismo_colombiano_flecha_verde_giro_inmediato"
     ],
-    "explanation": "En países con conducción por la izquierda, girar a la derecha es equivalente a girar a la izquierda en Colombia: debes cruzar el tráfico. La respuesta A causaría un accidente frontal.",
-    "cognitive_trap": "Años de conducir por la derecha crean automatismos difíciles de inhibir."
+    "explanation": {
+      "respuesta_correcta": "B — Esperar que pasen los vehículos de frente y luego girar cruzando hacia el carril izquierdo.",
+      "logica_del_sistema_izquierdo": "En países con circulación por la izquierda, girar a la derecha es equivalente a girar a la izquierda en Colombia: es el giro 'difícil' que cruza el tráfico principal. La flecha verde de giro en Japón indica que puedes INICIAR la maniobra de giro, pero debes ceder paso al tráfico que viene de frente y a peatones — exactamente como en Colombia cuando tienes flecha verde para girar a la izquierda.",
+      "error_critico_de_A": "Si giras inmediatamente como en Colombia (al carril más cercano), te metes de frente a los vehículos que vienen en sentido contrario. Accidente frontal garantizado.",
+      "carril_destino_correcto": "En Japón, al girar a la derecha debes incorporarte al carril IZQUIERDO de la vía destino — el carril de circulación en ese país. El error colombiano sería incorporarse al carril derecho (que en Japón es el carril para el sentido contrario).",
+      "consejos_para_conductores_colombianos_en_exterior": "Al manejar en países con circulación por la izquierda (Japón, Reino Unido, Australia, India, Sudáfrica), los conductores colombianos deben recordar: (1) Todo giro a la derecha equivale a girar a la izquierda en Colombia — amplio, cruzando tráfico. (2) El carril correcto es el izquierdo, no el derecho. (3) Al salir de una rotonda, por instinto tienden a ir al carril derecho — incorrecto.",
+      "contexto_colombiano": "Aunque Colombia no tiene esta situación en territorio nacional, los conductores profesionales colombianos que trabajan en el exterior (empresas de turismo, transporte ejecutivo internacional) enfrentan exactamente este reto. El conocimiento de sistemas de circulación alternativos es una competencia profesional de alto valor."
+    },
+    "cognitive_trap": "En Colombia, flecha verde de giro a la derecha = giro inmediato sin cruzar tráfico. Este automatismo está tan arraigado que incluso conductores con experiencia en el exterior cometen este error los primeros días. El cerebro ejecuta el giro antes de que el razonamiento consciente pueda inhibirlo.",
+    "cognitive_load": 4
   },
+
   {
     "task_id": "T3_005",
     "task_type": "rule_reversal",
     "difficulty": "hard",
     "scenario": {
-      "context": "Eres conductor de ambulancia. Las reglas normales de tránsito se INVIERTEN parcialmente cuando llevas una emergencia.",
-      "normal_rules": [
-        "Detenerse en luz roja",
-        "Respetar límites de velocidad",
-        "No circular en sentido contrario",
-        "Ceder paso a vehículos de emergencia"
+      "context": "Eres conductor de la ambulancia ALS-07 de la Cruz Roja Colombiana, Seccional Bogotá. Llevas al paciente Jorge Mora, 45 años, con trauma craneoencefálico severo tras un accidente en la Autopista Norte. El médico del interior acaba de clasificarlo como prioridad 1 — código rojo real. Vas desde la Autopista Norte hacia la Clínica Universitaria Colombia (Calle 23 con Carrera 41). Son las 7:45 AM del martes.",
+      "reglas_normales_trafico": [
+        "Detenerse en semáforo en rojo — Art. 113 Código de Tránsito",
+        "Respetar límites de velocidad: 50 km/h en zona urbana",
+        "No circular en sentido contrario de la vía — Art. 77",
+        "Ceder paso a vehículos de emergencia con sirena activa"
       ],
-      "emergency_rules": [
-        "Puede pasar luz roja CON PRECAUCIÓN",
-        "Puede exceder límite de velocidad RAZONABLEMENTE",
-        "NO puede circular en sentido contrario NUNCA",
-        "Otros vehículos deben cederte paso a TI"
+      "reglas_especiales_ambulancia_codigo_rojo": [
+        "PUEDE pasar semáforos en rojo: SOLO después de detenerse completamente, verificar que todos los carriles están despejados, y avanzar con precaución — Decreto 926 de 2002 y Art. 5 Ley 1696",
+        "PUEDE exceder el límite de velocidad de forma RAZONABLE en vías despejadas: máximo 80 km/h en zona urbana con sirena activa",
+        "NUNCA puede circular en sentido contrario — esta excepción NO existe en la normativa colombiana para ningún vehículo de emergencia",
+        "Los demás vehículos DEBEN cederle el paso — Art. 75 Código de Tránsito"
       ],
-      "situation": "Llevas un paciente crítico. Llegas a una intersección con luz roja. La vía está despejada PERO hay una calle en sentido contrario que te acortaría 3 minutos.",
-      "patient_status": "Paciente estable pero crítico. Cada minuto cuenta pero no es inminente."
+      "situation": "Llegas a la intersección de la Av. NQS (Carrera 30) con Calle 22 a las 7:46 AM. El semáforo está en ROJO. La intersección está DESPEJADA — no hay vehículos cruzando. A tu derecha ves una calle en sentido contrario (Calle 22 en sentido oriente-occidente, pero tú necesitas ir occidente-oriente) que te acortaría 4 minutos al hospital. El médico desde adentro dice: 'Conductor, necesitamos llegar YA — cada segundo cuenta con TEC severo.'",
+      "presion_medica": "Trauma craneoencefálico severo: cada minuto sin atención neuroquirúrgica aumenta el daño cerebral. La presión del médico es legítima.",
+      "condiciones_via": "La Calle 22 en sentido contrario tiene tráfico moderado a esa hora — no está despejada. La NQS (ruta directa) está congestionada pero en movimiento."
     },
-    "question": "¿Qué puedes hacer legalmente según el protocolo de emergencias?",
+    "question": "Estás ante el semáforo rojo con la intersección despejada. Ves la calle en sentido contrario que te ahorra 4 minutos. El médico presiona. Según el protocolo legal colombiano de ambulancias en código rojo, ¿qué PUEDES hacer y qué NO PUEDES hacer?",
     "options": [
-      "A) Pasar la luz roja con precaución Y tomar la calle en sentido contrario para ganar tiempo",
-      "B) Pasar la luz roja con precaución PERO NO tomar la calle en sentido contrario",
-      "C) Esperar la luz verde y luego tomar la calle en sentido contrario",
-      "D) Ni pasar el rojo ni ir en sentido contrario - seguir ruta normal"
+      "A) Pasar el semáforo rojo Y tomar la calle en sentido contrario — la emergencia lo justifica todo",
+      "B) Pasar el semáforo rojo con precaución (deteniéndose primero) PERO NO tomar la calle en sentido contrario — continuar por la NQS",
+      "C) Esperar el verde y luego tomar la calle en sentido contrario",
+      "D) Esperar el verde y seguir por la NQS sin ninguna excepción"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "distingue_reglas_que_si_cambian",
-      "distingue_reglas_que_no_cambian",
-      "aplica_protocolo_correctamente",
-      "no_sobrepasa_limites_emergencia"
+      "distingue_excepciones_que_SI_aplican_semaforo_rojo",
+      "distingue_excepciones_que_NO_aplican_sentido_contrario",
+      "aplica_protocolo_correcto_detenerse_verificar_avanzar",
+      "rechaza_sentido_contrario_a_pesar_de_presion_medica",
+      "justifica_con_norma_colombiana_especifica",
+      "no_cede_a_logica_emergencia_igual_todo_permitido",
+      "menciona_riesgo_adicional_de_sentido_contrario_con_trafico"
     ],
-    "explanation": "Las emergencias permiten ciertas excepciones (pasar rojo con precaución) pero NO todas (nunca sentido contrario). El error común es pensar que 'emergencia = todo permitido'. Debes inhibir la urgencia y aplicar el protocolo correcto.",
-    "cognitive_trap": "La presión de la emergencia puede hacer que se ignoren límites que sí aplican."
+    "explanation": {
+      "respuesta_correcta": "B — Pasar el rojo con precaución (protocolo completo) + NO tomar el sentido contrario.",
+      "lo_que_SI_puede_hacer": {
+        "semaforo_rojo": "SÍ puede pasar. Protocolo obligatorio: (1) Detenerse completamente. (2) Activar sirena y bocina. (3) Verificar visualmente que TODOS los carriles están despejados. (4) Avanzar lentamente. La intersección está despejada — condición cumplida. Puede pasar.",
+        "velocidad": "Puede aumentar a máximo 80 km/h en tramos despejados de la NQS con sirena activa."
+      },
+      "lo_que_NO_puede_hacer": {
+        "sentido_contrario": "NUNCA. La normativa colombiana (Código Nacional de Tránsito) NO contempla excepción de sentido contrario para ningún vehículo de emergencia. Circular en sentido contrario en la Calle 22 con tráfico moderado crea un riesgo de colisión frontal que podría: (1) Matar al paciente que intenta salvar. (2) Matar a otros conductores inocentes. (3) Incapacitar a la tripulación médica. El resultado sería exactamente opuesto al objetivo.",
+        "argumento_medico": "La presión del médico ('cada segundo cuenta') es legítima desde el punto de vista clínico, pero el conductor es el responsable legal de la operación del vehículo. Un conductor de ambulancia que toma el sentido contrario y provoca un accidente pierde la exención legal y enfrenta cargos penales por homicidio culposo, independientemente de la emergencia.",
+        "los_4_minutos": "4 minutos ganando por sentido contrario vs riesgo de accidente frontal con tráfico moderado = no vale la pena. La alternativa es maximizar velocidad en la NQS dentro de los límites del código rojo."
+      },
+      "protocolo_paso_a_paso": [
+        "1. Llegar al semáforo rojo — DETENERSE COMPLETAMENTE.",
+        "2. Verificar visualmente: izquierda, frente, derecha — todos los carriles despejados. CONFIRMADO.",
+        "3. Activar bocina + sirena máxima.",
+        "4. Avanzar lentamente cruzando la intersección.",
+        "5. Continuar por la NQS a máximo 80 km/h con sirena.",
+        "6. Responder al médico: 'Doctor, voy a máxima velocidad permitida por el código. La calle en contravía no es una opción legal ni segura — el riesgo de choque frontal empeoraría la situación del paciente.'"
+      ],
+      "contexto_colombia_real": "En Colombia, los accidentes de ambulancias en código rojo ocurren principalmente en dos situaciones: (1) Al cruzar semáforos en rojo sin detenerse previamente. (2) Al tomar vías en sentido contrario. El Instituto Nacional de Medicina Legal registra casos de conductores de ambulancia que murieron o causaron muertes por no seguir el protocolo correcto. La urgencia de salvar una vida no puede crear una urgencia mayor de perder varias."
+    },
+    "cognitive_trap": "La presión de la emergencia activa el pensamiento 'todo está permitido para salvar la vida'. Este es uno de los automatismos cognitivos más peligrosos en conductores de ambulancia. La realidad es que las excepciones son precisas y limitadas — no abiertas. Mantener esa distinción bajo presión extrema requiere entrenamiento y claridad mental.",
+    "cognitive_load": 6
   },
+
   {
     "task_id": "T3_006",
     "task_type": "rule_reversal",
     "difficulty": "easy",
     "scenario": {
-      "context": "Es un día de 'Pico y Placa invertido' declarado por emergencia ambiental.",
-      "normal_rule": "Normalmente, los carros con placa terminada en número PAR no pueden circular los días pares.",
-      "reversed_rule": "Hoy, por emergencia ambiental, SOLO pueden circular los carros que normalmente NO podrían (placa par en día par).",
-      "situation": "Hoy es día 14 (par). Tu carro tiene placa terminada en 8 (par).",
-      "announcement": "Alcaldía anuncia: 'Pico y Placa invertido vigente todo el día.'"
+      "context": "Bogotá, miércoles 14 de mayo. La Secretaría Distrital de Ambiente declaró alerta amarilla por contaminación del aire (PM2.5 sobre los niveles seguros) debido a una inversión térmica combinada con viento en calma. La Alcaldía Mayor decretó medida de emergencia ambiental: 'Pico y Placa Ambiental Invertido' — una medida que en Bogotá ha sido aplicada en ocasiones puntuales para reducir el flujo vehicular de manera no convencional.",
+      "normal_rule_bogota": "Pico y Placa Bogotá normal (Decreto 190/2018 y modificaciones): Días PARES: no circulan placas terminadas en 6, 7, 8, 9, 0. Días IMPARES: no circulan placas terminadas en 1, 2, 3, 4, 5. Horario: lunes a viernes, 6:00 AM a 9:00 PM.",
+      "reversed_rule_emergencia": "Decreto de emergencia ambiental del día: 'Pico y Placa Ambiental Invertido — Solo pueden circular HOY los vehículos que NORMALMENTE no podrían circular en este día. Los vehículos que normalmente SÍ podrían circular, HOY tienen restricción.' El objetivo es rotar la restricción para que NINGÚN propietario quede sin restricción dos días seguidos.",
+      "situation": "Hoy es miércoles 14 (día par). Tu carro tiene placa terminada en 8 (número par). Normalmente en día par, placa par = RESTRICCIÓN. Escuchas el decreto en la radio a las 6:30 AM antes de salir.",
+      "additional_info": "El decreto está publicado en la app 'Bogotá Te Escucha' y en el Twitter oficial de la Alcaldía. Hay cámaras salvavidas activas en Carrera 7, Calle 26, Av. Caracas y Autopista Norte."
     },
-    "question": "¿Puedes circular hoy con tu vehículo?",
+    "question": "Hoy es miércoles 14 (par). Tu placa termina en 8 (par). Normalmente tendrías restricción. Pero rige el Pico y Placa Invertido. ¿Puedes circular?",
     "options": [
-      "A) No, porque tu placa es par y hoy es día par",
-      "B) Sí, porque hoy el Pico y Placa está invertido",
-      "C) Solo después de las 7 PM",
-      "D) Solo si es emergencia personal"
+      "A) No puedes — tu placa es par, hoy es día par, siempre hay restricción para par en día par",
+      "B) Sí puedes — el decreto invierte la regla: los que normalmente no pueden (placa par en día par), HOY sí pueden",
+      "C) Solo puedes circular después de las 9:00 PM cuando termina el Pico y Placa",
+      "D) Solo puedes si pagas el Pico y Placa Solidario"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "identifica_regla_invertida",
-      "aplica_inversion_correctamente",
-      "no_sigue_regla_habitual"
+      "identifica_el_decreto_de_inversion_como_valido",
+      "comprende_la_logica_de_inversion_par_en_dia_par_ahora_puede",
+      "no_aplica_la_regla_habitual_automaticamente",
+      "verifica_la_fuente_oficial_del_decreto",
+      "justifica_correctamente_la_decision_de_circular"
     ],
-    "explanation": "Normalmente placa 8 (par) NO podría circular en día 14 (par). Pero con Pico y Placa INVERTIDO, la regla se invierte: los que normalmente no pueden, hoy SÍ pueden.",
-    "cognitive_trap": "La regla habitual de Pico y Placa está muy arraigada."
+    "explanation": {
+      "respuesta_correcta": "B — SÍ puedes circular. La inversión significa exactamente eso: los que antes no podían, ahora sí pueden.",
+      "logica_de_la_inversion": "Normal: placa 8 (par) en día 14 (par) = RESTRICCIÓN. Invertido: placa 8 (par) en día 14 (par) = PUEDE CIRCULAR. Los que normalmente SÍ podían (placa impar en día par) = hoy TIENEN RESTRICCIÓN.",
+      "verificacion_necesaria": "Antes de salir, verificar el decreto en fuentes oficiales: app 'Bogotá Te Escucha', Twitter @AlcaldiadeBogota, o la línea 195. No actuar solo por el radio sin verificar.",
+      "por_que_A_es_trampa": "La regla habitual está tan arraigada que el cerebro la aplica automáticamente. 'Par en día par = restricción' es un patrón muy aprendido. La inversión requiere hacer el razonamiento contrario de forma consciente.",
+      "riesgo_real": "Si un conductor con placa par circula creyendo que tiene restricción cuando en realidad puede, no pasa nada. Pero si un conductor con placa impar circula creyendo que puede cuando en realidad tiene restricción (por la inversión), recibe multa de $488.700 COP. En ambos casos, verificar la fuente oficial es la acción correcta antes de salir.",
+      "contexto_bogota": "La alerta por contaminación del aire es real en Bogotá. La ciudad tiene días de alta contaminación especialmente en temporada seca (diciembre-enero y julio-agosto) cuando la inversión térmica atrapa los contaminantes. El Pico y Placa Ambiental es una herramienta que la Alcaldía ha usado en emergencias ambientales. Los conductores bogotanos deben estar atentos a decretos de emergencia que modifican temporalmente las reglas habituales."
+    },
+    "cognitive_trap": "El Pico y Placa de Bogotá es una regla que los conductores aplican durante años sin pensar. 'Par en día par = no puedo' está automatizado. Ante una inversión del decreto, el cerebro tiende a seguir el patrón habitual y llegar a la conclusión equivocada.",
+    "cognitive_load": 2
   },
+
   {
     "task_id": "T3_007",
     "task_type": "rule_reversal",
     "difficulty": "medium",
     "scenario": {
-      "context": "Estás en una zona escolar con señalización especial.",
-      "normal_rule": "Fuera de horario escolar, el límite de velocidad es 50 km/h.",
-      "special_rule": "Durante horario escolar (6:30-8:00 AM y 12:00-2:00 PM), el límite es 30 km/h.",
-      "reversed_situation": "Es sábado a las 7:00 AM. Hay un evento deportivo escolar y HAY niños presentes, pero técnicamente no es 'horario escolar' oficial.",
-      "signage": "El letrero dice: 'Zona Escolar - 30 km/h en horario escolar (L-V)'"
+      "context": "Es sábado 8 de marzo a las 7:00 AM. Vas por la Calle 127 con Carrera 7 en Bogotá, sector Usaquén, cerca del Colegio Los Nogales. Normalmente esta zona tiene señalización de 'Zona Escolar — 30 km/h de lunes a viernes en horario escolar (6:30-8:00 AM y 12:00-2:00 PM)'. Técnicamente hoy es sábado y no hay horario escolar oficial.",
+      "normal_rule": "Fuera de horario escolar (lunes a viernes) y los fines de semana: el límite de velocidad en esta zona es el general urbano de 50 km/h según el Código Nacional de Tránsito (Art. 106).",
+      "special_rule": "En horario escolar (lunes a viernes, 6:30-8:00 AM y 12:00-2:00 PM): el límite se reduce a 30 km/h obligatorio con cámaras activas.",
+      "reversed_situation": "Hoy es sábado, 7:00 AM. No es horario escolar oficial. El letrero de zona escolar dice explícitamente 'Lunes a Viernes'. PERO: hay una maratón estudiantil organizada por el Colegio Los Nogales — aproximadamente 200 estudiantes de 8 a 16 años están corriendo por la Carrera 7 con sus profesores. Hay conos naranjas delimitando el carril de corredores. Un policía de tránsito está presente pero no ha puesto señal oficial de velocidad reducida.",
+      "signage_official": "El letrero fijo dice: 'Zona Escolar — 30 km/h — Lunes a Viernes'",
+      "signage_event": "Hay un cartel manual que dice: 'Maratón Estudiantil — Favor reducir velocidad'. No es señalización oficial de tránsito."
     },
-    "question": "¿A qué velocidad debes circular?",
+    "question": "Son las 7:00 AM del sábado. Técnicamente la señal de 30 km/h solo aplica de lunes a viernes. Hay 200 estudiantes en la vía. ¿A qué velocidad debes circular?",
     "options": [
-      "A) 50 km/h porque es sábado y no es horario escolar oficial",
-      "B) 30 km/h porque hay niños presentes independientemente del día",
-      "C) 40 km/h como punto medio",
-      "D) La velocidad que indique el evento"
+      "A) 50 km/h — porque es sábado y la señal oficial de 30 km/h no aplica hoy",
+      "B) 30 km/h o menos — porque hay menores en la vía independientemente del día y la señal oficial",
+      "C) 40 km/h — como compromiso entre la regla técnica y la prudencia",
+      "D) La velocidad que el policía indique en el momento"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "reconoce_espiritu_de_la_ley",
-      "prioriza_seguridad_sobre_tecnicismo",
-      "adapta_comportamiento_a_contexto"
+      "reconoce_que_tecnicamente_la_señal_30kmh_no_aplica_sabado",
+      "identifica_presencia_de_menores_en_la_via",
+      "aplica_principio_de_conduccion_defensiva_sobre_tecnicismo",
+      "menciona_articulo_106_velocidad_segun_condiciones",
+      "justifica_con_espiritu_de_la_norma_no_su_letra",
+      "menciona_responsabilidad_penal_por_atropello"
     ],
-    "explanation": "Técnicamente la regla dice L-V, pero el PROPÓSITO es proteger niños. Hay niños presentes, por lo tanto debes aplicar el espíritu de la regla (30 km/h) aunque técnicamente no aplique. Aquí se invierte: seguir la letra de la ley sería el error.",
-    "cognitive_trap": "Seguir reglas al pie de la letra puede ser incorrecto cuando el contexto cambia."
+    "explanation": {
+      "respuesta_correcta": "B — 30 km/h o menos. La presencia de 200 menores en la vía supera cualquier argumento técnico sobre el día de la semana.",
+      "argumento_tecnico_vs_espiritu": "Técnicamente, la señal de 30 km/h aplica solo de lunes a viernes. El conductor que circula a 50 km/h un sábado en esa zona sin evento podría argumentar que cumple la norma. PERO el Art. 106 del Código Nacional de Tránsito establece también que el límite de velocidad se reduce cuando las condiciones de la vía así lo requieren — y 200 menores corriendo en la calzada es una condición que exige velocidad reducida.",
+      "responsabilidad_penal": "Si un conductor atropella a un menor en esa situación circulando a 50 km/h, argumentar 'era sábado, la señal no aplica' no lo exime de responsabilidad penal por homicidio culposo (Art. 109 del Código Penal colombiano). Un juez evaluará si la velocidad era adecuada para las CONDICIONES REALES de la vía, no solo para la señalización.",
+      "conduccion_defensiva": "El principio de conducción defensiva establece que el conductor debe ajustar su velocidad a las condiciones observables de la vía, independientemente de lo que diga la señal. Una vía con menores corriendo ES una condición que exige velocidad mínima.",
+      "opcion_D": "La opción D (seguir la indicación del policía) es válida si el policía da indicaciones activas. Pero esperar que el policía dé instrucciones antes de reducir velocidad es transferir la responsabilidad. La decisión de reducir la velocidad ante menores en la vía es del conductor.",
+      "contexto_bogota": "En Bogotá, los colegios del norte (Los Nogales, Gimnasio Moderno, Nueva Granada, Gimnasio Vermont) frecuentemente realizan eventos deportivos los fines de semana en las vías aledañas. La Carrera 7 en ese sector tiene eventos ciclísticos, carreras estudiantiles y marchas con regularidad los sábados. Los conductores que conocen esos sectores saben que los fines de semana exigen mayor atención, no menor."
+    },
+    "cognitive_trap": "Seguir la letra de la ley al pie de la letra ('la señal dice L-V, hoy es sábado, entonces 50 km/h') es un error legalista que ignora el propósito de la norma y la realidad observable. El conductor que razona 'la regla técnica me protege' comete el error de confundir cumplimiento formal con conducta responsable.",
+    "cognitive_load": 3
   },
+
   {
     "task_id": "T3_008",
     "task_type": "rule_reversal",
     "difficulty": "hard",
     "scenario": {
-      "context": "Eres instructor de manejo enseñando a un estudiante con discapacidad auditiva.",
-      "normal_teaching_rule": "Normalmente das instrucciones verbales: 'Gira aquí', 'Frena', 'Acelera'.",
-      "reversed_rule": "Con este estudiante debes usar SOLO señales visuales y táctiles. Las instrucciones verbales son inútiles.",
-      "situation": "El estudiante está a punto de girar a la izquierda pero no ha visto un peatón que cruza. Normalmente gritarías '¡FRENA!'",
-      "tools_available": "Tienes: freno auxiliar del instructor, sistema de señales con luces en el tablero, y contacto físico con el hombro del estudiante."
+      "context": "Eres instructor de conducción de la academia AutoEscuela Colombia en Bogotá. Tienes 8 años de experiencia. Hoy tienes una clase especial: tu estudiante es Andrés Felipe, 22 años, con discapacidad auditiva profunda bilateral (sordera total desde el nacimiento). Andrés está en su clase 5 de 10 para obtener la licencia categoría B1. Según la normativa colombiana (Decreto 1660 de 2003 y Ley 361 de 1997), las personas con discapacidad auditiva SÍ pueden obtener licencia de conducción — no existe restricción legal para ello. La academia tiene protocolo especial: el vehículo está equipado con freno auxiliar del instructor (lado copiloto), un sistema de señales visuales en el tablero (luces LED roja, amarilla y verde controladas por el instructor), y una tablet montada en el tablero para mensajes de texto cortos.",
+      "normal_teaching_rule": "Con estudiantes sin discapacidad: las instrucciones son 95% verbales. 'Frena suave', 'Gira aquí', 'Aumenta velocidad', '¡Cuidado!'",
+      "reversed_rule_sordo": "Con Andrés: CERO instrucciones verbales son efectivas durante la conducción. Todas las comunicaciones deben ser: (1) Sistema de luces LED del tablero, (2) Señales con mano acordadas previamente, (3) Freno auxiliar en emergencias.",
+      "situation": "Son las 10:20 AM. Andrés maneja en la Carrera 15 con Calle 127 (zona residencial de bajo tráfico, entrenamiento normal). De repente, un ciclista sale sin avisar desde un garaje a la izquierda y cruza en frente del vehículo a 4 metros de distancia. Andrés no lo ha visto — tiene los ojos al frente mirando la vía, pero el ciclista viene de un ángulo en el que Andrés no ha puesto atención.",
+      "tiempo_disponible": "Aproximadamente 1.5 segundos antes de impacto si no se actúa.",
+      "tools_instructor": {
+        "freno_auxiliar": "Reduce velocidad efectivamente en 0.3 segundos — completamente efectivo",
+        "luz_led_roja": "Tarda 0.8-1 segundo en que Andrés la vea y reaccione — puede ser suficiente o no",
+        "tablet_mensaje": "Tarda 3-4 segundos — completamente inútil en emergencia",
+        "señal_hombro": "Tarda 1.5-2 segundos — insuficiente",
+        "gritar": "COMPLETAMENTE INÚTIL — Andrés no escucha nada"
+      }
     },
-    "question": "¿Cómo intervienes de emergencia?",
+    "question": "El ciclista aparece. Tienes 1.5 segundos. Tu instinto de 8 años como instructor dice '¡FRENA!'. ¿Qué intervención ejecutas?",
     "options": [
-      "A) Gritar '¡FRENA!' muy fuerte por instinto",
+      "A) Gritar '¡FRENA!' con toda la fuerza — el instinto de 8 años",
       "B) Usar el freno auxiliar del instructor inmediatamente",
-      "C) Tocar su hombro para que mire",
-      "D) Activar la luz de freno en el tablero"
+      "C) Activar la luz LED roja del tablero y esperar que Andrés reaccione",
+      "D) Tocar el hombro de Andrés para que mire a la izquierda"
     ],
     "correct_answer": "B",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "inhibe_respuesta_verbal_automatica",
-      "selecciona_intervencion_efectiva",
-      "considera_discapacidad_estudiante",
-      "prioriza_seguridad_inmediata"
+      "inhibe_completamente_respuesta_verbal_de_8_años_de_habito",
+      "calcula_tiempo_disponible_vs_tiempo_de_cada_opcion",
+      "selecciona_freno_auxiliar_como_unica_opcion_suficientemente_rapida",
+      "descarta_A_por_inutilidad_total_con_sordo",
+      "descarta_C_por_tiempo_insuficiente_en_esta_emergencia",
+      "descarta_D_por_tiempo_insuficiente",
+      "justifica_con_análisis_de_tiempos"
     ],
-    "explanation": "El instinto es gritar (A), pero eso es inútil con un estudiante sordo. En emergencia real, el freno auxiliar (B) es la única intervención suficientemente rápida. C y D son muy lentas para emergencia.",
-    "cognitive_trap": "Gritar es casi un reflejo en emergencias. Inhibirlo con estudiante sordo requiere control ejecutivo."
+    "explanation": {
+      "respuesta_correcta": "B — Freno auxiliar inmediatamente.",
+      "analisis_de_tiempos": {
+        "tiempo_disponible": "1.5 segundos",
+        "freno_auxiliar": "0.3 segundos — ÚNICO que funciona a tiempo",
+        "luz_led_roja": "0.8-1 segundo solo para que Andrés la vea + tiempo de reacción y frenado = 1.5-2 segundos total. Insuficiente.",
+        "gritar": "0 segundos de utilidad — Andrés no escucha. El grito solo sirve para el instructor.",
+        "toque_hombro": "1.5-2 segundos — demasiado lento y puede distraer al estudiante en el momento equivocado",
+        "conclusion": "Solo el freno auxiliar es físicamente posible en 1.5 segundos."
+      },
+      "por_que_A_es_tan_fuerte": "8 años gritando '¡Frena!' ante situaciones de peligro con docenas de estudiantes. Ese hábito está profundamente condicionado en el sistema motor del instructor. El grito puede incluso salir automáticamente — el instructor experimentado debe saber que puede ocurrir y NO perder tiempo en él: la mano debe ir al freno auxiliar simultáneamente o antes del grito.",
+      "leccion_para_instructores": "Antes de iniciar la clase con un estudiante con discapacidad auditiva, el instructor debe hacer una ejercitación mental consciente: 'Mi respuesta de emergencia es el freno auxiliar — no la voz.' Esta preparación cognitiva previa es la única forma de inhibir el automatismo verbal bajo presión extrema.",
+      "post_emergencia": "Después de que el freno auxiliar detiene el vehículo de forma segura, el instructor puede: (1) Verificar que el ciclista está ileso. (2) Usar la tablet para comunicar a Andrés lo que ocurrió. (3) Revisar con el estudiante el punto ciego que no observó. Esto convierte la emergencia en una lección.",
+      "normativa_colombia": "La Ley 361 de 1997 y el Decreto 1660 de 2003 garantizan el derecho de personas con discapacidad auditiva a obtener licencia de conducción en Colombia. Los vehículos de instrucción para este perfil de estudiante deben tener freno auxiliar — esto es un requisito mínimo de seguridad. El instructor debe ser entrenado específicamente en comunicación no verbal de emergencia."
+    },
+    "cognitive_trap": "8 años de gritar '¡Frena!' como reflejo de emergencia. Inhibir completamente ese automatismo en 1.5 segundos es uno de los retos cognitivos más exigentes que puede enfrentar un instructor. La preparación mental previa a la clase ('hoy el freno es mi voz') es la única protección real contra este automatismo.",
+    "cognitive_load": 6
   },
+
   {
     "task_id": "T3_009",
     "task_type": "rule_reversal",
     "difficulty": "medium",
     "scenario": {
-      "context": "Estás conduciendo un vehículo con el volante a la derecha (importado de Japón) en calles colombianas.",
-      "normal_rule": "En carros normales (volante a la izquierda), para adelantar verificas por tu espejo izquierdo y ventana izquierda.",
-      "reversed_situation": "En tu carro (volante a la derecha), tu posición de visibilidad está invertida. Tu espejo izquierdo está del lado del pasajero.",
-      "situation": "Quieres adelantar un camión en una vía de doble sentido. Necesitas verificar si viene tráfico de frente."
+      "context": "Compraste un Mitsubishi Pajero importado de Japón con volante a la DERECHA (RHD — Right Hand Drive). En Colombia es legal tener vehículos RHD — están registrados y tienen licencia de tránsito válida. Sin embargo, como el volante está a la derecha, tu posición en el vehículo está completamente invertida respecto a un carro colombiano estándar. Llevas 3 semanas manejándolo en Bogotá y ya te adaptaste a lo básico, pero el adelantamiento en carretera sigue siendo el punto más peligroso.",
+      "normal_rule_carro_colombiano": "En Colombia con carro estándar (volante a la izquierda): para adelantar en vía de doble sentido, el conductor está al lado izquierdo del vehículo. Puede asomar ligeramente hacia la izquierda y tiene visibilidad directa del carril contrario. Los espejos retrovisores están configurados para máxima visibilidad desde esa posición.",
+      "reversed_situation_pajero_rhd": "En tu Pajero con volante a la derecha: estás sentado al lado DERECHO del vehículo. Para adelantar por la izquierda (que es la norma colombiana), debes asomarte hacia el carril contrario desde el lado que tiene MENOS visibilidad. El camión o bus que adelantas te tapa completamente la visión del carril contrario. Tus espejos retrovisores están en posición invertida para tu nueva ubicación.",
+      "situation": "Vas por la vía Bogotá–Medellín (doble sentido) detrás de un bus de Expreso Bolivariano a 70 km/h. El bus mide 4 metros de alto y 2.5 metros de ancho. Quieres adelantarlo. Hay una línea discontinua (adelantamiento permitido). Desde tu posición (lado derecho del Pajero), no puedes ver absolutamente nada del carril contrario — el bus te tapa por completo.",
+      "impulse": "Tu rutina habitual de adelantamiento (aprendida en 12 años manejando con volante a la izquierda) dice: 'Línea discontinua, espejo izquierdo, asomarse, confirmar, acelerar, adelantar.'"
     },
-    "question": "¿Cómo verificas con seguridad si puedes adelantar?",
+    "question": "Tienes línea discontinua y quieres adelantar el bus, pero desde tu posición en el Pajero RHD no ves el carril contrario. ¿Qué haces?",
     "options": [
-      "A) Mirar por tu espejo izquierdo como siempre",
-      "B) Pedir al pasajero que verifique el lado izquierdo",
-      "C) Salir parcialmente al carril contrario para ver",
-      "D) Usar espejos adicionales y ser extra cauteloso, o evitar adelantar si no hay visibilidad clara"
+      "A) Usar el espejo retrovisor izquierdo y asomarte como siempre — el procedimiento habitual de 12 años",
+      "B) Pedirle al copiloto que verifique el carril contrario por la ventana izquierda",
+      "C) Salir parcialmente al carril contrario para ver si viene tráfico, luego decidir",
+      "D) NO adelantar en esta situación — esperar a tener visibilidad completa del carril contrario antes de iniciar la maniobra"
     ],
     "correct_answer": "D",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "reconoce_limitacion_del_vehiculo",
-      "no_aplica_rutina_automatica",
-      "busca_solucion_adaptada",
-      "prioriza_seguridad"
+      "reconoce_limitacion_critica_de_visibilidad_en_RHD",
+      "descarta_procedimiento_habitual_por_inaplicable",
+      "descarta_opcion_C_por_extremadamente_peligrosa",
+      "evalua_opcion_B_como_parcialmente_válida_pero_no_siempre_disponible",
+      "selecciona_no_adelantar_como_decision_segura",
+      "justifica_con_principio_de_visibilidad_completa_antes_de_maniobra",
+      "menciona_adaptaciones_necesarias_para_RHD_en_colombia"
     ],
-    "explanation": "Tu posición en el vehículo te da visibilidad limitada del carril contrario. La rutina habitual (A) no funciona. La opción segura (D) reconoce la limitación y adapta el comportamiento.",
-    "cognitive_trap": "Años de conducir carros con volante a la izquierda crean automatismos de verificación."
+    "explanation": {
+      "respuesta_correcta": "D — No adelantar. Esperar condiciones de visibilidad completa.",
+      "por_que_A_no_funciona": "El espejo retrovisor izquierdo en el Pajero RHD, cuando estás al lado derecho, te da visibilidad del costado izquierdo del vehículo pero NO del carril contrario cuando un bus grande te tapa. La rutina de 12 años 'espejo izquierdo = ver carril contrario' no aplica en esta configuración. El espejo izquierdo está ahora del lado del PASAJERO, no del conductor.",
+      "por_que_C_es_mortal": "Salir parcialmente al carril contrario para 'explorar' si viene tráfico es una maniobra que en vías de alta velocidad puede terminar en colisión frontal. Un vehículo que viene a 80 km/h en el carril contrario puede aparecer detrás del bus sin tiempo de reacción.",
+      "opcion_B_evaluacion": "Si hay copiloto: pedirle que verifique es una opción válida como asistencia, pero el copiloto debe saber exactamente qué buscar y cuándo confirmar. No es una solución sistemática para todos los adelantamientos.",
+      "cuando_adelantar_con_RHD": "Con un Pajero RHD en vía de doble sentido, adelantar es seguro solo cuando: (1) El vehículo a adelantar es bajo (no te tapa la visión). (2) Hay una curva o elevación que permite ver claramente que el carril contrario está despejado por al menos 400 metros. (3) Hay un copiloto de confianza que confirma el carril libre.",
+      "adaptacion_necesaria": "Conducir un vehículo RHD en Colombia requiere adaptar completamente las rutinas de adelantamiento. Los conductores de RHD experimentados en Colombia desarrollan nuevas estrategias: esperar a llegar a puntos altos para tener visibilidad, usar el espejo derecho del vehículo contrario como referencia, o simplemente no adelantar buses y camiones en vías de doble sentido.",
+      "contexto_colombia": "En Colombia circulan aproximadamente 8.000-12.000 vehículos RHD importados, principalmente 4x4 japoneses (Pajero, Land Cruiser, Surf). Son perfectamente legales pero representan un reto específico de seguridad en adelantamientos en vías nacionales de doble sentido. La vía Bogotá-Medellín, Bogotá-Villavicencio y la Panamericana son los trayectos de mayor riesgo para estos vehículos."
+    },
+    "cognitive_trap": "12 años de adelantamiento con un procedimiento específico crean un automatismo motor muy fuerte. El conductor de RHD ejecuta ese procedimiento instintivamente sin notar que la información que recibe del espejo ya no corresponde a lo que necesita. La conciencia del error solo llega cuando ya se está en el carril contrario — demasiado tarde.",
+    "cognitive_load": 4
   },
-  {
+
+    {
     "task_id": "T3_010",
     "task_type": "rule_reversal",
     "difficulty": "hard",
     "scenario": {
-      "context": "Trabajas para una empresa de transporte especial que mueve cargas SOBREDIMENSIONADAS.",
-      "normal_rules": [
-        "Velocidad normal en autopista: 80-100 km/h",
-        "Circular por carril derecho o central",
-        "Adelantar por la izquierda"
+      "context": "Eres conductor de carga especial para la empresa TransCarga Colombia S.A.S. Tienes permiso del Ministerio de Transporte para transportar una viga de acero sobredimensionada: 28 metros de longitud, 4.8 metros de alto y 62 toneladas de peso, desde la planta de Acerías Paz del Río en Belencito (Boyacá) hasta el Puente Pumarejo en Barranquilla (obra de infraestructura). El permiso especial de la ANI y el INVÍAS establece condiciones muy específicas de circulación. Llevas el convoy desde las 6:00 AM. Son las 11:30 AM. Vas en la Autopista Bogotá-Medellín (Ruta 40) a la altura del municipio de Yacopí, Cundinamarca.",
+      "normal_rules_autopista": [
+        "Velocidad normal para camiones: 60-80 km/h",
+        "Circular por carril derecho o carril del medio",
+        "Adelantar por la izquierda cuando sea necesario",
+        "Encender luces de cruce (no emergencia) en túneles"
       ],
-      "special_rules_for_oversized": [
-        "Velocidad máxima: 40 km/h",
-        "Circular SOLO por carril izquierdo (el más ancho)",
-        "NO adelantar nunca - otros te adelantan a ti",
-        "Vehículo escolta adelante y atrás"
+      "special_rules_carga_sobredimensionada_permiso": [
+        "Velocidad MÁXIMA: 30 km/h — sin excepción",
+        "Circular OBLIGATORIAMENTE por el carril IZQUIERDO (en autopistas de 3 carriles) para permitir que otros vehículos pasen por la derecha",
+        "PROHIBIDO adelantar cualquier vehículo — el convoy NO adelanta NUNCA",
+        "Vehículo escolta delante y detrás con señalización de 'CARGA SOBREDIMENSIONADA'",
+        "Detener el convoy en zonas de ensanche cada 2 horas para liberar el flujo",
+        "Notificar a los peajes el paso con 30 minutos de anticipación"
       ],
-      "situation": "Estás en autopista con la carga sobredimensionada. Un carro lento va adelante tuyo a 35 km/h en tu carril (izquierdo).",
-      "impulse": "Tu instinto es adelantarlo por la derecha ya que él va más lento."
+      "situation": "Vas a 30 km/h en el carril izquierdo con la viga sobredimensionada. El vehículo escolta delantero (una camioneta) va a 50 metros adelante. De repente, el vehículo escolta delantero empieza a perder velocidad — a 29 km/h, luego 25 km/h, luego 20 km/h. El conductor del escolta te comunica por radio: 'Tengo una llanta pinchada — me voy a detener en el arcén. ¿Me adelantas?'",
+      "impulse": "El conductor del escolta va más lento que tú. Tu instinto de conductor de carga dice: 'El de adelante va lento, adelanto.'",
+      "consecuencias_reales": "La viga mide 28 metros — adelantar al escolta significa que la cabeza del camión ya habrá pasado al escolta cuando la cola de la viga aún no ha llegado a su posición. Una maniobra de 28 metros en carretera con tráfico lateral es extremadamente peligrosa.",
+      "convoy_status": "El vehículo escolta trasero sigue detrás del convoy a 50 metros."
     },
-    "question": "¿Qué haces con el carro lento adelante?",
+    "question": "El escolta delantero va cada vez más lento por llanta pinchada y te pide que lo adelantes. Tu carga sobredimensionada prohíbe expresamente adelantar. ¿Qué haces?",
     "options": [
-      "A) Adelantarlo por la derecha ya que tú tienes prioridad como carga especial",
-      "B) Adelantarlo por la izquierda usando el arcén",
-      "C) Mantener distancia y esperar - NO puedes adelantar con carga sobredimensionada",
-      "D) Tocar bocina para que se mueva"
+      "A) Adelantar al escolta porque él está más lento que tú y la maniobra parece simple",
+      "B) Adelantar por el arcén para no obstaculizar el tráfico detrás",
+      "C) NO adelantar — detener el convoy detrás del escolta, activar luces de emergencia y coordinar por radio el reemplazo del escolta antes de continuar",
+      "D) Reducir velocidad y empujar suavemente al escolta con el bumper para que se mueva más rápido"
     ],
     "correct_answer": "C",
     "habitual_wrong_answer": "A",
     "expected_elements": [
-      "recuerda_restriccion_especifica",
-      "inhibe_impulso_de_adelantar",
-      "acepta_limitacion_operativa",
-      "sigue_protocolo_carga_especial"
+      "recuerda_prohibicion_absoluta_de_adelantar_con_sobredimensionada",
+      "comprende_por_que_28_metros_hace_imposible_adelantamiento_seguro",
+      "descarta_A_y_B_por_peligrosidad_real",
+      "activa_protocolo_de_convoy_detenido",
+      "coordina_reemplazo_de_escolta_antes_de_continuar",
+      "usa_escolta_trasero_para_proteger_el_convoy_detenido",
+      "informa_a_empresa_y_a_peaje_siguiente"
     ],
-    "explanation": "Con carga sobredimensionada NUNCA se adelanta. No importa qué tan lento vaya el de adelante. Debes inhibir completamente el impulso de adelantar que es natural en conducción regular.",
-    "cognitive_trap": "El impulso de adelantar vehículos lentos es muy fuerte y difícil de inhibir."
+    "explanation": {
+      "respuesta_correcta": "C — Detener el convoy completamente y coordinar la solución.",
+      "por_que_no_se_puede_adelantar_28_metros": "Una viga de 28 metros en una maniobra de adelantamiento significa que cuando la cabeza del camión ya pasó al vehículo adelantado, la cola de la viga aún no llegó a su posición original. Durante esos 28 metros de maniobra, la carga ocupa simultáneamente dos carriles. Un vehículo que venga por el carril derecho a 80 km/h y encuentre 28 metros de viga cruzando hacia ese carril no tiene tiempo de reacción. El resultado sería una colisión lateral con la viga de 62 toneladas — catastrófico.",
+      "por_que_A_se_siente_logica": "El escolta va más lento. Tú tienes que seguir. El carril izquierdo está despejado por adelante. La lógica superficial dice 'adelanta'. Pero la prohibición de adelantar con carga sobredimensionada existe exactamente para situaciones como esta — la carga no permite maniobras de cambio de carril seguras bajo ninguna circunstancia.",
+      "por_que_B_es_peor": "El arcén de la autopista Bogotá-Medellín en el sector de Yacopí tiene un ancho de 2-3 metros. La viga mide 4.8 metros de alto y fue cargada en el carril izquierdo por razones de altura libre en puentes y señalización. Circular por el arcén con 62 toneladas en un carril que no está diseñado para ese peso es riesgo de hundimiento del asfalto o volcamiento.",
+      "protocolo_correcto_paso_a_paso": [
+        "1. Reducir velocidad progresivamente hasta 0. Detenerse detrás del escolta a distancia segura (mínimo 30 metros).",
+        "2. Activar las luces de emergencia del convoy completo.",
+        "3. Comunicar por radio al escolta trasero: 'Escolta trasero, detenemos convoy. Posiciónate 100 metros detrás con señales de advertencia activas — necesitamos proteger la retaguardia.'",
+        "4. Llamar a la empresa TransCarga Colombia: 'Central, convoy sobredimensionado detenido en Autopista Bogotá-Medellín km 145 sector Yacopí. Escolta delantero con llanta pinchada. Necesitamos vehículo de reemplazo. ETA solicitado.'",
+        "5. Llamar al peaje siguiente (Peaje Villeta o el inmediato) para informar que el convoy está detenido y solicitar apoyo de tránsito si es necesario.",
+        "6. El escolta delantero se mueve al arcén de forma segura mientras el convoy permanece detenido.",
+        "7. Esperar el vehículo de reemplazo del escolta. Tiempo estimado según la empresa: 20-45 minutos dependiendo la ubicación.",
+        "8. Una vez el escolta de reemplazo está en posición, reanudar la marcha."
+      ],
+      "tiempo_perdido_vs_riesgo": "Esperar 30-45 minutos para el escolta de reemplazo parece costoso. Pero una colisión con la viga sobredimensionada podría: (1) Matar conductores de vehículos livianos. (2) Causar pérdida total de la carga de 62 toneladas. (3) Generar responsabilidad penal y civil por homicidio culposo y daños. (4) Cancelar el permiso de operación de TransCarga Colombia. No hay comparación.",
+      "contexto_colombia_real": "El transporte de carga sobredimensionada en Colombia es un sector de alta especialización regulado por la Resolución 4959 de 2006 del Ministerio de Transporte y los permisos de la ANI. Colombia transporta por carretera vigas para puentes, turbinas para plantas eléctricas, transformadores para subestaciones y equipos para industria petrolera — todos sobredimensionados. La combinación de geografía de cordillera, vías de doble sentido y alta presencia de tráfico mixto hace que los protocolos de convoy sean críticos. Los accidentes con carga sobredimensionada en Colombia han ocurrido principalmente por dos razones: intentar adelantar vehículos cuando la longitud de la carga lo impide, y circular más rápido de lo permitido en curvas de montaña."
+    },
+    "cognitive_trap": "El impulso de adelantar un vehículo que va más lento es uno de los automatismos más fuertes en conductores de carga con experiencia — han adelantado miles de veces en su carrera. La prohibición absoluta de adelantar con carga sobredimensionada es contraintuitiva porque va en contra de 15-20 años de práctica habitual. Inhibirla bajo la presión de 'el escolta me está bloqueando' requiere no solo conocer la regla sino haberla interiorizado como un límite no negociable.",
+    "cognitive_load": 5
   }
 ]

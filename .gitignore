@@ -1,23 +1,29 @@
-# Environment
-.env
+# ── Entorno virtual ───────────────────────────────────────
 venv/
+.venv/
+
+# ── Python cache ──────────────────────────────────────────
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
 
-# Results (generados al correr el benchmark)
-results/
+# ── Variables de entorno (API KEYS) ───────────────────────
+.env
+
+# ── Archivos generados por kaggle_benchmarks SDK ──────────
 *.run.json
 *.task.json
+sdk_cache/
 
-# IDE
-.vscode/
-.idea/
-*.swp
+# ── Resultados y análisis generados ───────────────────────
+results/
+analysis/
 
-# OS
+# ── Logs ──────────────────────────────────────────────────
+*.log
+trafficmind.log
+
+# ── OS ────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
-
-# Temporal
-fix_keywords.py
